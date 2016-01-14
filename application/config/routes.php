@@ -49,7 +49,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route[LOGIN_PAGE] = 'examples/login';
+$route['kpi/list'] = 'kpi/list';
+$route['kpi/create'] = 'kpi/create';
+$route['kpi/edit'] = 'kpi/edit';
+$route['kpi/(:any)'] = 'kpi/index';
+$route['kpi'] = 'kpi';
+
+$route['brands/index'] = 'brands/index';
+$route['brands/create'] = 'brands/create';
+$route['brands/edit'] = 'brands/edit';
+$route['brands/(:any)'] = 'brands/index';
+$route['brands'] = 'brands';
+
 $route['default_controller'] = 'home/index';
 //$route['default_controller'] = 'welcome';
 $route['404_override'] = '';
