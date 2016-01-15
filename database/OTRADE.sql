@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : xampp localhost
+ Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 50624
+ Source Server Version : 50505
  Source Host           : localhost
  Source Database       : OTRADE
 
  Target Server Type    : MySQL
- Target Server Version : 50624
+ Target Server Version : 50505
  File Encoding         : utf-8
 
- Date: 01/14/2016 23:02:13 PM
+ Date: 01/15/2016 17:51:35 PM
 */
 
 SET NAMES utf8;
@@ -27,13 +27,13 @@ CREATE TABLE `ot_brand` (
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `is_valid` int(11) DEFAULT '1' COMMENT '1:valid, 0 not valid',
   PRIMARY KEY (`brand_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 --  Records of `ot_brand`
 -- ----------------------------
 BEGIN;
-INSERT INTO `ot_brand` VALUES ('1', 'A2', '2016-01-14 22:18:09', '1'), ('2', 'Apatami', '2016-01-14 22:18:09', '1'), ('3', 'Swisse', '2016-01-14 22:55:24', '1'), ('4', 'Swisse', '2016-01-14 22:57:28', '1'), ('5', 'health care', '2016-01-14 22:59:18', '1');
+INSERT INTO `ot_brand` VALUES ('1', 'A2', '2016-01-15 17:45:15', '1'), ('2', 'Apatami', '2016-01-15 17:38:37', '0'), ('3', 'Swisse', '2016-01-15 17:39:02', '1'), ('5', 'health care', '2016-01-14 22:59:18', '1');
 COMMIT;
 
 -- ----------------------------
