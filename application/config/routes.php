@@ -55,6 +55,12 @@ $route['kpi/edit'] = 'kpi/edit';
 $route['kpi/(:any)'] = 'kpi/index';
 $route['kpi'] = 'kpi';
 
+$route['category/index'] = 'category/index';
+$route['category/create'] = 'category/create';
+$route['category/edit'] = 'category/edit';
+$route['category/(:any)'] = 'category/index';
+$route['category'] = 'category';
+
 $route['brand/index'] = 'brand/index';
 $route['brand/create'] = 'brand/create';
 $route['brand/edit'] = 'brand/edit';
