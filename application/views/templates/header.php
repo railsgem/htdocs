@@ -3,89 +3,181 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <title>OTRADE SYSTEM</title>
+    <title>demo</title>
 
-    <!-- Flat UI Core CSS -->
-    <link href="/Flat-UI-master/dist/css/flat-ui.css" rel="stylesheet">
+    <!-- Bootstrap Core CSS -->
+    <link href="/boostrap/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Custom CSS -->
+    <link href="/boostrap/css/sb-admin.css" rel="stylesheet">
 
-    <!-- Loading Bootstrap -->
-    <link href="/Flat-UI-master/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="/boostrap/css/plugins/morris.css" rel="stylesheet">
 
-    <!-- Loading Flat UI -->
-    <link href="/Flat-UI-master/dist/css/flat-ui.min.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="/boostrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <link rel="shortcut icon" href="img/favicon.ico">
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="js/vendor/html5shiv.js"></script>
-      <script src="js/vendor/respond.min.js"></script>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <link href="/boostrap/css/jquery-ui.css" rel="stylesheet" type="text/css">
+
+
+    <!-- jQuery -->
+    <script src="/boostrap/js/jquery.js"></script>
     
+    <script src="/boostrap/js/jquery-ui.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/boostrap/js/bootstrap.min.js"></script>
+
+    <!-- Morris Charts JavaScript 
+    <script src="/boostrap/js/plugins/morris/raphael.min.js"></script>
+    <script src="/boostrap/js/plugins/morris/morris.min.js"></script>
+    <script src="/boostrap/js/plugins/morris/morris-data.js"></script>-->
 </head>
-<style>
-  body {
-    min-height: 2000px;
-    padding-top: 70px;
-  }
+<style type="text/css">
+.page_section a {
+position: relative;
+float: left;
+padding: 4px 8px;
+margin-left: -1px;
+line-height: 1.42857143;
+color: #337ab7;
+text-decoration: none;
+background-color:#fff;
+border: 1px solid #ddd;
+
+}
+.page_section strong {
+position: relative;
+float: left;
+padding: 4px 8px;
+margin-left: -1px;
+line-height: 1.42857143;
+color: #fff;
+text-decoration: none;
+background-color:#337ab7;
+border: 1px solid #337ab7;
+
+}
 </style>
+
 <body>
-  
+  <script>
+  $(function() {
+    $( ".dp" ).each(function(){
+                $(this).datepicker({
+                    showButtonPanel: true,
+                    dateFormat: "yy-mm-dd"
+                });
+            })
 
 
 
-    <!-- Static navbar -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-          </button>
-          <a class="navbar-brand" href="#">Beau Trade</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="/index.php/brands">Brands</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="../navbar/">Default</a></li>
-            <li class="active"><a href="./">Static top</a></li>
-            <li><a href="../navbar-fixed-top/">Fixed top</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
+  });
+  function message(message_str,result){
+    $('#message').html(message_str);
+    if (result ==1) {
+       $('#message').css('background','#00bce2'); 
+    }else if (result ==0) {
+        $('#message').css('background','red'); 
+    }
+     $('#message').show();
+     setInterval(closemessage, 2000);
 
 
-    <div class="container">
+  }
+  function closemessage(){
 
-      <!-- Main component for a primary marketing message or call to action -->
-     <!-- <div class="jumbotron">
-        <h1>Navbar example</h1>
-        <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
-        <p>To see the difference between static and fixed top navbars, just scroll.</p>
-        <p>
-          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
-        </p>
-      </div>
--->
+    $( "#message" ).fadeOut( "slow" );
+  }
 
 
 
 
 
+
+
+  </script>
+<div id="message" style="width:100%; height:55px; line-height:55px;;position:fixed;top:0px; z-index:2001; font-size:20px; color:#FFFFFF; text-align:center;display:none; ">
+
+  </div>
+
+
+    <div id="wrapper">
+
+              <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="/index.php/store" style="font-size:24px;">  demo</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Admin <b class="caret"></b></a>
+                    <ul class="dropdown-menu" style="min-width:190px;">
+                        <li>
+                            <a href="/index.php/auth/change_password"><i class="fa fa-fw fa-cog"></i> Change Password</a>
+                        </li>
+                        <li>
+                            <a href="/index.php/auth/logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li id="store_li">
+                        <a href="/index.php/store"><i class="fa fa-fw fa-home"></i> Dashboard</a>
+                    </li>                   
+                    <li id="brand_li" >
+                        <a href="/index.php/brand"><i class="fa fa-fw fa-tags"></i> Brand</a>
+                    </li> 
+                    <li id="category_li" >
+                        <a href="/index.php/category"><i class="fa fa-fw fa-list"></i> Category</a>
+                    </li>           
+                    <li id="product_li">
+                        <a href="/index.php/product"><i class="fa fa-fw fa-shopping-cart"></i> Product</a>
+                    </li> 
+                    <li id="distribution_li">
+                        <a href="/index.php/distribution"><i class="fa fa-fw fa-database"></i> Distribution</a>
+                    </li>     
+                    <li id="kounta_li">
+                        <a href="/index.php/kounta"><i class="fa fa-fw fa-refresh"></i> Kounta Sync</a>
+                    </li> 
+                    <li id="sales_li">
+                        <a href="/index.php/sales"><i class="fa fa-fw fa-signal"></i> Sales Record</a>
+                    </li> 
+
+                    <li id="stocktake_li">
+                        <a href="/index.php/stocktake"><i class="fa fa-fw fa-barcode"></i> Stock Take</a>
+                    </li> 
+
+                    <li id="kpi_li">
+                        <a href="/index.php/kpi"><i class="fa fa-fw fa-line-chart"></i> KPI</a>
+                    </li> 
+           
+                    <li id="setting_li" style="display:none;">
+                        <a href="/index.php/setting"><i class="fa fa-fw fa-cog"></i> Setting</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">

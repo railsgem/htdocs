@@ -55,11 +55,11 @@ $route['kpi/edit'] = 'kpi/edit';
 $route['kpi/(:any)'] = 'kpi/index';
 $route['kpi'] = 'kpi';
 
-$route['brands/index'] = 'brands/index';
-$route['brands/create'] = 'brands/create';
-$route['brands/edit'] = 'brands/edit';
-$route['brands/(:any)'] = 'brands/index';
-$route['brands'] = 'brands';
+$route['brand/index'] = 'brand/index';
+$route['brand/create'] = 'brand/create';
+$route['brand/edit'] = 'brand/edit';
+$route['brand/(:any)'] = 'brand/index';
+$route['brand'] = 'brand';
 
 $route['default_controller'] = 'home/index';
 //$route['default_controller'] = 'welcome';

@@ -1,14 +1,14 @@
+  		</div>
+        <!-- /#page-wrapper -->
 
-      </div>
-    </div> <!-- /container -->
+    </div>
+    <!-- /#wrapper -->
 
+    <!-- jQuery -->
+    <script src="/bootstrap/js/jquery.js"></script>
 
-    <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
-    <script src="/Flat-UI-master/dist/js/vendor/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/Flat-UI-master/dist/js/vendor/video.js"></script>
-    <script src="/Flat-UI-master/dist/js/flat-ui.min.js"></script>
-
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
 
 </body>
 
