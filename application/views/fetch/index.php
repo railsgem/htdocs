@@ -1,35 +1,89 @@
 
 <?php
-/**
- * 慕课网视频教学
- * 代码实例-PHP-cURL实战
- * 实例描述：登录慕课网并下载个人空间页面
- */
-//$data=array('username' => 'promonkey', 
-//        'password' => '1q2w3e',
- //       'remember'=>1);
-//$data='username=zjzhoufy@126.com&password=1q2w3e&remember=1';
-$curlobj = curl_init();                 // 初始化
-curl_setopt($curlobj, CURLOPT_URL, "http://www.chemistwarehouse.com.au/");          // 设置访问网页的URL
-curl_setopt($curlobj, CURLOPT_RETURNTRANSFER, true);                    // 执行之后不直接打印出来
 
-// Cookie相关设置，这部分设置需要在所有会话开始之前设置
-date_default_timezone_set('PRC'); // 使用Cookie时，必须先设置时区
-curl_setopt($curlobj, CURLOPT_COOKIESESSION, TRUE); 
-curl_setopt($curlobj, CURLOPT_HEADER, 0); 
-curl_setopt($curlobj, CURLOPT_FOLLOWLOCATION, 1); // 这样能够让cURL支持页面链接跳转
+        error_reporting(E_ALL);
+        include_once('simple_html_dom.php');
 
-curl_setopt($curlobj, CURLOPT_POST, 1);  
-//curl_setopt($curlobj, CURLOPT_POSTFIELDS, $data);  
-curl_setopt($curlobj, CURLOPT_HTTPHEADER, array("application/x-www-form-urlencoded; charset=utf-8", 
-        "Content-length: "//.strlen($data)
-        )); 
-curl_exec($curlobj);    // 执行
-//curl_setopt($curlobj, CURLOPT_URL, "http://www.imooc.com/space/index");
-curl_setopt($curlobj, CURLOPT_POST, 0);  
-curl_setopt($curlobj, CURLOPT_HTTPHEADER, array("Content-type: text/html"
-        )); 
-$output=curl_exec($curlobj);    // 执行
-curl_close($curlobj);                   // 关闭cURL
-echo $output;
+        // Create DOM from URL or file
+        $html = file_get_html('http://www.chemistwarehouse.com.au/Shop-Online/957/Baby-Formula');
+        /**
+        // Find all images 
+        foreach($html->find('img') as $element) 
+               echo $element->src . '<br>';
+
+        // Find all links 
+        foreach($html->find('a') as $element) 
+               echo $element->href . '<br>';
+        */
+       $smallimg_src="https://static.chemistwarehouse.com.au/ams/media/productimages/77384/150.jpg";
+       echo "product id:".substr($smallimg_src, 63). '<br>';
+       echo "product id:".substr($smallimg_src, 69). '<br>';
+
+        foreach($html->find('.Product') as $element) {
+                //$element
+                echo $element->plaintext."</br><br>";
+
+                foreach($element->find('img') as $element3) {
+                        echo "product id:".substr($element3->src, 63,5). '<br>';
+                        echo "Product Name: ".$element3->alt . '<br>';
+                        echo "Small img: ".$element3->src . '<br>';
+                        echo "Big img: ".substr_replace($element3->src,'original.jpg',-7 ). '<br>';
+                        getImg($element3->src,substr($element3->src, 63,5));
+                        getImg(substr_replace($element3->src,'original.jpg',-7 ),substr($element3->src, 63,5));
+                }
+                foreach($element->find('.Price') as $element2) {
+                       echo "Chemist price: ".$element2->plaintext."</br>";
+                }
+        //https://static.chemistwarehouse.com.au/ams/media/productimages/77384/150.jpg
+        //https://static.chemistwarehouse.com.au/ams/media/productimages/56696/original.jpg
+                echo "----------------------------------------------------</br>";
+               
+
+        }
+        /*
+        *@通过curl方式获取指定的图片到本地
+        *@ 完整的图片地址
+        *@ 要存储的文件名
+        */
+  /**       function getImg($url = "", $filename = "")
+        {
+
+                //去除URL连接上面可能的引号
+                //$url = preg_replace( '/(?:^['"]+|['"/]+$)/', '', $url );
+                $hander = curl_init();
+                $fp = fopen($filename,'wb');
+                curl_setopt($hander,CURLOPT_URL,$url);
+                curl_setopt($hander,CURLOPT_FILE,$fp);
+                curl_setopt($hander,CURLOPT_HEADER,0);
+                curl_setopt($hander,CURLOPT_FOLLOWLOCATION,1);
+                //curl_setopt($hander,CURLOPT_RETURNTRANSFER,false);//以数据流的方式返回数据,当为false是直接显示出来
+                curl_setopt($hander,CURLOPT_TIMEOUT,60);
+                curl_exec($hander);
+                curl_close($hander);
+                fclose($fp);
+                Return true;
+        }
+        //调用时，直接
+       // getImg("https://static.chemistwarehouse.com.au/ams/media/productimages/50005/150.jpg","upload/image.jpg");
+
+        function createFile($product_id)
+        {
+                //要创建的多级目录
+                $path="upload/product/".$product_id;
+                //判断目录存在否，存在给出提示，不存在则创建目录
+                if (is_dir($path)){  
+                        echo "对不起！目录 " . $path . " 已经存在！";
+                }else{
+                        //第三个参数是“true”表示能创建多级目录，iconv防止中文目录乱码
+                        $res=mkdir(iconv("UTF-8", "GBK", $path),0777,true); 
+                        if ($res){
+                                echo "目录 $path 创建成功";
+                        }else{
+                                echo "目录 $path 创建失败";
+                        }
+                }
+        }
+        */
+        //createFile("1111");
+
 ?>
