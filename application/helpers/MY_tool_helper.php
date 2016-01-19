@@ -27,6 +27,11 @@
         //调用时，直接
        // getImg("https://static.chemistwarehouse.com.au/ams/media/productimages/50005/150.jpg","upload/image.jpg");
 
+        /*
+        *@ 通过product_id创建文件夹名称
+        *@ 
+        *@ 
+        */
         function createFile($product_id)
         {
                 //要创建的多级目录
@@ -42,6 +47,71 @@
                         }else{
                                 echo "目录 $path 创建失败";
                         }
+                }
+        }
+
+        /*
+        *@ 通过给定的分类url及page分页进行抓取图片
+        *@ url分页类目链接
+        *@ page当前第几页
+        */
+        function fetch_by_category($url="",$page=""){
+                // Create DOM from URL or file
+                $url = $url."?page=".$page;
+                echo "<h3>begin to fetch:[".$url."]</h3>";
+                $html = file_get_html($url);
+
+                foreach($html->find('.Product') as $element) {
+                        //$element
+                        echo $element->plaintext."</br><br>";
+
+                        foreach($element->find('img') as $element3) {
+                                echo "product id:".substr($element3->src, 63,5). '<br>';
+                                echo "Product Name: ".$element3->alt . '<br>';
+                                echo "Small img: ".$element3->src . '<br>';
+                                echo "Big img: ".substr_replace($element3->src,'original.jpg',-7 ). '<br>';
+                                //save product images
+                                getImg($element3->src,substr($element3->src, 63,5));
+                                getImg(substr_replace($element3->src,'original.jpg',-7 ),substr($element3->src, 63,5));
+                        }
+                        foreach($element->find('.Price') as $element2) {
+                               echo "Chemist price: ".$element2->plaintext."</br>";
+                        }
+                        echo "----------------------------------------------------</br>";
+                       
+                }
+        }
+
+        /*
+        *@ 通过给定的分类url进行抓取图片
+        *@  
+        *@ 
+        */
+        function fetch_all_product_by_category($url){
+
+                $pages = get_max_pages($url);
+                //进行循环
+                for($ipage = 1; $ipage <= $pages; $ipage++) {
+                        //echo $ipage;
+                        echo $url.'?page='.$ipage.'</br>';
+                        fetch_by_category($url,$ipage);
+                }
+        }
+        /*
+        *@ 通过给定的分类url计算该分类有多少页
+        *@ 默认每页24个产品
+        */
+        function get_max_pages($url=""){
+                //获取最大的分页数目
+                $html = file_get_html($url);
+                foreach($html->find('.Pager') as $element) {
+                        foreach($element->find('b') as $element2) {
+                               $pages = str_replace(" Results","",$element2->plaintext)/24;
+                               //获得第一个result值退出循环，因页面有两处pager
+                               return ceil($pages);
+                               exit;
+                        }
+                       exit;
                 }
         }
 ?>
