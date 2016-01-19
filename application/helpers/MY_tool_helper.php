@@ -56,30 +56,45 @@
         *@ page当前第几页
         */
         function fetch_by_category($url="",$page=""){
-                // Create DOM from URL or file
-                $url = $url."?page=".$page;
-                echo "<h3>begin to fetch:[".$url."]</h3>";
-                $html = file_get_html($url);
+            // Create DOM from URL or file
+            $url = $url."?page=".$page;
+            echo "<h3>begin to fetch:[".$url."]</h3>";
+            $html = file_get_html($url);
+            $product = array();
+            foreach($html->find('.Product') as $element) {
+                //$element
+               // echo $element->plaintext."</br><br>";
+        		//$product = array();
+                foreach($element->find('img') as $element3) {
+                    //echo "product id:".substr($element3->src, 63,5). '<br>';
+                    //echo "Product Name: ".$element3->alt . '<br>';
+                    //echo "Small img: ".$element3->src . '<br>';
+                    //echo "Big img: ".substr_replace($element3->src,'original.jpg',-7 ). '<br>';
+                    //save product images
+                    getImg($element3->src,substr($element3->src, 63,5));
+                    getImg(substr_replace($element3->src,'original.jpg',-7 ),substr($element3->src, 63,5));
 
-                foreach($html->find('.Product') as $element) {
-                        //$element
-                        echo $element->plaintext."</br><br>";
+                    foreach($element->find('.Price') as $element2) {
+                           //echo "Chemist price: ".$element2->plaintext."</br>";
+                           //echo "Chemist price: ".ltrim(rtrim($element2->plaintext," "), "$")."</br>";
 
-                        foreach($element->find('img') as $element3) {
-                                echo "product id:".substr($element3->src, 63,5). '<br>';
-                                echo "Product Name: ".$element3->alt . '<br>';
-                                echo "Small img: ".$element3->src . '<br>';
-                                echo "Big img: ".substr_replace($element3->src,'original.jpg',-7 ). '<br>';
-                                //save product images
-                                getImg($element3->src,substr($element3->src, 63,5));
-                                getImg(substr_replace($element3->src,'original.jpg',-7 ),substr($element3->src, 63,5));
-                        }
-                        foreach($element->find('.Price') as $element2) {
-                               echo "Chemist price: ".$element2->plaintext."</br>";
-                        }
-                        echo "----------------------------------------------------</br>";
-                       
+                           //array_push($product_item,"chemist_price"=>$element2->plaintext);
+                    }
+                    //save product into array
+                    $product_item = array(
+                    	"product_id"=>substr($element3->src, 63,5),
+                    	"product_name"=>$element3->alt,
+                    	"small_img_src"=>$element3->src,
+                    	"big_img_src"=>substr_replace($element3->src,'original.jpg',-7 ),
+                    	"chemist_price"=>ltrim(rtrim($element2->plaintext," "), "$")
+                    	);
+                    //print_r($product_item);
                 }
+                array_push($product,$product_item);
+                //echo "----------------------------------------------------</br>";
+                   
+            }
+            echo json_encode($product);
         }
 
         /*
