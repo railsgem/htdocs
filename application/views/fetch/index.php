@@ -1,15 +1,29 @@
+<script type="text/javascript">
+    $('#fetch_li').addClass('active');
+</script>
+<div class="container-fluid">
 
-<?php
 
-        error_reporting(E_ALL);
-        include_once('simple_html_dom.php');
+	<button type="button" class="btn btn-info" id="get_product_list" >get_product_list</button>
+	<form>
+	  <div class="form-group">
+	    <label for="exampleInputEmail1">category address</label>
+	    <input type="text" class="form-control" id="category_address" placeholder="address">
+	  </div>
+	  <button type="submit" class="btn btn-default">Submit</button>
+	</form>
 
-        $category_url = "http://www.chemistwarehouse.com.au/Shop-Online/587/Swisse";
 
-        //$page = [1,2,3];
-        //fetch_by_category($html, 1);
 
-        echo get_max_pages($category_url);
-        fetch_all_product_by_category($category_url);
+	<span id ='product_list'>get product list</span>
 
-?>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+	  	$("#get_product_list").click(function(){
+			var category_address = $("#category_address").val();
+			console.log("category_address:"+category_address);
+		});
+	});
+	
+</script>

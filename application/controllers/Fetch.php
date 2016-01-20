@@ -18,9 +18,21 @@ class Fetch extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+    public function __construct()
+    {
+            parent::__construct();
+            //$this->load->model('brand_model');
+    }
 	public function index()
 	{
+        $this->load->view('templates/header');
+		$this->load->view('fetch/index');
+        $this->load->view('templates/footer');
 		//$this->load->view('welcome_message');
-		$this->load->view('fetch/index.php');
+	}
+	public function fetch()
+	{
+		$this->load->view('fetch/fetch');
+		echo "aaaa";
 	}
 }

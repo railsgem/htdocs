@@ -56,6 +56,7 @@ $route['kpi/(:any)'] = 'kpi/index';
 $route['kpi'] = 'kpi';
 
 $route['fetch/index'] = 'fetch/index';
+$route['fetch/fetch'] = 'fetch/fetch';
 $route['fetch/create'] = 'fetch/create';
 $route['fetch/edit'] = 'fetch/edit';
 $route['fetch/(:any)'] = 'fetch/index';
