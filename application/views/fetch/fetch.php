@@ -7,6 +7,7 @@
         <div class="alert alert-success">
             <?php echo '<strong>Well Done!</strong> '.$update_success; ?>
             <a href="/index.php/fetch/index" class="btn btn-success btn-xs">Return fetch</a>
+            <button type="button" class="btn btn-success btn-xs" id="myButton">Save fetch list</button>
         </div>
     <?php  } ?>
 
@@ -27,7 +28,15 @@ echo "-----------------------------------------------------------------";
         print_r($product);
 
 echo "-----------------------------------------------------------------";
-echo count($product[0])+count($product[1])+count($product[2]);
+//echo count($product[0])+count($product[1])+count($product[2]);
 
 ?>
 </div>
+<script>
+  $('#myButton').on('click', function () {
+     console.log("test");
+
+
+
+  })
+</script>

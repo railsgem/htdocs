@@ -58,7 +58,7 @@
         function fetch_by_category($url="",$page=""){
 
             if (empty($url)){
-                $url = 'http://www.chemistwarehouse.com.au/Shop-Online/957/Baby-Formula';
+                $url = 'http://www.chemistwarehouse.com.au/Shop-Online/506/Bio-Organics';
             }
             echo $url;
             // Create DOM from URL or file
@@ -111,7 +111,7 @@
         function fetch_all_product_by_category($url=""){
 
             if (empty($url)){
-                $url = 'http://www.chemistwarehouse.com.au/Shop-Online/957/Baby-Formula';
+                $url = 'http://www.chemistwarehouse.com.au/Shop-Online/506/Bio-Organics';
             }
             echo $url;
                 $product = array();
@@ -132,11 +132,15 @@
         */
         function get_max_pages($url=""){
             if (empty($url)){
-                $url = 'http://www.chemistwarehouse.com.au/Shop-Online/957/Baby-Formula';
+                $url = 'http://www.chemistwarehouse.com.au/Shop-Online/506/Bio-Organics';
             }
             echo $url;
-                //获取最大的分页数目
                 $html = file_get_html($url);
+                // 如果找不到分页返回页数=1
+                if (empty($html->find('.Pager') )){
+                    return $pages = 1;
+                }
+                //获取最大的分页数目
                 foreach($html->find('.Pager') as $element) {
                         foreach($element->find('b') as $element2) {
                                $pages = str_replace(" Results","",$element2->plaintext)/24;
