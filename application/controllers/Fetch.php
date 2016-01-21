@@ -24,7 +24,9 @@ class Fetch extends CI_Controller {
             //$this->load->model('brand_model');
     }
 	public function index()
-	{
+	{    
+        $this->load->helper('form');
+
         $this->load->view('templates/header');
 		$this->load->view('fetch/index');
         $this->load->view('templates/footer');
@@ -32,7 +34,13 @@ class Fetch extends CI_Controller {
 	}
 	public function fetch()
 	{
-		$this->load->view('fetch/fetch');
-		echo "aaaa";
+        $this->load->helper('form');
+
+        $data['update_success'] ='Save Successfully.';
+	    $data['address'] = $this->input->post('address'); 
+
+        $this->load->view('templates/header');
+		$this->load->view('fetch/fetch',$data);
+        $this->load->view('templates/footer'); 
 	}
 }

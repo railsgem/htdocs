@@ -5,13 +5,14 @@
 
 
 	<button type="button" class="btn btn-info" id="get_product_list" >get_product_list</button>
-	<form>
+	<?php echo form_open('fetch/fetch') ?>
 	  <div class="form-group">
 	    <label for="exampleInputEmail1">category address</label>
-	    <input type="text" class="form-control" id="category_address" placeholder="address">
+	    <input type="text" class="form-control" id="category_address" placeholder="address" name="address"  value="<?php echo set_value('address'); ?>">
 	  </div>
 	  <button type="submit" class="btn btn-default">Submit</button>
-	</form>
+	
+    <?php echo form_close();?>
 
 
 
