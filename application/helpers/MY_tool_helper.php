@@ -56,6 +56,11 @@
         *@ page当前第几页
         */
         function fetch_by_category($url="",$page=""){
+
+            if (empty($url)){
+                $url = 'http://www.chemistwarehouse.com.au/Shop-Online/957/Baby-Formula';
+            }
+            echo $url;
             // Create DOM from URL or file
             $url = $url."?page=".$page;
             echo "<h3>begin to fetch:[".$url."]</h3>";
@@ -95,6 +100,7 @@
                    
             }
             echo json_encode($product);
+            return $product;
         }
 
         /*
@@ -102,21 +108,33 @@
         *@  
         *@ 
         */
-        function fetch_all_product_by_category($url){
+        function fetch_all_product_by_category($url=""){
 
+            if (empty($url)){
+                $url = 'http://www.chemistwarehouse.com.au/Shop-Online/957/Baby-Formula';
+            }
+            echo $url;
+                $product = array();
                 $pages = get_max_pages($url);
                 //进行循环
                 for($ipage = 1; $ipage <= $pages; $ipage++) {
+                    $product_item = array();
                         //echo $ipage;
                         echo $url.'?page='.$ipage.'</br>';
-                        fetch_by_category($url,$ipage);
+                    $product_item = fetch_by_category($url,$ipage);
+                    array_push($product,$product_item);
                 }
+                return $product;
         }
         /*
         *@ 通过给定的分类url计算该分类有多少页
         *@ 默认每页24个产品
         */
         function get_max_pages($url=""){
+            if (empty($url)){
+                $url = 'http://www.chemistwarehouse.com.au/Shop-Online/957/Baby-Formula';
+            }
+            echo $url;
                 //获取最大的分页数目
                 $html = file_get_html($url);
                 foreach($html->find('.Pager') as $element) {

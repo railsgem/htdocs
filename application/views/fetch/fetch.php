@@ -22,7 +22,12 @@ echo $address;
         //fetch_by_category($html, 1);
 
         echo get_max_pages($address);
-        fetch_all_product_by_category($address);
+        $product = fetch_all_product_by_category($address);
+echo "-----------------------------------------------------------------";
+        print_r($product);
+
+echo "-----------------------------------------------------------------";
+echo count($product[0])+count($product[1])+count($product[2]);
 
 ?>
 </div>
