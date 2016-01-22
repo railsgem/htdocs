@@ -27,6 +27,7 @@
 				category_address : $("#category_address").val()
 			}
 			console.log("category_address:"+data);
+			console.log(data);
 
 			$.ajax({
 				type: 'POST',

@@ -1,8 +1,11 @@
 <?php
-         /*
+
+        /*
         *@通过curl方式获取指定的图片到本地
         *@ 完整的图片地址
         *@ 要存储的文件名
+        *@ 调用时，直接
+        *@ getImg("https://static.chemistwarehouse.com.au/ams/media/productimages/50005/150.jpg","upload/image.jpg");
         */
         function getImg($url = "", $product_id = "")
         {
@@ -24,8 +27,6 @@
                 fclose($fp);
                 Return true;
         }
-        //调用时，直接
-       // getImg("https://static.chemistwarehouse.com.au/ams/media/productimages/50005/150.jpg","upload/image.jpg");
 
         /*
         *@ 通过product_id创建文件夹名称
@@ -34,20 +35,20 @@
         */
         function createFile($product_id)
         {
-                //要创建的多级目录
-                $path="upload/product/".$product_id;
-                //判断目录存在否，存在给出提示，不存在则创建目录
-                if (is_dir($path)){  
-                        echo "对不起！目录 " . $path . " 已经存在！";
+            //要创建的多级目录
+            $path="upload/product/".$product_id;
+            //判断目录存在否，存在给出提示，不存在则创建目录
+            if (is_dir($path)){  
+                echo "对不起！目录 " . $path . " 已经存在！";
+            }else{
+                //第三个参数是“true”表示能创建多级目录，iconv防止中文目录乱码
+                $res=mkdir(iconv("UTF-8", "GBK", $path),0777,true); 
+                if ($res){
+                        echo "目录 $path 创建成功";
                 }else{
-                        //第三个参数是“true”表示能创建多级目录，iconv防止中文目录乱码
-                        $res=mkdir(iconv("UTF-8", "GBK", $path),0777,true); 
-                        if ($res){
-                                echo "目录 $path 创建成功";
-                        }else{
-                                echo "目录 $path 创建失败";
-                        }
+                        echo "目录 $path 创建失败";
                 }
+            }
         }
 
         /*
@@ -56,7 +57,7 @@
         *@ page当前第几页
         */
         function fetch_by_category($url="",$page=""){
-
+            $product = array();
             if (empty($url)){
                 $url = 'http://www.chemistwarehouse.com.au/Shop-Online/506/Bio-Organics';
             }
@@ -65,10 +66,10 @@
             $url = $url."?page=".$page;
             echo "<h3>begin to fetch:[".$url."]</h3>";
             $html = file_get_html($url);
-            $product = array();
+            //$product = array();
             foreach($html->find('.Product') as $element) {
                 //$element
-               // echo $element->plaintext."</br><br>";
+                // echo $element->plaintext."</br><br>";
         		//$product = array();
                 foreach($element->find('img') as $element3) {
                     //echo "product id:".substr($element3->src, 63,5). '<br>';
@@ -109,23 +110,26 @@
         *@ 
         */
         function fetch_all_product_by_category($url=""){
+            
+            $product = array();
 
             if (empty($url)){
                 $url = 'http://www.chemistwarehouse.com.au/Shop-Online/506/Bio-Organics';
             }
             echo $url;
-                $product = array();
-                $pages = get_max_pages($url);
-                //进行循环
-                for($ipage = 1; $ipage <= $pages; $ipage++) {
-                    $product_item = array();
-                        //echo $ipage;
-                        echo $url.'?page='.$ipage.'</br>';
-                    $product_item = fetch_by_category($url,$ipage);
-                    array_push($product,$product_item);
-                }
-                return $product;
+            $pages = get_max_pages($url);
+
+            //进行循环
+            for($ipage = 1; $ipage <= $pages; $ipage++) {
+                $product_item = array();
+                //echo $ipage;
+                echo $url.'?page='.$ipage.'</br>';
+                $product_item = fetch_by_category($url,$ipage,$product);
+                $product = $product + $product_item;
+            }
+            return $product;
         }
+
         /*
         *@ 通过给定的分类url计算该分类有多少页
         *@ 默认每页24个产品
