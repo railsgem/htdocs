@@ -36,11 +36,17 @@ class Fetch extends CI_Controller {
 	{
         $this->load->helper('form');
 
+        $data['update_success'] ='Fetch Successfully.';
+	    $data['category_address'] = $this->input->post('category_address'); 
+		$this->load->view('fetch/fetch',$data);
+	}
+	public function save_fetch()
+	{
+        $this->load->helper('form');
+
         $data['update_success'] ='Save Successfully.';
 	    $data['address'] = $this->input->post('address'); 
 
-        $this->load->view('templates/header');
 		$this->load->view('fetch/fetch',$data);
-        $this->load->view('templates/footer'); 
 	}
 }

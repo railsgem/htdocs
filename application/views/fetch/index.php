@@ -5,17 +5,12 @@
 
 
 	<button type="button" class="btn btn-info" id="get_product_list" >get_product_list</button>
+	<input type="text" class="form-control" id="category_address" placeholder="address" name="category_address"  value="<?php echo set_value('category_address'); ?>">
 
-	<?php echo form_open('fetch/fetch') ?>
-		<div class="form-group">
-		<label for="exampleInputEmail1">category address</label>
-		<input type="text" class="form-control" id="category_address" placeholder="address" name="address"  value="<?php echo set_value('address'); ?>">
-		</div>
-		<button type="submit" class="btn btn-default">Submit</button>
-    <?php echo form_close();?>
 
 
 	<span id ='product_list'>get product list</span>
+
 
     <div id="span_content">
 	</div>
@@ -28,13 +23,15 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 	  	$("#get_product_list").click(function(){
-			var category_address = $("#category_address").val();
-			console.log("category_address:"+category_address);
+			var data = {
+				category_address : $("#category_address").val()
+			}
+			console.log("category_address:"+data);
 
 			$.ajax({
 				type: 'POST',
 				url: 'fetch/fetch',
-				data: category_address,
+				data: data,
                 beforeSend: function(){
                     $("#span_content").text("数据处理中...");
                 },

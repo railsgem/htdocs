@@ -1,42 +1,45 @@
-<script type="text/javascript">
-    $('#fetch_li').addClass('active');
-</script>
-<div class="container-fluid">
 
-    <?php if ($update_success !='' ){  ?>
-        <div class="alert alert-success">
-            <?php echo '<strong>Well Done!</strong> '.$update_success; ?>
-            <a href="/index.php/fetch/index" class="btn btn-success btn-xs">Return fetch</a>
-            <button type="button" class="btn btn-success btn-xs" id="myButton">Save fetch list</button>
-        </div>
-    <?php  } ?>
+
+<?php if ($update_success !='' ){  ?>
+    <div class="alert alert-success">
+        <?php echo '<strong>Well Done!</strong> '.$update_success; ?>
+        <a href="/index.php/fetch/index" class="btn btn-success btn-xs">Return fetch</a>
+        <button type="button" class="btn btn-success btn-xs" id="myButton">Save fetch list</button>
+    </div>
+<?php  } ?>
 
 <?php
 
-        error_reporting(E_ALL);
-        include_once('simple_html_dom.php');
+    error_reporting(E_ALL);
+    include_once('simple_html_dom.php');
 
-        $category_url = "http://www.chemistwarehouse.com.au/Shop-Online/957/Baby-Formula";
-
-echo $address;
-        //$page = [1,2,3];
-        //fetch_by_category($html, 1);
-
-        echo get_max_pages($address);
-        $product = fetch_all_product_by_category($address);
+    $product = fetch_all_product_by_category($category_address);
 echo "-----------------------------------------------------------------";
-        print_r($product);
+    print_r($product);
 
-echo "-----------------------------------------------------------------";
-//echo count($product[0])+count($product[1])+count($product[2]);
+//echo "-----------------------------------------------------------------";
+////echo count($product[0])+count($product[1])+count($product[2]);
 
 ?>
-</div>
 <script>
-  $('#myButton').on('click', function () {
-     console.log("test");
+$(document).ready(function(){
+    $("#myButton").click(function(){
+        var product = $("#product").val();
+        console.log("product:"+product);
 
+        $.ajax({
+            type: 'POST',
+            url: 'fetch/save_fetch',
+            data: product,
+            beforeSend: function(){
+                $("#span_content").text("product数据处理中...");
+            },
+            success: function(msg){
+                $("#show").html(msg);
+            }
+        });
 
+    });
+});
 
-  })
 </script>
