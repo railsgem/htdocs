@@ -26,20 +26,15 @@ echo json_encode($product);
 <script>
 $(document).ready(function(){
     $("#myButton").click(function(){
-        var product = JSON.parse($("#product").html());
+        var data = {
+            product : $("#product").html()
+        }
         console.log("product:"+product);
         console.log(product);
-        var form_data = {
-              "product_id":"69966",
-              "product_name":"A2 Infant Formula Stage 1 900g",
-              "small_img_src":"https:\/\/static.chemistwarehouse.com.au\/ams\/media\/productimages\/69966\/150.jpg",
-              "big_img_src":"https:\/\/static.chemistwarehouse.com.au\/ams\/media\/productimages\/69966\/original.jpg",
-              "chemist_price":"29.99"
-        };
         $.ajax({
             type: 'POST',
             url: 'fetch/save_fetch',
-            data: form_data,
+            data: data,
             beforeSend: function(){
                 $("#span_content").text("product数据处理中...");
             },

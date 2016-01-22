@@ -21,7 +21,7 @@ class Fetch extends CI_Controller {
     public function __construct()
     {
             parent::__construct();
-            //$this->load->model('brand_model');
+            $this->load->model('product_model');
     }
 	public function index()
 	{    
@@ -45,11 +45,11 @@ class Fetch extends CI_Controller {
         $this->load->helper('form');
 
         $data['update_success'] ='Save Successfully.';
-	    $data['product_id'] = $this->input->post('product_id'); 
-	    $data['form_data'] = $this->input->post('form_data'); 
-		echo "this is controller-save_fetch()";
-	    print_r( $data);
-	    exit;
+		$this->product_model->save_fetch_product();
+		//$product_json = $data['product']
+        //$this->product_model->save_fetch_product($data['product']);
+	    //print_r( $data);
+	    //exit;
 
 		$this->load->view('fetch/save_fetch',$data);
 	}
