@@ -9,7 +9,8 @@
         */
         function getImg($url = "", $product_id = "")
         {
-        		$filename = 'upload/product/'.$product_id.'/'.substr($url, 69);
+        		$filename = 'upload/product/'.$product_id.'/'.substr($url, (64 + mb_strlen($product_id)));
+
         		//创建文件夹
         		createFile($product_id);
                 //去除URL连接上面可能的引号
