@@ -45,6 +45,7 @@ class Fetch extends CI_Controller {
         $this->load->helper('form');
 
         $data['update_success'] ='Save Successfully.';
+        //$data['product'] ='Save Successfully.';
 		$this->product_model->save_fetch_product();
 		//$product_json = $data['product']
         //$this->product_model->save_fetch_product($data['product']);
