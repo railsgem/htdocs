@@ -52,8 +52,8 @@
             <div class="col-lg-12">
                 <div class="form-inline well center-block">
                     <div class="form-group">
-                        <label for="short_name">Product Name:</label>
-                        <input type="text" style="width:180px;" class="form-control" name="short_name" value="<?php if (isset($_GET['short_name'])) {echo $_GET['short_name'];} ?>">
+                        <label for="product_name">Product Name:</label>
+                        <input type="text" style="width:180px;" class="form-control" name="product_name" value="<?php if (isset($_GET['product_name'])) {echo $_GET['product_name'];} ?>">
                     </div>
                     <div class="form-group">
                         <label for="barcode">Barcode:</label>
@@ -187,8 +187,8 @@
 
 <?php
     $url_para = '?';
-    if (isset($_GET['short_name']))
-        {$url_para .='short_name='.str_replace('\'','',$_GET['short_name']);}
+    if (isset($_GET['product_name']))
+        {$url_para .='product_name='.str_replace('\'','',$_GET['product_name']);}
     if (isset($_GET['barcode']))
         {$url_para .='&barcode='.$_GET['barcode'];}
     if (isset($_GET['location']))
