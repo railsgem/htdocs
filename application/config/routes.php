@@ -67,6 +67,13 @@ $route['product/history'] = 'product/history';
 $route['product/(:any)'] = 'product/index';
 $route['product'] = 'product';
 
+$route['stock/index'] = 'stock/index';
+$route['stock/create'] = 'stock/create';
+$route['stock/edit'] = 'fetch/edit';
+$route['stock/delete'] = 'stock/delete';
+$route['stock/(:any)'] = 'stock/index';
+$route['stock'] = 'stock';
+
 $route['fetch/index'] = 'fetch/index';
 $route['fetch/fetch'] = 'fetch/fetch';
 $route['fetch/save_fetch'] = 'fetch/save_fetch';

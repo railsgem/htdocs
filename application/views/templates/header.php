@@ -154,6 +154,9 @@ border: 1px solid #337ab7;
                     <li id="product_li">
                         <a href="/index.php/product"><i class="fa fa-fw fa-shopping-cart"></i> Product</a>
                     </li> 
+                    <li id="stock_li">
+                        <a href="/index.php/stock"><i class="fa fa-fw fa-shopping-cart"></i> Stock</a>
+                    </li> 
                     <li id="fetch_li">
                         <a href="/index.php/fetch"><i class="fa fa-fw fa-shopping-cart"></i> Fetch</a>
                     </li> 

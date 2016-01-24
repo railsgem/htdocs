@@ -5,6 +5,18 @@ class Product_model extends CI_Model {
                 $this->load->database();
         }
 
+		public function get_product($product_id = FALSE)
+		{
+	        if ($product_id !== FALSE)
+	        {
+	        	$query = $this->db->get_where('os_product', array('os_product_id' => $product_id));
+	        	return $query->row_array();
+	        }
+	        $query = $this->db->get('os_product');
+			return $query->result_array();
+
+		}
+
 		public function get_product_list($offset = 1,$per_page = 50,$is_total = FALSE)
 		{
 			$product_name = $this->input->get('product_name');
