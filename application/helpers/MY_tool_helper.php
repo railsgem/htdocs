@@ -89,7 +89,7 @@
                     }
                     //save product into array
                     $product_item = array(
-                    	"product_id"=>substr($element3->src, 63,5),
+                    	"chemist_product_id"=>substr($element3->src, 63,5),
                     	"product_name"=>$element3->alt,
                     	"small_img_src"=>$element3->src,
                     	"big_img_src"=>substr_replace($element3->src,'original.jpg',-7 ),
@@ -119,14 +119,22 @@
             }
             echo $url;
             $pages = get_max_pages($url);
+                $product_item = array();
 
             //进行循环
             for($ipage = 1; $ipage <= $pages; $ipage++) {
-                $product_item = array();
                 //echo $ipage;
                 echo $url.'?page='.$ipage.'</br>';
                 $product_item = fetch_by_category($url,$ipage,$product);
-                $product = $product + $product_item;
+                foreach ($product_item as $product_object){ 
+                    array_push($product,$product_object);
+                }
+                //array_push($product,$product_item);
+                //$product = $product + $product_item;
+                //array_merge
+            echo "</br>********************************</br></br></br></br>";
+            print_r($product);
+            echo "</br>********************************</br></br></br></br>";
             }
             return $product;
         }

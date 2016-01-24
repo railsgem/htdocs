@@ -25,8 +25,8 @@ class Product_model extends CI_Model {
 			
 			//insert fetch product data into table os_chemist_product, if product is exits ,update it .or else insert
 			$this->db->query('insert into os_chemist_product
-				(product_id,product_name,small_img_src,big_img_src,chemist_price)
-								select of.product_id,
+				(chemist_product_id,product_name,small_img_src,big_img_src,chemist_price)
+								select of.chemist_product_id,
 									of.product_name,
 									of.small_img_src,
 									of.big_img_src,
@@ -34,16 +34,34 @@ class Product_model extends CI_Model {
 								from 
 								os_chemist_product_fetch of left join
 								os_chemist_product OP on
-								of.product_id = op.product_id
-								where op.product_id is null ');
+								of.chemist_product_id = op.chemist_product_id
+								where op.chemist_product_id is null ');
+			$this->db->query('insert into os_product
+				(chemist_product_id,product_name,small_img_src,big_img_src,chemist_price,source_type)
+								select of.chemist_product_id,
+									of.product_name,
+									of.small_img_src,
+									of.big_img_src,
+									of.chemist_price,
+									"chemist warehouse" source_type
+								from 
+								os_chemist_product_fetch of left join
+								os_product OP on
+								of.chemist_product_id = op.chemist_product_id
+								where op.chemist_product_id is null ');
 
 			//$this->db->set($product_obj);
-			$this->db->update_batch('os_chemist_product', $product_obj, 'product_id');
+			$this->db->update_batch('os_chemist_product', $product_obj, 'chemist_product_id');
+			$this->db->update_batch('os_product', $product_obj, 'chemist_product_id');
 
 			$this->db->query('update os_chemist_product 
 								 set update_time = CURRENT_TIMESTAMP
-								where product_id in 
-									(select of.product_id from os_chemist_product_fetch of ) ');
+								where chemist_product_id in 
+									(select of.chemist_product_id from os_chemist_product_fetch of ) ');
+			$this->db->query('update os_product 
+								 set update_time = CURRENT_TIMESTAMP
+								where chemist_product_id in 
+									(select of.chemist_product_id from os_chemist_product_fetch of ) ');
 			//$this->db->insert_batch('os_chemist_product', $product_obj);
 
 

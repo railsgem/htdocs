@@ -35,6 +35,7 @@
 				data: data,
                 beforeSend: function(){
                     $("#span_content").text("数据处理中...");
+                	$("#show").html("");
                 },
                 success: function(msg){
                     $("#show").html(msg);

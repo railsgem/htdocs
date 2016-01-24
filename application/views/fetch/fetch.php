@@ -9,7 +9,7 @@
 <?php  } ?>
 
 <?php
-
+$product = array();
     error_reporting(E_ALL);
     include_once('simple_html_dom.php');
     $product = fetch_all_product_by_category($category_address);
@@ -37,6 +37,7 @@ $(document).ready(function(){
             data: data,
             beforeSend: function(){
                 $("#span_content").text("product数据处理中...");
+                $("#show").html("");
             },
             success: function(msg){
                 $("#show").html(msg);
