@@ -55,6 +55,18 @@ $route['kpi/edit'] = 'kpi/edit';
 $route['kpi/(:any)'] = 'kpi/index';
 $route['kpi'] = 'kpi';
 
+$route['product/create'] = 'product/create';
+$route['product/edit'] = 'product/edit';
+$route['product/import_purchase'] = 'product/import_purchase';
+$route['product/import_product'] = 'product/import_product';
+$route['product/import_record'] = 'product/import_record';
+$route['product/download_kounta_file'] = 'product/download_kounta_file';
+$route['product/download_products'] = 'product/download_products';
+$route['product/report'] = 'product/report';
+$route['product/history'] = 'product/history';
+$route['product/(:any)'] = 'product/index';
+$route['product'] = 'product';
+
 $route['fetch/index'] = 'fetch/index';
 $route['fetch/fetch'] = 'fetch/fetch';
 $route['fetch/save_fetch'] = 'fetch/save_fetch';
