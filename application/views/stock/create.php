@@ -26,21 +26,16 @@
     <?php  } ?>
     <?php echo form_open('stock/create') ?>
 
-
         <div class="row">
             <div class="col-lg-6">
-
                 <div class="form-group">
                     <label for="os_product_id"><span class="red"> * </span>os_product_id:</label>
-                    <select class="form-control" name="os_product_id">
-                        <?php foreach ($product as $product_item): ?>
-                            <option value="<?php echo $product_item['os_product_id'] ?>" <?php if ($product_item['os_product_id'] === set_value('os_product_id')) { echo "selected"; } ?>><?php echo $product_item['product_name'] ?></option>
-                        <?php endforeach ?>
-                    </select>
+                    <input id="os_product_id" class="form-control" type="hidden" name="os_product_id" value="<?php echo set_value('os_product_id'); ?>">
+                    <input class="form-control" type="text" id="autocomp" />
                 </div>
                 <div class="form-group">
                     <label for="real_cost"><span class="red"> * </span>real_cost:</label>
-                    <input class="form-control" type="input" name="real_cost" value="<?php echo set_value('real_cost'); ?>">
+                    <input id="chemist_price" class="form-control" type="input" name="real_cost" value="<?php echo set_value('real_cost'); ?>">
                 </div>
                 <div class="form-group">
                     <label for="stock_num"><span class="red"> * </span>stock_num:</label>
@@ -48,7 +43,7 @@
                 </div>
                 <div class="form-group">
                     <label for="buy_shop"><span class="red"> * </span>buy_shop:</label>
-                    <input class="form-control" type="input" name="buy_shop" value="<?php echo set_value('buy_shop'); ?>">
+                    <input id="source_type" class="form-control" type="input" name="buy_shop" value="<?php echo set_value('buy_shop'); ?>">
                 </div>
                 <div class="form-group">
                     <label for="buyer"><span class="red"> * </span>buyer:</label>
@@ -72,3 +67,20 @@
 
     <?php echo form_close();?>
 </div>
+
+<script type="text/javascript">
+ 
+    $("#autocomp").autocomplete({
+        source: "get_product_json",
+        minLength: 2, 
+        select: function(e, ui) {
+            console.log(ui);
+            $("#os_product_id").val(ui.item.id);
+            $("#chemist_price").val(ui.item.chemist_price);
+            $("#source_type").val(ui.item.source_type);
+            //$("#autocomp").val(ui.item.label);
+            //alert(ui.item.label + ui.item.value) ;
+        }
+    });
+
+</script>

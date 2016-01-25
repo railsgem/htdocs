@@ -16,6 +16,19 @@ class Product_model extends CI_Model {
 			return $query->result_array();
 
 		}
+		public function get_product_by_name($product_name = "")
+		{
+	        if ($product_name !== FALSE)
+	        {
+				$product_name = $this->input->get('term');
+
+				$myquery = "select op.product_name label, op.os_product_id id, op.product_name value, op.chemist_price, op.source_type from os_product op where UPPER(op.product_name) like UPPER('%".$product_name."%')";
+
+				$query = $this->db->query($myquery);	
+	        	return $query->result_array();
+	        }
+
+		}
 
 		public function get_product_list($offset = 1,$per_page = 50,$is_total = FALSE)
 		{

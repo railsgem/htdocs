@@ -54,6 +54,7 @@
                     <tr>
                         <th>stock ID</th>>
                         <th>os product id</th>>
+                        <th>os product name</th>>
                         <th>real cost</th>>
                         <th>stock number</th>>
                         <th>buy shop</th>>
@@ -61,13 +62,14 @@
                         <th>purchase time</th>
                         <th>entry time</th>
                         <th>Update time</th>
-                        <th>Operation</th>
+                        <th style="display:none">Operation</th>
                     </tr>
                     <?php foreach ($stock as $stock_item): ?>
                             <tr>
                                 <?php echo form_open('stock/index/delete') ?>
                                     <td><?php echo $stock_item['stock_id']; ?></td>
                                     <td><?php echo $stock_item['os_product_id']; ?></td>
+                                    <td><?php echo $stock_item['product_name']; ?></td>
                                     <td><?php echo $stock_item['real_cost']; ?></td>
                                     <td><?php echo $stock_item['stock_num']; ?></td>
                                     <td><?php echo $stock_item['buy_shop']; ?></td>
@@ -75,7 +77,7 @@
                                     <td><?php echo $stock_item['purchase_time']; ?></td>
                                     <td><?php echo $stock_item['entry_time']; ?></td>
                                     <td><?php echo $stock_item['update_time']; ?></td>
-                                    <td>
+                                    <td style="display:none">
                                         <a target="_blank" href="/index.php/product?short_name=&barcode=&stock_id=<?php echo $stock_item['stock_id']; ?>&category_id=0&stock=0" class="btn btn-success btn-xs" >Product List</a>
                                         <a href="/index.php/stock/edit/<?php echo $stock_item['stock_id']; ?>" class="btn btn-danger btn-xs" >View/Edit</a>
                                         

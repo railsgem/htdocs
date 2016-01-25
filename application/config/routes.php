@@ -68,6 +68,7 @@ $route['product/(:any)'] = 'product/index';
 $route['product'] = 'product';
 
 $route['stock/index'] = 'stock/index';
+$route['stock/get_product_json'] = 'stock/get_product_json';
 $route['stock/create'] = 'stock/create';
 $route['stock/edit'] = 'fetch/edit';
 $route['stock/delete'] = 'stock/delete';

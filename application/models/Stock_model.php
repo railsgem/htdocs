@@ -8,6 +8,11 @@ class stock_model extends CI_Model {
 
 	public function get_stock($stock_id = FALSE)
 	{
+		$myquery = "select op.product_name,stk.* from os_stock stk left join os_product OP on stk.os_product_id = op.os_product_id ";
+
+				$query = $this->db->query($myquery);
+	            return $query->result_array();
+
         if ($stock_id === FALSE)
         {
 			$query = $this->db->get('os_stock');
@@ -15,6 +20,7 @@ class stock_model extends CI_Model {
         }
         $query = $this->db->get_where('os_stock', array('stock_id' => $stock_id));
         return $query->row_array();
+
 	}
 
 	public function set_stock()
