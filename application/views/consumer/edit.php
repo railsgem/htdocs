@@ -40,28 +40,28 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <b>打单区</b>
+                        <b>View/Edit consumer</b>
                     </div>
                     <div class="panel-body">
                       
                     <div class="form-group">
-                        <label for="consumer_name"><span class="red"> * </span>AT打单总数量:</label>
+                        <label for="consumer_name"><span class="red"> * </span>consumer_name:</label>
                         <input class="form-control" type="input" name="consumer_name" value="<?php echo $consumer['consumer_name']; ?>">
                     </div>
                     <div class="form-group">
-                        <label for="consumer_nation_id"><span class="red"> * </span>AT错单数量:</label>
+                        <label for="consumer_nation_id"><span class="red"> * </span>consumer_nation_id:</label>
                         <input class="form-control" type="input" name="consumer_nation_id" value="<?php echo $consumer['consumer_nation_id']; ?>">
                     </div>
                     <div class="form-group">
-                        <label for="consumer_address"><span class="red"> * </span>APP打单总数量:</label>
+                        <label for="consumer_address"><span class="red"> * </span>consumer_address:</label>
                         <input class="form-control" type="input" name="consumer_address" value="<?php echo $consumer['consumer_address']; ?>">
                     </div>
                     <div class="form-group">
-                        <label for="consumer_phone"><span class="red"> * </span>APP错单数量:</label>
+                        <label for="consumer_phone"><span class="red"> * </span>consumer_phone:</label>
                         <input class="form-control" type="input" name="consumer_phone" value="<?php echo $consumer['consumer_phone']; ?>">
                     </div>
                     <div class="form-group">
-                        <label for="consumer_postcode"><span class="red"> * </span>APP错单数量:</label>
+                        <label for="consumer_postcode"><span class="red"> * </span>consumer_postcode:</label>
                         <input class="form-control" type="input" name="consumer_postcode" value="<?php echo $consumer['consumer_postcode']; ?>">
                     </div>
                     <label for="is_agent"><span class="red"> * </span>is_agent:</label>

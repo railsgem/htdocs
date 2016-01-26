@@ -97,20 +97,11 @@ class Consumer extends CI_Controller {
             $this->load->library('form_validation');
 
 
-            //$this->form_validation->set_rules('consumer_name', 'consumer Name', 'trim|required|xss_clean');
-            $this->form_validation->set_rules('consumer_rep_date', 'consumer 日期   ', 'required|xss_clean');
-            $this->form_validation->set_rules('print_total', '打单区AT 打单总数量 ', 'required|integer');
-            $this->form_validation->set_rules('print_error', '打单区AT 错单数量  ', 'required|integer');
-            $this->form_validation->set_rules('print_total_app', '打单区APP 总数量 ', 'required|integer');
-            $this->form_validation->set_rules('print_error_app', '打单区APP 错单数量  ', 'required|integer');
-            $this->form_validation->set_rules('delivery_scan_total', '总扫单数量 ', 'required|integer');
-            $this->form_validation->set_rules('delivery_express_receive', '快递收包裹量   ', 'required|integer');
-            $this->form_validation->set_rules('delivery_missed', '漏发单量  ', 'required|integer');
-            $this->form_validation->set_rules('delivery_error', '错发单量   ', 'required|integer');
-            $this->form_validation->set_rules('picking_total', '总配货商品数量  ', 'required|integer');
-            $this->form_validation->set_rules('picking_missed', '漏配商品数量 ', 'required|integer');
-            $this->form_validation->set_rules('picking_error', '错配商品数量', 'required|integer');
-            $this->form_validation->set_rules('operator', '操作员', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('consumer_name', 'consumer_name', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('consumer_nation_id', 'consumer_nation_id', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('consumer_address', 'consumer_address', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('consumer_phone', 'consumer_phone', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('is_agent', 'is_agent', 'required|integer');
             
             if ($this->form_validation->run() === FALSE)
             {
