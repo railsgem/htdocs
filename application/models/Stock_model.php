@@ -8,17 +8,17 @@ class stock_model extends CI_Model {
 
 	public function get_stock($stock_id = FALSE)
 	{
-		$myquery = "select op.product_name,stk.* from os_stock stk left join os_product OP on stk.os_product_id = op.os_product_id ";
+		$myquery = "select op.product_name,stk.* from os_stock_entry stk left join os_product OP on stk.os_product_id = op.os_product_id ";
 
 				$query = $this->db->query($myquery);
 	            return $query->result_array();
 
         if ($stock_id === FALSE)
         {
-			$query = $this->db->get('os_stock');
+			$query = $this->db->get('os_stock_entry');
 			return $query->result_array();
         }
-        $query = $this->db->get_where('os_stock', array('stock_id' => $stock_id));
+        $query = $this->db->get_where('os_stock_entry', array('stock_id' => $stock_id));
         return $query->row_array();
 
 	}
@@ -33,7 +33,7 @@ class stock_model extends CI_Model {
 	        'buyer' => $this->input->post('buyer'),
 	        'purchase_time' => $this->input->post('purchase_time')
 	    );
-	    return $this->db->insert('os_stock', $data);
+	    return $this->db->insert('os_stock_entry', $data);
 	}
 
 	public function update_stock($stock_id = FALSE)
@@ -49,7 +49,7 @@ class stock_model extends CI_Model {
 		        'purchase_time' => $this->input->post('purchase_time')
 		    );
 		    $this->db->where('stock_id', $stock_id);
-		    $this->db->update('os_stock', $data);
+		    $this->db->update('os_stock_entry', $data);
 		    //return $this->db->insert_id();
 	    }
 	}
@@ -59,7 +59,7 @@ class stock_model extends CI_Model {
 		if ($stock_id !== FALSE)
 		{
 		    $this->db->where('stock_id', $stock_id);
-		    $this->db->delete('os_stock');
+		    $this->db->delete('os_stock_entry');
 	    }
 	}			
 
