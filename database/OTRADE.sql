@@ -11,11 +11,25 @@
  Target Server Version : 50505
  File Encoding         : utf-8
 
- Date: 01/26/2016 00:19:36 AM
+ Date: 01/26/2016 21:35:26 PM
 */
 
 SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+--  Table structure for `os_address`
+-- ----------------------------
+DROP TABLE IF EXISTS `os_address`;
+CREATE TABLE `os_address` (
+  `address_id` int(11) NOT NULL AUTO_INCREMENT,
+  `address_detail` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `recevier_name` varchar(255) DEFAULT NULL,
+  `entry_time` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`address_id`),
+  KEY `address_id` (`address_id`,`address_detail`,`phone`,`recevier_name`,`entry_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 --  Table structure for `os_brand`
@@ -68,7 +82,8 @@ CREATE TABLE `os_chemist_product` (
   `chemist_price` decimal(10,2) DEFAULT NULL,
   `entrytime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`rowid`)
+  PRIMARY KEY (`rowid`),
+  KEY `chemist_product_id` (`chemist_product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=530 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
@@ -101,6 +116,75 @@ INSERT INTO `os_chemist_product_fetch` VALUES ('43238', 'Bio-Organics Glucosamin
 COMMIT;
 
 -- ----------------------------
+--  Table structure for `os_consumer`
+-- ----------------------------
+DROP TABLE IF EXISTS `os_consumer`;
+CREATE TABLE `os_consumer` (
+  `consumer_id` int(11) NOT NULL,
+  `consumer_name` varchar(255) DEFAULT NULL,
+  `consumer_nation_id` varchar(255) DEFAULT NULL,
+  `consumer_address` varchar(255) DEFAULT NULL,
+  `consumer_phone` varchar(255) DEFAULT NULL,
+  `consumer_postcode` varchar(255) DEFAULT NULL,
+  `entry_time` timestamp NULL DEFAULT NULL,
+  `is_agent` int(11) DEFAULT NULL,
+  PRIMARY KEY (`consumer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+--  Table structure for `os_order`
+-- ----------------------------
+DROP TABLE IF EXISTS `os_order`;
+CREATE TABLE `os_order` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) DEFAULT NULL,
+  `os_product_id` int(11) DEFAULT NULL,
+  `sell_price` decimal(11,2) DEFAULT NULL,
+  `agent_id` int(11) DEFAULT NULL,
+  `consumer_id` int(11) DEFAULT NULL COMMENT '收件人（收件信息）',
+  `postage_id` int(11) DEFAULT NULL,
+  `address_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`rowid`),
+  KEY `address_id` (`address_id`),
+  KEY `address_id_2` (`address_id`),
+  KEY `os_product_id` (`os_product_id`),
+  KEY `agent_id` (`agent_id`),
+  KEY `consumer_id` (`consumer_id`),
+  KEY `postage_id` (`postage_id`),
+  KEY `order_id` (`order_id`),
+  CONSTRAINT `fk_address_id` FOREIGN KEY (`address_id`) REFERENCES `os_address` (`address_id`),
+  CONSTRAINT `fk_agent_id` FOREIGN KEY (`agent_id`) REFERENCES `os_consumer` (`consumer_id`),
+  CONSTRAINT `fk_consumer_id` FOREIGN KEY (`consumer_id`) REFERENCES `os_consumer` (`consumer_id`),
+  CONSTRAINT `fk_postage_id` FOREIGN KEY (`postage_id`) REFERENCES `os_postage` (`postage_id`),
+  CONSTRAINT `fk_product_id` FOREIGN KEY (`os_product_id`) REFERENCES `os_product` (`os_product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+--  Table structure for `os_postage`
+-- ----------------------------
+DROP TABLE IF EXISTS `os_postage`;
+CREATE TABLE `os_postage` (
+  `postage_id` int(11) NOT NULL AUTO_INCREMENT,
+  `postage_company_id` int(255) DEFAULT NULL,
+  `postage_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`postage_id`),
+  KEY `postage_company_id` (`postage_company_id`),
+  CONSTRAINT `fk_post_com_id` FOREIGN KEY (`postage_company_id`) REFERENCES `os_postage_company` (`postage_company_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+--  Table structure for `os_postage_company`
+-- ----------------------------
+DROP TABLE IF EXISTS `os_postage_company`;
+CREATE TABLE `os_postage_company` (
+  `postage_company_id` int(11) NOT NULL AUTO_INCREMENT,
+  `postage_company_name` varchar(255) DEFAULT NULL,
+  `postage_website` varchar(255) DEFAULT NULL,
+  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`postage_company_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
 --  Table structure for `os_product`
 -- ----------------------------
 DROP TABLE IF EXISTS `os_product`;
@@ -116,7 +200,9 @@ CREATE TABLE `os_product` (
   `source_type` varchar(255) DEFAULT NULL COMMENT 'chemist, manmade',
   `barcode` varchar(255) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`os_product_id`)
+  PRIMARY KEY (`os_product_id`),
+  KEY `chemist_product_id` (`chemist_product_id`),
+  CONSTRAINT `fk_chemist_product_id` FOREIGN KEY (`chemist_product_id`) REFERENCES `os_chemist_product` (`chemist_product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=499 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
@@ -128,10 +214,10 @@ INSERT INTO `os_product` VALUES ('222', '74651', 'Swisse Ultiboost High Strength
 COMMIT;
 
 -- ----------------------------
---  Table structure for `os_stock`
+--  Table structure for `os_stock_entry`
 -- ----------------------------
-DROP TABLE IF EXISTS `os_stock`;
-CREATE TABLE `os_stock` (
+DROP TABLE IF EXISTS `os_stock_entry`;
+CREATE TABLE `os_stock_entry` (
   `stock_id` int(11) NOT NULL AUTO_INCREMENT,
   `os_product_id` int(11) NOT NULL,
   `real_cost` decimal(10,2) DEFAULT NULL,
@@ -142,14 +228,30 @@ CREATE TABLE `os_stock` (
   `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`stock_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1 COMMENT='商品入库';
 
 -- ----------------------------
---  Records of `os_stock`
+--  Records of `os_stock_entry`
 -- ----------------------------
 BEGIN;
-INSERT INTO `os_stock` VALUES ('1', '79', '24.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-25 23:42:48', '2016-01-25 23:42:48'), ('2', '79', '24.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-25 23:43:09', '2016-01-25 23:43:09'), ('3', '79', '24.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-25 23:43:53', '2016-01-25 23:43:53'), ('4', '79', '24.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-25 23:47:01', '2016-01-25 23:47:01'), ('5', '54', '19.00', '3', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-25 23:56:21', '2016-01-25 23:56:21'), ('6', '54', '19.00', '3', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-25 23:56:34', '2016-01-25 23:56:34'), ('7', '294', '13.00', '3', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-25 23:57:07', '2016-01-25 23:57:07'), ('8', '117', '23.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:02:49', '2016-01-26 00:02:49'), ('9', '117', '23.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:03:13', '2016-01-26 00:03:13'), ('10', '4', '24.00', '22', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:05:08', '2016-01-26 00:05:08'), ('11', '252', '24.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:06:22', '2016-01-26 00:06:22'), ('12', '252', '24.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:06:58', '2016-01-26 00:06:58'), ('13', '270', '7.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:07:36', '2016-01-26 00:07:36'), ('14', '358', '46.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:08:15', '2016-01-26 00:08:15'), ('15', '358', '46.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:08:31', '2016-01-26 00:08:31'), ('16', '210', '18.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:09:26', '2016-01-26 00:09:26'), ('17', '11', '9.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:10:20', '2016-01-26 00:10:20'), ('18', '11', '9.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:10:40', '2016-01-26 00:10:40'), ('19', '41', '29.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:11:28', '2016-01-26 00:11:28'), ('20', '12', '11.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:12:01', '2016-01-26 00:12:01'), ('21', '49', '27.99', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:14:28', '2016-01-26 00:14:28');
+INSERT INTO `os_stock_entry` VALUES ('1', '79', '24.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-25 23:42:48', '2016-01-25 23:42:48'), ('2', '79', '24.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-25 23:43:09', '2016-01-25 23:43:09'), ('3', '79', '24.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-25 23:43:53', '2016-01-25 23:43:53'), ('4', '79', '24.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-25 23:47:01', '2016-01-25 23:47:01'), ('5', '54', '19.00', '3', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-25 23:56:21', '2016-01-25 23:56:21'), ('6', '54', '19.00', '3', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-25 23:56:34', '2016-01-25 23:56:34'), ('7', '294', '13.00', '3', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-25 23:57:07', '2016-01-25 23:57:07'), ('8', '117', '23.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:02:49', '2016-01-26 00:02:49'), ('9', '117', '23.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:03:13', '2016-01-26 00:03:13'), ('10', '4', '24.00', '22', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:05:08', '2016-01-26 00:05:08'), ('11', '252', '24.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:06:22', '2016-01-26 00:06:22'), ('12', '252', '24.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:06:58', '2016-01-26 00:06:58'), ('13', '270', '7.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:07:36', '2016-01-26 00:07:36'), ('14', '358', '46.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:08:15', '2016-01-26 00:08:15'), ('15', '358', '46.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:08:31', '2016-01-26 00:08:31'), ('16', '210', '18.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:09:26', '2016-01-26 00:09:26'), ('17', '11', '9.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:10:20', '2016-01-26 00:10:20'), ('18', '11', '9.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:10:40', '2016-01-26 00:10:40'), ('19', '41', '29.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:11:28', '2016-01-26 00:11:28'), ('20', '12', '11.00', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:12:01', '2016-01-26 00:12:01'), ('21', '49', '27.99', '1', 'chemist warehouse', 'ruby', '2016-01-25 00:00:00', '2016-01-26 00:14:28', '2016-01-26 00:14:28');
 COMMIT;
+
+-- ----------------------------
+--  Table structure for `os_transaction`
+-- ----------------------------
+DROP TABLE IF EXISTS `os_transaction`;
+CREATE TABLE `os_transaction` (
+  `trans_id` int(11) NOT NULL AUTO_INCREMENT,
+  `stock_id` int(11) DEFAULT NULL,
+  `trans_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `order_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`trans_id`),
+  KEY `order_id` (`order_id`),
+  KEY `stock_id` (`stock_id`),
+  CONSTRAINT `fk_order_id` FOREIGN KEY (`order_id`) REFERENCES `os_order` (`order_id`),
+  CONSTRAINT `fk_stock_id` FOREIGN KEY (`stock_id`) REFERENCES `os_stock_entry` (`stock_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='商品出库';
 
 -- ----------------------------
 --  Table structure for `ot_product`
