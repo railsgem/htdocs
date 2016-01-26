@@ -160,6 +160,9 @@ border: 1px solid #337ab7;
                     </li> 
                     <li id="fetch_li">
                         <a href="/index.php/fetch"><i class="fa fa-fw fa-shopping-cart"></i> Fetch</a>
+                    </li>  
+                    <li id="consumer_li">
+                        <a href="/index.php/consumer"><i class="fa fa-fw fa-male"></i> Consumer</a>
                     </li> 
                 </ul>
             </div>

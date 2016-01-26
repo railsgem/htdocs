@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : xampp localhost
+ Source Server         : otrade
  Source Server Type    : MySQL
  Source Server Version : 50505
  Source Host           : localhost
@@ -11,7 +11,7 @@
  Target Server Version : 50505
  File Encoding         : utf-8
 
- Date: 01/26/2016 21:35:26 PM
+ Date: 01/27/2016 00:05:00 AM
 */
 
 SET NAMES utf8;
@@ -29,7 +29,7 @@ CREATE TABLE `os_address` (
   `entry_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`address_id`),
   KEY `address_id` (`address_id`,`address_detail`,`phone`,`recevier_name`,`entry_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `os_brand`
@@ -41,13 +41,13 @@ CREATE TABLE `os_brand` (
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `is_valid` int(11) DEFAULT '1' COMMENT '1:valid, 0 not valid',
   PRIMARY KEY (`brand_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `os_brand`
 -- ----------------------------
 BEGIN;
-INSERT INTO `os_brand` VALUES ('8', 'Swisse', '2016-01-17 18:11:25', '1'), ('2', 'Apatami', '2016-01-14 22:18:09', '1'), ('6', 'A2', '2016-01-17 17:55:32', '1'), ('7', 'A2', '2016-01-17 17:56:00', '1'), ('9', 'blackmore', '2016-01-17 18:11:45', '1'), ('10', 'A2', '2016-01-17 18:13:14', '0');
+INSERT INTO `os_brand` VALUES ('2', 'Apatami', '2016-01-14 22:18:09', '1'), ('6', 'A2', '2016-01-17 17:55:32', '1'), ('7', 'A2', '2016-01-17 17:56:00', '1'), ('8', 'Swisse', '2016-01-17 18:11:25', '1'), ('9', 'blackmore', '2016-01-17 18:11:45', '1'), ('10', 'A2', '2016-01-17 18:13:14', '0'), ('11', 'test', '2016-01-26 22:04:44', '1');
 COMMIT;
 
 -- ----------------------------
@@ -60,7 +60,7 @@ CREATE TABLE `os_category` (
   `is_valid` int(11) DEFAULT '1',
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `os_category`
@@ -84,7 +84,7 @@ CREATE TABLE `os_chemist_product` (
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`rowid`),
   KEY `chemist_product_id` (`chemist_product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=530 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=446 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `os_chemist_product`
@@ -106,7 +106,7 @@ CREATE TABLE `os_chemist_product_fetch` (
   `chemist_price` decimal(10,2) DEFAULT NULL,
   `entrytime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`chemist_product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `os_chemist_product_fetch`
@@ -120,16 +120,24 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `os_consumer`;
 CREATE TABLE `os_consumer` (
-  `consumer_id` int(11) NOT NULL,
+  `consumer_id` int(11) NOT NULL AUTO_INCREMENT,
   `consumer_name` varchar(255) DEFAULT NULL,
   `consumer_nation_id` varchar(255) DEFAULT NULL,
   `consumer_address` varchar(255) DEFAULT NULL,
   `consumer_phone` varchar(255) DEFAULT NULL,
   `consumer_postcode` varchar(255) DEFAULT NULL,
-  `entry_time` timestamp NULL DEFAULT NULL,
+  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `is_agent` int(11) DEFAULT NULL,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`consumer_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `os_consumer`
+-- ----------------------------
+BEGIN;
+INSERT INTO `os_consumer` VALUES ('1', ' 王丹 ', '350181198806071781', ' 广东省深圳市龙岗区中心城龙城中路尚景欣园C1307 ', '13509668851', '', '2016-01-26 23:55:56', '1', '2016-01-26 23:55:53'), ('2', ' 翁理桑 ', '350181198705082086', ' 福建省福州市晋安区 福马路福建省肿瘤医院外科大楼九楼护士站  ', '15980060171', '', '2016-01-26 23:55:59', '0', '2016-01-26 23:56:03'), ('3', ' 刘元 ', '430703198804305824', ' 上海市闵行区中春路7001号明谷科技园D栋1105室 上海德馨 ', '18721961698', '', '2016-01-26 23:59:35', '1', '2016-01-26 23:59:37'), ('4', ' 刘平 ', '510125198609203828', ' 四川省成都市新都区电子路博海城一期七栋一单元15楼一号 ', '13881787404', '', '2016-01-26 23:59:44', '0', '2016-01-26 23:59:46'), ('5', ' 刘平 ', '510125198609203828', ' 四川省成都市新都区电子路博海城一期七栋一单元15楼一号 ', '13881787404', '', '2016-01-26 23:59:51', '1', '2016-01-26 23:59:54'), ('6', ' 温岳鹏 ', '370281198905151831', ' 山東省青島市胶州市兰州东路610号 信利达汽车 ', '15863083563', '', '2016-01-26 23:59:58', '1', '2016-01-27 00:00:00'), ('7', ' 秦斐 ', '510603198706106180', ' 江西省吉安市泰和县祥云山庄41栋 ', '18679662021', '', '2016-01-27 00:00:01', '1', '2016-01-27 00:00:05');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `os_order`
@@ -157,7 +165,7 @@ CREATE TABLE `os_order` (
   CONSTRAINT `fk_consumer_id` FOREIGN KEY (`consumer_id`) REFERENCES `os_consumer` (`consumer_id`),
   CONSTRAINT `fk_postage_id` FOREIGN KEY (`postage_id`) REFERENCES `os_postage` (`postage_id`),
   CONSTRAINT `fk_product_id` FOREIGN KEY (`os_product_id`) REFERENCES `os_product` (`os_product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `os_postage`
@@ -170,7 +178,7 @@ CREATE TABLE `os_postage` (
   PRIMARY KEY (`postage_id`),
   KEY `postage_company_id` (`postage_company_id`),
   CONSTRAINT `fk_post_com_id` FOREIGN KEY (`postage_company_id`) REFERENCES `os_postage_company` (`postage_company_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `os_postage_company`
@@ -182,7 +190,7 @@ CREATE TABLE `os_postage_company` (
   `postage_website` varchar(255) DEFAULT NULL,
   `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`postage_company_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `os_product`
@@ -203,7 +211,7 @@ CREATE TABLE `os_product` (
   PRIMARY KEY (`os_product_id`),
   KEY `chemist_product_id` (`chemist_product_id`),
   CONSTRAINT `fk_chemist_product_id` FOREIGN KEY (`chemist_product_id`) REFERENCES `os_chemist_product` (`chemist_product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=499 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=415 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `os_product`
@@ -228,7 +236,7 @@ CREATE TABLE `os_stock_entry` (
   `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`stock_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1 COMMENT='商品入库';
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='商品入库';
 
 -- ----------------------------
 --  Records of `os_stock_entry`
@@ -250,8 +258,8 @@ CREATE TABLE `os_transaction` (
   KEY `order_id` (`order_id`),
   KEY `stock_id` (`stock_id`),
   CONSTRAINT `fk_order_id` FOREIGN KEY (`order_id`) REFERENCES `os_order` (`order_id`),
-  CONSTRAINT `fk_stock_id` FOREIGN KEY (`stock_id`) REFERENCES `os_stock_entry` (`stock_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='商品出库';
+  CONSTRAINT `fk_stock_id` FOREIGN KEY (`stock_id`) REFERENCES `os_stock` (`stock_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品出库';
 
 -- ----------------------------
 --  Table structure for `ot_product`
@@ -267,6 +275,6 @@ CREATE TABLE `ot_product` (
   PRIMARY KEY (`product_id`),
   KEY `fk_brand` (`brand_id`) USING BTREE,
   KEY `fk_category` (`category_id`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SET FOREIGN_KEY_CHECKS = 1;
