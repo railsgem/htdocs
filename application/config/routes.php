@@ -88,6 +88,12 @@ $route['category/edit'] = 'category/edit';
 $route['category/(:any)'] = 'category/index';
 $route['category'] = 'category';
 
+$route['consumer/index'] = 'consumer/index';
+$route['consumer/create'] = 'consumer/create';
+$route['consumer/edit'] = 'consumer/edit';
+$route['consumer/(:any)'] = 'consumer/index';
+$route['consumer'] = 'consumer';
+
 $route['brand/index'] = 'brand/index';
 $route['brand/create'] = 'brand/create';
 $route['brand/edit'] = 'brand/edit';
