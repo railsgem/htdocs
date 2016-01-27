@@ -94,6 +94,12 @@ $route['consumer/edit'] = 'consumer/edit';
 $route['consumer/(:any)'] = 'consumer/index';
 $route['consumer'] = 'consumer';
 
+$route['postage_company/index'] = 'postage_company/index';
+$route['postage_company/create'] = 'postage_company/create';
+$route['postage_company/edit'] = 'postage_company/edit';
+$route['postage_company/(:any)'] = 'postage_company/index';
+$route['postage_company'] = 'postage_company';
+
 $route['address/index'] = 'address/index';
 $route['address/create'] = 'address/create';
 $route['address/edit'] = 'address/edit';

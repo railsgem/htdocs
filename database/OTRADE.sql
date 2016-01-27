@@ -11,7 +11,7 @@
  Target Server Version : 50505
  File Encoding         : utf-8
 
- Date: 01/27/2016 16:53:42 PM
+ Date: 01/27/2016 17:14:39 PM
 */
 
 SET NAMES utf8;
@@ -251,8 +251,16 @@ CREATE TABLE `os_postage_company` (
   `postage_company_name` varchar(255) DEFAULT NULL,
   `postage_website` varchar(255) DEFAULT NULL,
   `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`postage_company_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `os_postage_company`
+-- ----------------------------
+BEGIN;
+INSERT INTO `os_postage_company` VALUES ('1', '顺丰', 'www.shunfeng.com.cn', '2016-01-27 17:13:23', '2016-01-27 17:13:33');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `os_product`

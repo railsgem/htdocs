@@ -167,6 +167,9 @@ border: 1px solid #337ab7;
                     <li id="address_li">
                         <a href="/index.php/address"><i class="fa fa-envelope-o"></i>  Address</a>
                     </li> 
+                    <li id="postage_company_li">
+                        <a href="/index.php/postage_company"><i class="fa fa-envelope-o"></i> Postage Company</a>
+                    </li> 
                     <li id="auth_li" >
                         <a href="/index.php/auth"><i class="fa fa-fw fa-cog"></i> User Setting</a>
                     </li>
