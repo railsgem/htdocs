@@ -100,6 +100,12 @@ $route['postage_company/edit'] = 'postage_company/edit';
 $route['postage_company/(:any)'] = 'postage_company/index';
 $route['postage_company'] = 'postage_company';
 
+$route['postage/index'] = 'postage/index';
+$route['postage/create'] = 'postage/create';
+$route['postage/edit'] = 'postage/edit';
+$route['postage/(:any)'] = 'postage/index';
+$route['postage'] = 'postage';
+
 $route['address/index'] = 'address/index';
 $route['address/create'] = 'address/create';
 $route['address/edit'] = 'address/edit';

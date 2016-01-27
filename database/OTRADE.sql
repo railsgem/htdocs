@@ -11,7 +11,7 @@
  Target Server Version : 50505
  File Encoding         : utf-8
 
- Date: 01/27/2016 17:14:39 PM
+ Date: 01/27/2016 17:32:09 PM
 */
 
 SET NAMES utf8;
@@ -237,10 +237,19 @@ CREATE TABLE `os_postage` (
   `postage_company_id` int(255) DEFAULT NULL,
   `postage_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `postage_code` varchar(255) NOT NULL COMMENT '快递单号',
+  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`postage_id`),
   KEY `postage_company_id` (`postage_company_id`),
   CONSTRAINT `fk_post_com_id` FOREIGN KEY (`postage_company_id`) REFERENCES `os_postage_company` (`postage_company_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `os_postage`
+-- ----------------------------
+BEGIN;
+INSERT INTO `os_postage` VALUES ('1', '1', '2015-10-12 00:00:00', '999999999', '2016-01-27 17:31:32', '2016-01-27 17:31:43');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `os_postage_company`
