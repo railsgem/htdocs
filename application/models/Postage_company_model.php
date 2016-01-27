@@ -53,8 +53,16 @@ class Postage_company_model extends CI_Model {
 			}
 			else
 			{
+				if($per_page === null){
+
+					$myquery = $myquery.' order by entry_time desc  ';
+
+					$query = $this->db->query($myquery);
+		            return $query->result_array();
+				}
 				//echo $myquery;
 				$myquery = $myquery.' order by entry_time desc limit '.$offset.', '.$per_page;
+
 				$query = $this->db->query($myquery);
 	            return $query->result_array();
             }

@@ -5,6 +5,7 @@ class Postage extends CI_Controller {
         {
                 parent::__construct();
                 $this->load->model('postage_model');
+                $this->load->model('postage_company_model');
                 $this->load->library('ion_auth');
                 if (!$this->ion_auth->logged_in())
                 {
@@ -66,6 +67,8 @@ class Postage extends CI_Controller {
                 {
                     $data['update_success'] ='';
                     $data['postage'] = $this->postage_model->get_postage($postage_id);
+                    $data['postage_company'] = $this->postage_company_model->get_postage_company_list(NULL,NULL,FALSE,FALSE);
+                    
                     $this->load->view('templates/header');
                     $this->load->view('postage/edit',$data);
                     $this->load->view('templates/footer');
@@ -74,6 +77,7 @@ class Postage extends CI_Controller {
                 {
                     $this->postage_model->update_postage($postage_id);
 
+                    $data['postage_company'] = $this->postage_company_model->get_postage_company_list(NULL,NULL,FALSE,FALSE);
                     $data['postage'] = $this->postage_model->get_postage($postage_id);
 
                     $data['update_success'] ='Save Successfully.';
@@ -98,10 +102,12 @@ class Postage extends CI_Controller {
             $this->form_validation->set_rules('postage_date', 'postage_date', 'trim|required|xss_clean');
             $this->form_validation->set_rules('postage_code', 'postage_code', 'trim|required|xss_clean');
             
+            $data['postage_company'] = $this->postage_company_model->get_postage_company_list(NULL,NULL,FALSE,FALSE);
+            
             if ($this->form_validation->run() === FALSE)
             {
                 $this->load->view('templates/header');
-                $this->load->view('postage/create');
+                $this->load->view('postage/create',$data);
                 $this->load->view('templates/footer');
             }
             else

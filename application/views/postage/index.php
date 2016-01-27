@@ -102,6 +102,8 @@
                                     <th>postage_company_id</th>
                                     <th>postage_date</th>
                                     <th>postage_code</th>
+                                    <th>postage_company_name</th>
+                                    <th>postage_website</th>
 
                                     <th>entry_time</th>
                                     <th>update_time</th>
@@ -120,6 +122,8 @@
                                             <td><?php echo $postage_item['postage_company_id']; ?></td>
                                             <td><?php echo $postage_item['postage_date']; ?></td>
                                             <td><?php echo $postage_item['postage_code']; ?></td>
+                                            <td><?php echo $postage_item['postage_company_name']; ?></td>
+                                            <td><?php echo $postage_item['postage_website']; ?></td>
                                             <td><?php echo $postage_item['entry_time']; ?></td>
                                             <td><?php echo $postage_item['update_time']; ?></td>
                                             <td>

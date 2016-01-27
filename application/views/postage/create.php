@@ -37,7 +37,14 @@
                       
                         <div class="form-group">
                             <label for="postage_company_id"><span class="red"> * </span>postage_company_id:</label>
-                            <input class="form-control" type="input" name="postage_company_id" value="<?php echo set_value('postage_company_id'); ?>">
+                            <select class="form-control" name="postage_company_id">
+                                <?php foreach ($postage_company as $postage_company_item): ?>
+                                    <option value="<?php echo $postage_company_item['postage_company_id'] ?>" 
+                                        <?php if ($postage_company_item['postage_company_id'] === set_value('postage_company_id')) { echo "selected"; } ?>>
+                                        <?php echo $postage_company_item['postage_company_name'] ?>
+                                    </option>
+                                <?php endforeach ?>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="postage_date"><span class="red"> * </span>postage_date:</label>

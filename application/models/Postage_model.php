@@ -20,42 +20,40 @@ class Postage_model extends CI_Model {
 		{
 			$from_date = $this->input->get('from_date');
 			$to_date = $this->input->get('to_date');
-			$myquery = 'SELECT  t.postage_id
-								,t.postage_company_id
-								,t.postage_date
-								,t.postage_code
-								,t.entry_time
-								,t.update_time
-						FROM os_postage t 
-						WHERE 1=1
+			$myquery = 'select op.postage_id,op.postage_company_id,op.postage_date,op.postage_code,
+							   op.entry_time,op.update_time,
+							   opc.postage_company_name,opc.postage_website
+						 from os_postage op left join os_postage_company opc 
+						on op.postage_company_id = opc.postage_company_id
+						where 1 = 1
 						';
 			if ($from_date != '')
 			{
-				$myquery = $myquery.' and postage_rep_date >= \''.$from_date.'\'';
+				$myquery = $myquery.' and op.postage_rep_date >= \''.$from_date.'\'';
 			}	
 			if ($to_date != '')
 			{
-				$myquery = $myquery.' and postage_rep_date <= \''.$to_date.' 23:59:59\'';
+				$myquery = $myquery.' and op.postage_rep_date <= \''.$to_date.' 23:59:59\'';
 			}					
 			
 			if ($is_echart == TRUE)
 			{
 				//echo $myquery;
-				$myquery = $myquery.' order by entry_time asc ';
+				$myquery = $myquery.' order by op.entry_time asc ';
 				$query = $this->db->query($myquery);
 				return $query->result_array();
 			}
 			if ($is_total == TRUE)
 			{
 				//echo $myquery;
-				$myquery = $myquery.' order by entry_time asc ';
+				$myquery = $myquery.' order by op.entry_time asc ';
 				$query = $this->db->query($myquery);
 				return $query->num_rows();
 			}
 			else
 			{
 				//echo $myquery;
-				$myquery = $myquery.' order by entry_time desc limit '.$offset.', '.$per_page;
+				$myquery = $myquery.' order by op.entry_time desc limit '.$offset.', '.$per_page;
 				$query = $this->db->query($myquery);
 	            return $query->result_array();
             }
