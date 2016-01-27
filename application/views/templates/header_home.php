@@ -9,19 +9,18 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>OneShop Distribution Center</title>
-
+    <title>Demo</title>
     <!-- Bootstrap Core CSS -->
-    <link href="/boostrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/boostrap/css/sb-admin.css" rel="stylesheet">
+    <link href="/bootstrap/css/sb-admin.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="/boostrap/css/plugins/morris.css" rel="stylesheet">
+    <link href="/bootstrap/css/plugins/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="/boostrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/bootstrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,21 +29,22 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <link href="/boostrap/css/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link href="/bootstrap/css/jquery-ui.css" rel="stylesheet" type="text/css">
 
 
     <!-- jQuery -->
-    <script src="/boostrap/js/jquery.js"></script>
+    <script src="/bootstrap/js/jquery.js"></script>
     
-    <script src="/boostrap/js/jquery-ui.js"></script>
+    <script src="/bootstrap/js/jquery-ui.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="/boostrap/js/bootstrap.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Morris Charts JavaScript 
-    <script src="/boostrap/js/plugins/morris/raphael.min.js"></script>
-    <script src="/boostrap/js/plugins/morris/morris.min.js"></script>
-    <script src="/boostrap/js/plugins/morris/morris-data.js"></script>-->
+    <script src="/bootstrap/js/plugins/morris/raphael.min.js"></script>
+    <script src="/bootstrap/js/plugins/morris/morris.min.js"></script>
+    <script src="/bootstrap/js/plugins/morris/morris-data.js"></script>-->
+
 </head>
 <style type="text/css">
 .page_section a {
@@ -97,9 +97,7 @@ border: 1px solid #337ab7;
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-
-                <img  src="/boostrap/logo.png" style="width:40px;float:left;margin-top:3px; margin-left:3px;">
-                <a class="navbar-brand" href="/index.php/store" style="font-size:24px;">  OneShop Distribution Center</a>
+                <a class="navbar-brand" href="/index.php/store" style="font-size:24px;"> Demo</a>
             </div>
             <!-- Top Menu Items -->
 

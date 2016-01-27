@@ -169,7 +169,7 @@ border: 1px solid #337ab7;
             <!-- /.navbar-collapse -->
         </nav>
 <script type="text/javascript">
-    $(document).ready(function(){
+  /*  $(document).ready(function(){
         var url = '<?php print_r($_SERVER["PHP_SELF"])?>';
         console.log(url);
         var menuJson = JSON.parse('<?php print_r($_SESSION["menu_json"])?>');
@@ -211,7 +211,7 @@ border: 1px solid #337ab7;
         }
            
 
-    });
+    });*/
 
 </script>
         <div id="page-wrapper">
