@@ -6,6 +6,11 @@ class Stock extends CI_Controller {
                 parent::__construct();
                 $this->load->model('stock_model');
                 $this->load->model('product_model');
+                $this->load->library('ion_auth');
+                if (!$this->ion_auth->logged_in())
+                {
+                    redirect('auth/login');
+                }                
         }
 
         public function index()

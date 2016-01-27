@@ -107,7 +107,10 @@ $route['auth/change_password'] = 'auth/change_password';
 $route['auth/(:any)'] = 'auth/index';
 $route['auth'] = 'auth';
 
-$route['default_controller'] = 'home/index';
+$route['(:any)'] = 'brand';
+$route['default_controller'] = 'brand';
+
+//$route['default_controller'] = 'home/index';
 //$route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

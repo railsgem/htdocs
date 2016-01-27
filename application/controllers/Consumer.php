@@ -5,11 +5,11 @@ class Consumer extends CI_Controller {
         {
                 parent::__construct();
                 $this->load->model('consumer_model');
-                //$this->load->library('ion_auth');
-                //if (!$this->ion_auth->logged_in())
-                //{
-                 //   redirect('auth/login');
-                //}                
+                $this->load->library('ion_auth');
+                if (!$this->ion_auth->logged_in())
+                {
+                    redirect('auth/login');
+                }                
         }
         
         public function index()
