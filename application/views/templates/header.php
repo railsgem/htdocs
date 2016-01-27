@@ -129,7 +129,7 @@ border: 1px solid #337ab7;
             <ul class="nav navbar-right top-nav">
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Admin <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <span id="username"> <?php print_r($_SESSION['username'])?> </span> <b class="caret"></b></a>
                     <ul class="dropdown-menu" style="min-width:190px;">
                         <li>
                             <a href="/index.php/auth/change_password"><i class="fa fa-fw fa-cog"></i> Change Password</a>
@@ -168,5 +168,50 @@ border: 1px solid #337ab7;
             </div>
             <!-- /.navbar-collapse -->
         </nav>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var url = '<?php print_r($_SERVER["PHP_SELF"])?>';
+        console.log(url);
+        var menuJson = JSON.parse('<?php print_r($_SESSION["menu_json"])?>');
+        console.log(menuJson[0]);
+        //console.log('<?php print_r($_SESSION["menu_json"])?>');
+        $(".nav.navbar-nav.side-nav").html("")
+        //console.log($(".nav.navbar-nav.side-nav").html(""));
+        for (var i = 0; i<menuJson.length; i++) {
+            //create a li
+            $(".nav.navbar-nav.side-nav").append('<li id="'+menuJson[i]['li_id']+'"><a href="'+menuJson[i]['a_href']+'"><i class="'+menuJson[i]['i_class']+'"></i>'+menuJson[i]['li_text']+'</a></li>') ;
+            // if present url contains li a_href value, active the <li>
+            if (url.indexOf(menuJson[i]['a_href'])!=-1){
+                $("#"+menuJson[i]['li_id']).addClass('active');
+            } 
+            if (url=='/index.php') {
+                $("#store_li").addClass('active');
+            }
+            //console.log($(".nav.navbar-nav.side-nav").html());
+        };
+        var validPriv = false;
+        var menu_urls="";
+        for (var i = 0; i<menuJson.length; i++) {
+            if (url.indexOf(menuJson[i]['a_href'])!=-1){
+                console.log("权限路径："+menuJson[i]['a_href']);
+                console.log("当前路径："+url);
+                console.log("合法路径");
+                validPriv = true;
+            } 
+            if (url=='/index.php' || url=='/index.php/') {
+                console.log("合法路径");
+                validPriv = true;
+            }
+            //console.log($(".nav.navbar-nav.side-nav").html());
+        };
 
+        if (validPriv == false) {
+            console.log("非法路径");
+            window.location.href="/index.php"; 
+        }
+           
+
+    });
+
+</script>
         <div id="page-wrapper">

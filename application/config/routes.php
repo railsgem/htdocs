@@ -94,6 +94,19 @@ $route['brand/edit'] = 'brand/edit';
 $route['brand/(:any)'] = 'brand/index';
 $route['brand'] = 'brand';
 
+$route['auth/reset_password'] = 'auth/reset_password';
+$route['auth/forgot_password'] = 'auth/forgot_password';
+$route['auth/edit_user'] = 'auth/edit_user';
+$route['auth/edit_group'] = 'auth/edit_group';
+$route['auth/deactivate_user'] = 'auth/deactivate_user';
+$route['auth/create_user'] = 'auth/create_user';
+$route['auth/create_group'] = 'auth/create_group';
+$route['auth/login'] = 'auth/login';
+$route['auth/logout'] = 'auth/logout';
+$route['auth/change_password'] = 'auth/change_password';
+$route['auth/(:any)'] = 'auth/index';
+$route['auth'] = 'auth';
+
 $route['default_controller'] = 'home/index';
 //$route['default_controller'] = 'welcome';
 $route['404_override'] = '';
