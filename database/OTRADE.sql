@@ -11,7 +11,7 @@
  Target Server Version : 50505
  File Encoding         : utf-8
 
- Date: 01/27/2016 19:59:55 PM
+ Date: 01/28/2016 01:12:46 AM
 */
 
 SET NAMES utf8;
@@ -201,6 +201,24 @@ INSERT INTO `os_consumer` VALUES ('1', ' 王丹 ', '350181198806071781', ' 广�
 COMMIT;
 
 -- ----------------------------
+--  Table structure for `os_despatch`
+-- ----------------------------
+DROP TABLE IF EXISTS `os_despatch`;
+CREATE TABLE `os_despatch` (
+  `despatch_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) DEFAULT NULL,
+  `stock_id` int(11) DEFAULT NULL,
+  `despatch_num` int(11) DEFAULT NULL COMMENT '提货数量',
+  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`despatch_id`),
+  KEY `order_id` (`order_id`),
+  KEY `stock_id` (`stock_id`),
+  CONSTRAINT `fk_disp_order_id` FOREIGN KEY (`order_id`) REFERENCES `os_order` (`order_id`),
+  CONSTRAINT `fk_disp_stock_id` FOREIGN KEY (`stock_id`) REFERENCES `os_stock_entry` (`stock_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='商品出库';
+
+-- ----------------------------
 --  Table structure for `os_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `os_order`;
@@ -209,23 +227,70 @@ CREATE TABLE `os_order` (
   `order_id` int(11) DEFAULT NULL,
   `os_product_id` int(11) DEFAULT NULL,
   `sell_price` decimal(11,2) DEFAULT NULL,
-  `agent_id` int(11) DEFAULT NULL,
-  `consumer_id` int(11) DEFAULT NULL COMMENT '收件人（收件信息）',
-  `postage_id` int(11) DEFAULT NULL,
-  `address_id` int(11) DEFAULT NULL,
+  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`rowid`),
-  KEY `address_id` (`address_id`),
-  KEY `address_id_2` (`address_id`),
   KEY `os_product_id` (`os_product_id`),
-  KEY `agent_id` (`agent_id`),
-  KEY `consumer_id` (`consumer_id`),
-  KEY `postage_id` (`postage_id`),
   KEY `order_id` (`order_id`),
-  CONSTRAINT `fk_address_id` FOREIGN KEY (`address_id`) REFERENCES `os_address` (`address_id`),
-  CONSTRAINT `fk_agent_id` FOREIGN KEY (`agent_id`) REFERENCES `os_consumer` (`consumer_id`),
-  CONSTRAINT `fk_consumer_id` FOREIGN KEY (`consumer_id`) REFERENCES `os_consumer` (`consumer_id`),
-  CONSTRAINT `fk_postage_id` FOREIGN KEY (`postage_id`) REFERENCES `os_postage` (`postage_id`),
   CONSTRAINT `fk_product_id` FOREIGN KEY (`os_product_id`) REFERENCES `os_product` (`os_product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `os_order`
+-- ----------------------------
+BEGIN;
+INSERT INTO `os_order` VALUES ('1', '1', '110', '40.00', '2016-01-27 23:26:44', '2016-01-28 01:09:04'), ('2', '1', '117', '30.00', '2016-01-28 00:08:08', '2016-01-28 01:07:48'), ('3', '1', '54', '40.50', '2016-01-28 00:11:34', '2016-01-28 01:10:52'), ('4', '2', '54', '40.50', '2016-01-28 01:12:06', '2016-01-28 01:12:06');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `os_order_address`
+-- ----------------------------
+DROP TABLE IF EXISTS `os_order_address`;
+CREATE TABLE `os_order_address` (
+  `order_address_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) DEFAULT NULL,
+  `address_id` int(11) DEFAULT NULL,
+  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`order_address_id`),
+  KEY `order_id` (`order_id`),
+  CONSTRAINT `fk_ordadd_address_id` FOREIGN KEY (`order_id`) REFERENCES `os_address` (`address_id`),
+  CONSTRAINT `fk_ordadd_order_id` FOREIGN KEY (`order_id`) REFERENCES `os_order` (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `os_order_agent`
+-- ----------------------------
+DROP TABLE IF EXISTS `os_order_agent`;
+CREATE TABLE `os_order_agent` (
+  `order_agent_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) DEFAULT NULL,
+  `agent_id` int(11) DEFAULT NULL,
+  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`order_agent_id`),
+  KEY `order_id` (`order_id`),
+  KEY `order_id_2` (`order_id`),
+  KEY `agent_id` (`agent_id`),
+  CONSTRAINT `fk_ag_agent_id` FOREIGN KEY (`agent_id`) REFERENCES `os_consumer` (`consumer_id`),
+  CONSTRAINT `fk_ag_order_id` FOREIGN KEY (`order_id`) REFERENCES `os_order` (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `os_order_postage`
+-- ----------------------------
+DROP TABLE IF EXISTS `os_order_postage`;
+CREATE TABLE `os_order_postage` (
+  `order_postage_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) DEFAULT NULL,
+  `postage_id` int(11) DEFAULT NULL,
+  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`order_postage_id`),
+  KEY `order_id` (`order_id`),
+  KEY `postage_id` (`postage_id`),
+  CONSTRAINT `fk_ordpst_order_id` FOREIGN KEY (`order_id`) REFERENCES `os_order` (`order_id`),
+  CONSTRAINT `fk_ordpst_postage_id` FOREIGN KEY (`postage_id`) REFERENCES `os_postage` (`postage_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -335,9 +400,7 @@ CREATE TABLE `os_transaction` (
   `order_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`trans_id`),
   KEY `order_id` (`order_id`),
-  KEY `stock_id` (`stock_id`),
-  CONSTRAINT `fk_order_id` FOREIGN KEY (`order_id`) REFERENCES `os_order` (`order_id`),
-  CONSTRAINT `fk_stock_id` FOREIGN KEY (`stock_id`) REFERENCES `os_stock` (`stock_id`)
+  KEY `stock_id` (`stock_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品出库';
 
 -- ----------------------------

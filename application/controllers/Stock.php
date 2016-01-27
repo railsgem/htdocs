@@ -115,4 +115,5 @@ class Stock extends CI_Controller {
             print_r(json_encode($data['product_json']));
             //$this->load->view('stock/product_json',$data);
         }
+
 }

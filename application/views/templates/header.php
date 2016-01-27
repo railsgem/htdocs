@@ -143,8 +143,8 @@ border: 1px solid #337ab7;
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li id="store_li">
-                        <a href="/index.php/store"><i class="fa fa-fw fa-home"></i> Dashboard</a>
+                    <li id="order_li">
+                        <a href="/index.php/order"><i class="fa fa-fw fa-home"></i> Dashboard</a>
                     </li>                   
                     <li id="brand_li" >
                         <a href="/index.php/brand"><i class="fa fa-fw fa-tags"></i> Brand</a>
