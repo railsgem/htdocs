@@ -11,7 +11,7 @@
  Target Server Version : 50505
  File Encoding         : utf-8
 
- Date: 01/27/2016 16:03:21 PM
+ Date: 01/27/2016 16:53:42 PM
 */
 
 SET NAMES utf8;
@@ -79,10 +79,18 @@ CREATE TABLE `os_address` (
   `address_detail` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `recevier_name` varchar(255) DEFAULT NULL,
-  `entry_time` timestamp NULL DEFAULT NULL,
+  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`address_id`),
   KEY `address_id` (`address_id`,`address_detail`,`phone`,`recevier_name`,`entry_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `os_address`
+-- ----------------------------
+BEGIN;
+INSERT INTO `os_address` VALUES ('1', '收件地址收件地址', '9999999999999', '收件人', '2016-01-27 16:52:55', '2016-01-27 16:53:07');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `os_brand`
@@ -183,13 +191,13 @@ CREATE TABLE `os_consumer` (
   `is_agent` int(11) DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`consumer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `os_consumer`
 -- ----------------------------
 BEGIN;
-INSERT INTO `os_consumer` VALUES ('1', ' 王丹 ', '350181198806071781', ' 广东省深圳市龙岗区中心城龙城中路尚景欣园C1307 ', '13509668851', '', '2016-01-26 23:55:56', '1', '2016-01-26 23:55:53'), ('2', ' 翁理桑 ', '350181198705082086', ' 福建省福州市晋安区 福马路福建省肿瘤医院外科大楼九楼护士站  ', '15980060171', '', '2016-01-26 23:55:59', '0', '2016-01-26 23:56:03'), ('3', ' 刘元 ', '430703198804305824', ' 上海市闵行区中春路7001号明谷科技园D栋1105室 上海德馨 ', '18721961698', '', '2016-01-26 23:59:35', '1', '2016-01-26 23:59:37'), ('4', ' 刘平 ', '510125198609203828', ' 四川省成都市新都区电子路博海城一期七栋一单元15楼一号 ', '13881787404', '', '2016-01-26 23:59:44', '0', '2016-01-26 23:59:46'), ('5', ' 刘平 ', '510125198609203828', ' 四川省成都市新都区电子路博海城一期七栋一单元15楼一号 ', '13881787404', '', '2016-01-26 23:59:51', '1', '2016-01-26 23:59:54'), ('6', ' 温岳鹏 ', '370281198905151831', ' 山東省青島市胶州市兰州东路610号 信利达汽车 ', '15863083563', '', '2016-01-26 23:59:58', '1', '2016-01-27 00:00:00'), ('7', '秦斐2', '510603198706106180', '江西省吉安市泰和县祥云山庄41栋', '18679662021', '', '2016-01-27 00:00:01', '1', '2016-01-27 09:06:22'), ('8', 'Juno', '12345678901234', '9/44 high street', '9990999990', '908700', '2016-01-27 09:14:08', '0', '2016-01-27 09:14:08');
+INSERT INTO `os_consumer` VALUES ('1', ' 王丹 ', '350181198806071781', ' 广东省深圳市龙岗区中心城龙城中路尚景欣园C1307 ', '13509668851', '', '2016-01-26 23:55:56', '1', '2016-01-26 23:55:53'), ('2', ' 翁理桑 ', '350181198705082086', ' 福建省福州市晋安区 福马路福建省肿瘤医院外科大楼九楼护士站  ', '15980060171', '', '2016-01-26 23:55:59', '0', '2016-01-26 23:56:03'), ('3', ' 刘元 ', '430703198804305824', ' 上海市闵行区中春路7001号明谷科技园D栋1105室 上海德馨 ', '18721961698', '', '2016-01-26 23:59:35', '1', '2016-01-26 23:59:37'), ('4', ' 刘平 ', '510125198609203828', ' 四川省成都市新都区电子路博海城一期七栋一单元15楼一号 ', '13881787404', '', '2016-01-26 23:59:44', '0', '2016-01-26 23:59:46'), ('5', ' 刘平 ', '510125198609203828', ' 四川省成都市新都区电子路博海城一期七栋一单元15楼一号 ', '13881787404', '', '2016-01-26 23:59:51', '1', '2016-01-26 23:59:54'), ('6', ' 温岳鹏 ', '370281198905151831', ' 山東省青島市胶州市兰州东路610号 信利达汽车 ', '15863083563', '', '2016-01-26 23:59:58', '1', '2016-01-27 00:00:00'), ('7', '秦斐2', '510603198706106180', '江西省吉安市泰和县祥云山庄41栋', '18679662021', '', '2016-01-27 00:00:01', '1', '2016-01-27 09:06:22'), ('8', 'Juno', '12345678901234', '9/44 high street', '9990999990', '908700', '2016-01-27 09:14:08', '0', '2016-01-27 09:14:08'), ('9', '中文', '8888888888888888', '中文中文地址', '99999999999', '999999', '2016-01-27 16:16:44', '1', '2016-01-27 16:16:44');
 COMMIT;
 
 -- ----------------------------
@@ -402,7 +410,7 @@ CREATE TABLE `users` (
 --  Records of `users`
 -- ----------------------------
 BEGIN;
-INSERT INTO `users` VALUES ('1', '127.0.0.1', 'admin', '$2y$08$FQNBgZCRXKKHMjSMyGrCUOjwmjUzZuOYpO03jT333ChYvvUJE.t.6', '', 'admin@admin.com', '', null, null, 'oBdQNfA3ag.p.ndQVJv2zu', '1268889823', '1453870914', '1', 'Admin', 'istrator', 'ADMIN', '0', 'oneshop123'), ('2', '::1', 'y c', '$2y$08$wMkc3nAJHmM5yqaVoDmNKuPrU6AHMIirVY/Z//KGeuAM4.7X5gPj2', null, 'qq@qqq.com', null, null, null, null, '1453691691', null, '1', 'yaaa', 'c', 'aaaaa', '112121', null), ('3', '::1', 'q c', '$2y$08$jLx3D8/FtulyeTGhFDMpfuHfvTBdP5ThRul87p44JPLO6b6Xhk2f2', null, '1qq@qqq.com', null, null, null, null, '1453692598', null, '1', 'q', 'c', 'ccc', '112121', null), ('4', '::1', 'y2 c2', '$2y$08$JLWZdyNF2fgLST14yya/a.Pn6q8tumwagjfHj5bo5jhpFdAmok1PK', null, '1@asd.com', null, null, null, null, '1453692704', null, '1', 'y2', 'c2', 'ccc', '112121', null), ('5', '::1', 'a b', '$2y$08$VtcuYVzqra57UUqinx9h/eIL2em92.n7UqI7b55kpK2fo3q0u.rIG', null, 'd@d.com', null, null, null, null, '1453692942', null, '1', 'a', 'b', 'c', 'www', null), ('6', '::1', 'a a', '$2y$08$dn28ad4q2Ko93yAsfZhHm.iE6BQEUd31AHB3Oz9jDsysojORETT/6', null, 'a@aa.com', null, null, null, null, '1453697585', null, '1', 'a', 'a', 'a', '11111', null), ('7', '::1', 'c c', '$2y$08$cl/gGttm4PLy9gIh7NKDruzQssk9VfNQX4/hN73aLr/s.JztDhHwa', null, 'c@cc.com', null, null, null, null, '1453702875', null, '1', 'c', 'c', 'c', '1', null), ('8', '::1', 'cc-ccc', '$2y$08$3EP8.zI8ElQQ4ofnJjoSAe5zfBv6OkhQrGIxqwP8y/Qd6VCf97PJC', null, 'cccc@cc.com', null, null, null, null, '1453703337', null, '1', 'cc', 'ccc', 'cc', '1111', null), ('9', '::1', 'kitty', '$2y$08$M.4O0.CrYGKaFBB1g/rZNOlbtTdbijCwO5zYQ759ZcF.qlDx8atZq', null, 'hellokitty@hello.com', null, null, null, null, '1453703640', null, '1', 'hello', 'kitty', 'hellokitty', '1111111111', null), ('10', '::1', 'hellokitty', '$2y$08$Dr9NAWINuMCpgoyLUqen3eWzUsgflj/z833T.AvvCm5/TPIa452A2', null, 'kitty@hello.com', null, null, null, null, '1453703717', '1453863201', '1', 'hello', 'kitty', 'hellokitty', '11111111112', null);
+INSERT INTO `users` VALUES ('1', '127.0.0.1', 'admin', '$2y$08$FQNBgZCRXKKHMjSMyGrCUOjwmjUzZuOYpO03jT333ChYvvUJE.t.6', '', 'admin@admin.com', '', null, null, 'oBdQNfA3ag.p.ndQVJv2zu', '1268889823', '1453873573', '1', 'Admin', 'istrator', 'ADMIN', '0', 'oneshop123'), ('2', '::1', 'y c', '$2y$08$wMkc3nAJHmM5yqaVoDmNKuPrU6AHMIirVY/Z//KGeuAM4.7X5gPj2', null, 'qq@qqq.com', null, null, null, null, '1453691691', null, '1', 'yaaa', 'c', 'aaaaa', '112121', null), ('3', '::1', 'q c', '$2y$08$jLx3D8/FtulyeTGhFDMpfuHfvTBdP5ThRul87p44JPLO6b6Xhk2f2', null, '1qq@qqq.com', null, null, null, null, '1453692598', null, '1', 'q', 'c', 'ccc', '112121', null), ('4', '::1', 'y2 c2', '$2y$08$JLWZdyNF2fgLST14yya/a.Pn6q8tumwagjfHj5bo5jhpFdAmok1PK', null, '1@asd.com', null, null, null, null, '1453692704', null, '1', 'y2', 'c2', 'ccc', '112121', null), ('5', '::1', 'a b', '$2y$08$VtcuYVzqra57UUqinx9h/eIL2em92.n7UqI7b55kpK2fo3q0u.rIG', null, 'd@d.com', null, null, null, null, '1453692942', null, '1', 'a', 'b', 'c', 'www', null), ('6', '::1', 'a a', '$2y$08$dn28ad4q2Ko93yAsfZhHm.iE6BQEUd31AHB3Oz9jDsysojORETT/6', null, 'a@aa.com', null, null, null, null, '1453697585', null, '1', 'a', 'a', 'a', '11111', null), ('7', '::1', 'c c', '$2y$08$cl/gGttm4PLy9gIh7NKDruzQssk9VfNQX4/hN73aLr/s.JztDhHwa', null, 'c@cc.com', null, null, null, null, '1453702875', null, '1', 'c', 'c', 'c', '1', null), ('8', '::1', 'cc-ccc', '$2y$08$3EP8.zI8ElQQ4ofnJjoSAe5zfBv6OkhQrGIxqwP8y/Qd6VCf97PJC', null, 'cccc@cc.com', null, null, null, null, '1453703337', null, '1', 'cc', 'ccc', 'cc', '1111', null), ('9', '::1', 'kitty', '$2y$08$M.4O0.CrYGKaFBB1g/rZNOlbtTdbijCwO5zYQ759ZcF.qlDx8atZq', null, 'hellokitty@hello.com', null, null, null, null, '1453703640', null, '1', 'hello', 'kitty', 'hellokitty', '1111111111', null), ('10', '::1', 'hellokitty', '$2y$08$Dr9NAWINuMCpgoyLUqen3eWzUsgflj/z833T.AvvCm5/TPIa452A2', null, 'kitty@hello.com', null, null, null, null, '1453703717', '1453863201', '1', 'hello', 'kitty', 'hellokitty', '11111111112', null);
 COMMIT;
 
 -- ----------------------------
