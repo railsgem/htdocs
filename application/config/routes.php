@@ -88,6 +88,7 @@ $route['category/edit'] = 'category/edit';
 $route['category/(:any)'] = 'category/index';
 $route['category'] = 'category';
 
+$route['consumer/get_consumer_json'] = 'consumer/get_consumer_json';
 $route['consumer/index'] = 'consumer/index';
 $route['consumer/create'] = 'consumer/create';
 $route['consumer/edit'] = 'consumer/edit';

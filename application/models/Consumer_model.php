@@ -16,6 +16,27 @@ class Consumer_model extends CI_Model {
 		        return $query->row_array();
 		}
 
+		public function get_consumer_by_id($consumer_id = "")
+		{
+	        if ($consumer_id !== FALSE)
+	        {
+				$consumer_id = $this->input->post('consumer_id');
+				$myquery = "SELECT  t.consumer_id
+								,t.consumer_name
+								,t.consumer_nation_id
+								,t.consumer_address
+								,t.consumer_phone
+								,t.consumer_postcode
+								,t.entry_time
+								,t.is_agent 
+								,t.agent_name_code 
+						FROM os_consumer t 
+						WHERE 1=1 and consumer_id= ".$consumer_id." ";
+				$query = $this->db->query($myquery);	
+	        	return $query->result_array();
+	        }
+
+		}
 		public function get_agent()
 		{
 			$myquery = 'SELECT  t.consumer_id
@@ -26,6 +47,7 @@ class Consumer_model extends CI_Model {
 								,t.consumer_postcode
 								,t.entry_time
 								,t.is_agent 
+								,t.agent_name_code 
 						FROM os_consumer t 
 						WHERE 1=1 and is_agent= 1
 						';

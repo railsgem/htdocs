@@ -120,5 +120,11 @@ class Consumer extends CI_Controller {
             }
         }
 
+        public function get_consumer_json()
+        {
+            $data['consumer_json'] = $this->consumer_model->get_consumer_by_id($this->input->post('consumer_id'));
+            print_r(json_encode($data['consumer_json']));
+            //$this->load->view('stock/product_json',$data);
+        }
 
 }

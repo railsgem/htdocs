@@ -67,7 +67,9 @@ border: 1px solid #337ab7;
 
 }
 </style>
-
+<?php
+date_default_timezone_set("Australia/NSW");
+?>
 <body>
   <script>
   $(function() {
