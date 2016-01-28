@@ -34,11 +34,10 @@
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <label for="order_code"><span class="red"> * </span>order_code:</label>
-                            <input id="order_code" class="form-control" type="input" name="order_code" value="<?php echo set_value('order_code'); ?>" disabled>
-                            <?php foreach ($consumer as $consumer_item): ?>
-                                    <?php if ($consumer_item['consumer_id'] === set_value('consumer_id')) { echo $consumer_item['consumer_name']; } ?>
-                            <?php endforeach ?>
+                            <input style="display:none" id="order_code" class="form-control" type="input" name="order_code" value="<?php echo set_value('order_code'); ?>" >
+
+                            <label for="order_code_auto"><span class="red"> * </span>order_code:</label>
+                            <input disabled="disabled" id="order_code_auto" class="form-control" type="input" name="order_code_auto" value="<?php echo set_value('order_code_auto'); ?>" >
 
 
 
@@ -65,34 +64,37 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <b>Consumer info(receiver)</b>
+                        <b>Receiver info(Address)</b>
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <label for="consumer_name"><span class="red"> * </span>consumer_name:</label>
-                            <input class="form-control" type="input" name="consumer_name" value="<?php echo set_value('consumer_name'); ?>">
+                            <label for="address_id"><span class="red"> * </span>address_id:</label>
+                            <input disabled id="address_id" class="form-control" type="input" name="address_id" value="<?php echo set_value('address_id'); ?>">
                         </div>
                         <div class="form-group">
-                            <label for="consumer_nation_id"><span class="red"> * </span>consumer_nation_id:</label>
-                            <input class="form-control" type="input" name="consumer_nation_id" value="<?php echo set_value('consumer_nation_id'); ?>">
+                            <label for="recevier_name"><span class="red"> * </span>recevier_name:</label>
+                            <select id="recevier_name" class="form-control" name="recevier_name">
+                                <?php foreach ($address as $address_item): ?>
+                                    <option value="<?php echo $address_item['address_id'] ?>" 
+                                        <?php if ($address_item['address_id'] === set_value('address_id')) { echo "selected"; } ?>>
+                                        <?php echo $address_item['recevier_name'];?>
+
+                                    </option>
+                                <?php endforeach ?>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="consumer_address"><span class="red"> * </span>consumer_address:</label>
-                            <input class="form-control" type="input" name="consumer_address" value="<?php echo set_value('consumer_address'); ?>">
+                            <label for="address_detail"><span class="red"> * </span>address_detail:</label>
+                            <input disabled id="address_detail" class="form-control" type="input" name="address_detail" value="<?php echo set_value('address_detail'); ?>">
                         </div>
                         <div class="form-group">
-                            <label for="consumer_phone"><span class="red"> * </span>consumer_phone:</label>
-                            <input class="form-control" type="input" name="consumer_phone" value="<?php echo set_value('consumer_phone'); ?>">
+                            <label for="phone"><span class="red"> * </span>phone:</label>
+                            <input disabled id="phone" class="form-control" type="input" name="phone" value="<?php echo set_value('phone'); ?>">
                         </div>
                         <div class="form-group">
-                            <label for="consumer_postcode"><span class="red"> * </span>consumer_postcode:</label>
-                            <input class="form-control" type="input" name="consumer_postcode" value="<?php echo set_value('consumer_postcode'); ?>">
+                            <label for="recevier_nation_id"><span class="red"> * </span>recevier_nation_id:</label>
+                            <input disabled id="recevier_nation_id" class="form-control" type="input" name="recevier_nation_id" value="<?php echo set_value('recevier_nation_id'); ?>">
                         </div>
-                        <label for="is_agent"><span class="red"> * </span>is_agent:</label>
-                        <select class="form-control" name="is_agent">
-                            <option value="1" <?php if ("1" === set_value('is_agent')) { echo "selected"; } ?>>1</option>
-                            <option value="0" <?php if ("1" === set_value('is_agent')) { echo "selected"; } ?>>0</option>
-                        </select>
                     </div>
                 </div> 
             </div> 
@@ -110,40 +112,127 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
-        function get_consumer_id(){
-            var consumer_id = $("#consumer_id").val();
-           
-            console.log(consumer_id);
-            $("#order_code").val(consumer_id);
-            //$("#order_code").css("background-color","#FFFFCC");
-
-
-            var data = {
-                consumer_id : consumer_id
-            };
-            $.ajax({
-                type: 'POST',
-                url: '/index.php/consumer/get_consumer_json',
-                data: data,
-                beforeSend: function(){
-
-                },
-                success: function(msg){
-                    var consumer_Obj = new Array();
-                    consumer_Obj = eval(msg);
-                    console.log(consumer_Obj);
-                    agent_name_code = consumer_Obj[0]['agent_name_code'];
-                    console.log(consumer_Obj);
-                    console.log(consumer_Obj[0]['agent_name_code']);
-                    $("#order_code").val(agent_name_code+"<?php echo date('Ymd_His');?>");
-                }
-            });
-        }
         get_consumer_id();
         $("#consumer_id").change(function(){
             get_consumer_id();
         });
+        get_address_id();
+        $("#recevier_name").change(function(){
+            console.log("get_address_id");
+            get_address_id();
+        });
 
     });
-   
+    function get_address_id(){
+
+        var address_id = $("#recevier_name").val();
+       
+        console.log("address_id:" + address_id);
+        $("#address_id").val(address_id);
+        //$("#order_code").css("background-color","#FFFFCC");
+
+        var data = {
+            address_id : address_id
+        };
+        console.log(data);
+        $.ajax({
+            type: 'POST',
+            url: '/index.php/address/get_address_json',
+            data: data,
+            beforeSend: function(){
+
+            },
+            success: function(address_json){
+                var addressObj;
+                addressObj = JSON.parse(address_json);
+
+                console.log("address_json:"+JSON.parse(address_json));
+
+                var address_detail;
+                var phone;
+                var recevier_name;
+                var recevier_nation_id;
+
+
+                phone = addressObj['phone'];
+                recevier_name = addressObj['recevier_name'];
+                recevier_nation_id = addressObj['recevier_nation_id'];
+                address_detail = addressObj['address_detail'];
+                $("#address_detail").val(address_detail);
+                $("#phone").val(phone);
+                //$("#recevier_name").val(recevier_name);
+                $("#recevier_nation_id").val(recevier_nation_id);
+            }
+        });
+    }
+    function get_consumer_id(){
+        var consumer_id = $("#consumer_id").val();
+       
+        console.log(consumer_id);
+        $("#order_code").val(consumer_id);
+        //$("#order_code").css("background-color","#FFFFCC");
+
+
+        var data = {
+            consumer_id : consumer_id
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/index.php/consumer/get_consumer_json',
+            data: data,
+            beforeSend: function(){
+
+            },
+            success: function(msg){
+                var consumer_Obj = new Array();
+                consumer_Obj = JSON.parse(msg);//eval(msg);
+                console.log(consumer_Obj);
+                agent_name_code = consumer_Obj[0]['agent_name_code'];
+                console.log(consumer_Obj);
+                console.log(consumer_Obj[0]['agent_name_code']);
+                $("#order_code").val(agent_name_code+"<?php echo date('Ymd_His');?>");
+                $("#order_code_auto").val(agent_name_code+"<?php echo date('Ymd_His');?>");
+            }
+        });
+    }
+    /*function get_address_id(){
+        var address_id = $("#recevier_name").val();
+       
+        console.log("address_id*" + address_id);
+        $("#address_id").val(address_id);
+        //$("#order_code").css("background-color","#FFFFCC");
+
+        var data = {
+            address_id : address_id
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/index.php/address/get_address_json',
+            data: data,
+            beforeSend: function(){
+
+            },
+            success: function(address_json){
+                var address_Obj = new Array();
+                address_Obj = eval(address_json);
+
+                console.log("address_json*"+JSON.parse(address_json));
+
+                var address_detail;
+                var phone;
+                var recevier_name;
+                var recevier_nation_id;
+
+
+                phone = address_Obj[0]['phone'];
+                recevier_name = address_Obj[0]['recevier_name'];
+                recevier_nation_id = address_Obj[0]['recevier_nation_id'];
+                address_detail = address_Obj[0]['address_detail'];
+                $("#address_detail").val(address_detail);
+                $("#phone").val(phone);
+                $("#recevier_name").val(recevier_name);
+                $("#recevier_nation_id").val(recevier_nation_id);
+            }
+        });
+    }*/
 </script>

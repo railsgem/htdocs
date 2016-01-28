@@ -113,6 +113,7 @@ $route['order/edit'] = 'order/edit';
 $route['order/(:any)'] = 'order/index';
 $route['order'] = 'order';
 
+$route['address/get_address_json'] = 'address/get_address_json';
 $route['address/index'] = 'address/index';
 $route['address/create'] = 'address/create';
 $route['address/edit'] = 'address/edit';

@@ -118,5 +118,10 @@ class Address extends CI_Controller {
             }
         }
 
+        public function get_address_json()
+        {
+            $data['address_json'] = $this->address_model->get_address($this->input->post('address_id'));
+            print_r(json_encode($data['address_json']));
+        }
 
 }

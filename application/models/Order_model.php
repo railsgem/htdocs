@@ -36,7 +36,12 @@ class Order_model extends CI_Model {
 								od_ag.entry_time,
 								od_ag.update_time,
 								od_ag.agent_id,
-								ocs.consumer_name agent_name
+								ocs.consumer_name agent_name,
+								od_ag.address_id,
+								oad.address_detail,
+								oad.phone,
+								oad.recevier_name,
+								oad.recevier_nation_id
 							FROM
 								(
 									SELECT
@@ -44,12 +49,16 @@ class Order_model extends CI_Model {
 										op.order_code,
 										op.entry_time,
 										op.update_time,
-										oag.agent_id
+										oag.agent_id,
+										odr_ad.order_address_id,
+										odr_ad.address_id
 									FROM
 										os_order op
 									LEFT JOIN os_order_agent oag ON op.order_id = oag.order_id
+									LEFT JOIN os_order_address odr_ad ON op.order_id = odr_ad.order_id
 								) od_ag
 							LEFT JOIN os_consumer ocs ON od_ag.agent_id = ocs.consumer_id
+							LEFT JOIN os_address oad ON od_ag.address_id = oad.address_id
 							WHERE
 								1 = 1
 						';
@@ -91,11 +100,14 @@ class Order_model extends CI_Model {
 		        'order_code' => $this->input->post('order_code')
 		    );
 		    $this->db->insert('os_order', $data);
-		    print_r($this->db->insert_id());
+
 		    $order_id = $this->db->insert_id();
 		    $agent_id = $this->input->post('consumer_id');
+		    $address_id = $this->input->post('recevier_name');
 			$myquery = "insert into os_order_agent (order_id, agent_id) values (".$order_id.",".$agent_id."  )";
-		    print_r($myquery);
+			$query = $this->db->query($myquery);
+
+			$myquery = "insert into os_order_address (order_id, address_id) values (".$order_id.",".$address_id."  )";
 			$query = $this->db->query($myquery);
  			return ;
 		}

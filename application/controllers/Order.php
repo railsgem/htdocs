@@ -7,6 +7,7 @@ class Order extends CI_Controller {
                 $this->load->model('order_model');
                 $this->load->model('product_model');
                 $this->load->model('consumer_model');
+                $this->load->model('address_model');
                 $this->load->library('ion_auth');
                 if (!$this->ion_auth->logged_in())
                 {
@@ -95,11 +96,11 @@ class Order extends CI_Controller {
             $this->load->library('form_validation');
 
 
-            $this->form_validation->set_rules('order_code', 'order_code', 'trim|required|xss_clean');
             $this->form_validation->set_rules('consumer_id', 'consumer_id', 'required|integer');
             
             $data['product'] = $this->product_model->get_product();
             $data['consumer'] = $this->consumer_model->get_agent();
+            $data['address'] = $this->address_model->get_address();
             if ($this->form_validation->run() === FALSE)
             {
                 $this->load->view('templates/header');
