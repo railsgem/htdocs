@@ -16,6 +16,23 @@ class Consumer_model extends CI_Model {
 		        return $query->row_array();
 		}
 
+		public function get_agent()
+		{
+			$myquery = 'SELECT  t.consumer_id
+								,t.consumer_name
+								,t.consumer_nation_id
+								,t.consumer_address
+								,t.consumer_phone
+								,t.consumer_postcode
+								,t.entry_time
+								,t.is_agent 
+						FROM os_consumer t 
+						WHERE 1=1 and is_agent= 1
+						';
+	        $query = $this->db->query($myquery);
+            return $query->result_array();
+		}
+
 		public function get_consumer_list($offset = 1,$per_page = 14,$is_total = FALSE,$is_echart= FALSE)
 		{
 			$from_date = $this->input->get('from_date');

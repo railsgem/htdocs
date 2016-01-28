@@ -5,32 +5,23 @@ class Order_model extends CI_Model {
                 $this->load->database();
         }
 
-		public function get_order($rowid = FALSE)
+		public function get_order($order_id = FALSE)
 		{
-		        if ($rowid === FALSE)
+		        if ($order_id === FALSE)
 		        {
-					$myquery = 'select  op.rowid
-								,op.order_id
-								,op.os_product_id
-								,opd.product_name
-								,opd.chemist_price
-								,op.sell_price
+					$myquery = 'select  op.order_id
+								,op.order_code
 								,op.entry_time
 								,op.update_time
-						 from os_order op left join os_product opd on op.os_product_id = opd.os_product_id
-						where 1 = 1
+						 from os_order op 
 						';
 		        }
-				$myquery = 'select  op.rowid
-							,op.order_id
-							,op.os_product_id
-							,opd.product_name
-							,opd.chemist_price
-							,op.sell_price
-							,op.entry_time
-							,op.update_time
-					 from os_order op left join os_product opd on op.os_product_id = opd.os_product_id
-					where 1 = 1 and op.rowid = '.$rowid;
+				$myquery = 'select  op.order_id
+								,op.order_code
+								,op.entry_time
+								,op.update_time
+					 from os_order op 
+					where 1 = 1 and op.order_id = '.$order_id;
 				$query = $this->db->query($myquery);
 				return $query->row_array();
 		}
@@ -39,16 +30,28 @@ class Order_model extends CI_Model {
 		{
 			$from_date = $this->input->get('from_date');
 			$to_date = $this->input->get('to_date');
-			$myquery = 'select  op.rowid
-								,op.order_id
-								,op.os_product_id
-								,opd.product_name
-								,opd.chemist_price
-								,op.sell_price
-								,op.entry_time
-								,op.update_time
-						 from os_order op left join os_product opd on op.os_product_id = opd.os_product_id
-						where 1 = 1
+			$myquery = 'SELECT
+								od_ag.order_id,
+								od_ag.order_code,
+								od_ag.entry_time,
+								od_ag.update_time,
+								od_ag.agent_id,
+								ocs.consumer_name agent_name
+							FROM
+								(
+									SELECT
+										op.order_id,
+										op.order_code,
+										op.entry_time,
+										op.update_time,
+										oag.agent_id
+									FROM
+										os_order op
+									LEFT JOIN os_order_agent oag ON op.order_id = oag.order_id
+								) od_ag
+							LEFT JOIN os_consumer ocs ON od_ag.agent_id = ocs.consumer_id
+							WHERE
+								1 = 1
 						';
 			if ($from_date != '')
 			{
@@ -62,21 +65,21 @@ class Order_model extends CI_Model {
 			if ($is_echart == TRUE)
 			{
 				//echo $myquery;
-				$myquery = $myquery.' order by op.entry_time asc ';
+				$myquery = $myquery.' order by od_ag.entry_time asc ';
 				$query = $this->db->query($myquery);
 				return $query->result_array();
 			}
 			if ($is_total == TRUE)
 			{
 				//echo $myquery;
-				$myquery = $myquery.' order by op.entry_time asc ';
+				$myquery = $myquery.' order by od_ag.entry_time asc ';
 				$query = $this->db->query($myquery);
 				return $query->num_rows();
 			}
 			else
 			{
 				//echo $myquery;
-				$myquery = $myquery.' order by op.entry_time desc limit '.$offset.', '.$per_page;
+				$myquery = $myquery.' order by od_ag.entry_time desc limit '.$offset.', '.$per_page;
 				$query = $this->db->query($myquery);
 	            return $query->result_array();
             }
@@ -85,34 +88,38 @@ class Order_model extends CI_Model {
 		public function set_order()
 		{
 		    $data = array(
-		        'order_id' => $this->input->post('order_id'),
-		        'os_product_id' => $this->input->post('os_product_id'),
-		        'sell_price' => $this->input->post('sell_price')
+		        'order_code' => $this->input->post('order_code')
 		    );
- 			return $this->db->insert('os_order', $data);
+		    $this->db->insert('os_order', $data);
+		    print_r($this->db->insert_id());
+		    $order_id = $this->db->insert_id();
+		    $agent_id = $this->input->post('consumer_id');
+			$myquery = "insert into os_order_agent (order_id, agent_id) values (".$order_id.",".$agent_id."  )";
+		    print_r($myquery);
+			$query = $this->db->query($myquery);
+ 			return ;
 		}
 
-		public function update_order($rowid = FALSE)
+		public function update_order($order_id = FALSE)
 		{
-			if ($rowid !== FALSE)
+			if ($order_id !== FALSE)
 			{
 			    $data = array(
-			        //'order_id' => $this->input->post('order_id'),
-			        'os_product_id' => $this->input->post('os_product_id'),
-			        'sell_price' => $this->input->post('sell_price')
+			        'order_id' => $this->input->post('order_id'),
+			        'order_code' => $this->input->post('order_code')
 			    );
 
-			    $this->db->where('rowid', $rowid);
+			    $this->db->where('order_id', $order_id);
 			    $this->db->update('os_order', $data);
 		    }
 		}
 
 
-		public function delete_order($rowid = FALSE)
+		public function delete_order($order_id = FALSE)
 		{
-			if ($rowid !== FALSE)
+			if ($order_id !== FALSE)
 			{
-			    $this->db->where('rowid', $rowid);
+			    $this->db->where('order_id', $order_id);
 			    $this->db->delete('os_order');
 		    }
 		}		

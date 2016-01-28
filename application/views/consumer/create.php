@@ -31,7 +31,7 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <b>打单区</b>
+                        <b>Consumer</b>
                     </div>
                     <div class="panel-body">
                       

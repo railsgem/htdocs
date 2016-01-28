@@ -6,6 +6,7 @@ class Order extends CI_Controller {
                 parent::__construct();
                 $this->load->model('order_model');
                 $this->load->model('product_model');
+                $this->load->model('consumer_model');
                 $this->load->library('ion_auth');
                 if (!$this->ion_auth->logged_in())
                 {
@@ -51,21 +52,20 @@ class Order extends CI_Controller {
         
         }
 
-        public function edit($rowid = FALSE)
+        public function edit($order_id = FALSE)
         {
-            if ($rowid !== FALSE)
+            if ($order_id !== FALSE)
             {
                 $this->load->helper('form');
                 $this->load->helper('security');
                 $this->load->library('form_validation');
 
-                $this->form_validation->set_rules('os_product_id', 'os_product_id', 'trim|required|xss_clean');
-                $this->form_validation->set_rules('sell_price', 'sell_price', 'trim|required|xss_clean');
+                $this->form_validation->set_rules('order_code', 'order_code', 'trim|required|xss_clean');
                 
                 if ($this->form_validation->run() === FALSE)
                 {
                     $data['update_success'] ='';
-                    $data['order'] = $this->order_model->get_order($rowid);
+                    $data['order'] = $this->order_model->get_order($order_id);
                     
                     $this->load->view('templates/header');
                     $this->load->view('order/edit',$data);
@@ -73,9 +73,9 @@ class Order extends CI_Controller {
                 }
                 else
                 {
-                    $this->order_model->update_order($rowid);
+                    $this->order_model->update_order($order_id);
 
-                    $data['order'] = $this->order_model->get_order($rowid);
+                    $data['order'] = $this->order_model->get_order($order_id);
 
                     $data['update_success'] ='Save Successfully.';
 
@@ -95,11 +95,11 @@ class Order extends CI_Controller {
             $this->load->library('form_validation');
 
 
-            $this->form_validation->set_rules('order_id', 'order_id', 'required|integer');
-            $this->form_validation->set_rules('os_product_id', 'os_product_id', 'trim|required|xss_clean');
-            $this->form_validation->set_rules('sell_price', 'sell_price', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('order_code', 'order_code', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('consumer_id', 'consumer_id', 'required|integer');
             
             $data['product'] = $this->product_model->get_product();
+            $data['consumer'] = $this->consumer_model->get_agent();
             if ($this->form_validation->run() === FALSE)
             {
                 $this->load->view('templates/header');
@@ -111,6 +111,7 @@ class Order extends CI_Controller {
 
                 $this->order_model->set_order();
 
+               // $data['consumer_json'] = $this->consumer_model->get_consumer($consumer_id);
                 $this->load->view('templates/header');
                 $this->load->view('order/success');
                 $this->load->view('templates/footer');

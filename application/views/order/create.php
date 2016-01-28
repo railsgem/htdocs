@@ -36,30 +36,64 @@
                     <div class="panel-body">
                       
                         <div class="form-group">
-                            <label for="order_id"><span class="red"> * </span>order_id:</label>
-                            <input class="form-control" type="input" name="order_id" value="<?php echo set_value('order_id'); ?>">
+                            <label for="order_code"><span class="red"> * </span>order_code:</label>
+                            <input class="form-control" type="input" name="order_code" value="<?php echo set_value('order_code'); ?>">
                         </div>
+
                         <div class="form-group">
-                            <label for="os_product_id"><span class="red"> * </span>os_product_id:</label>
-                            <input id="os_product_id" class="form-control" type="hidden" name="os_product_id" value="<?php echo set_value('os_product_id'); ?>">
-                            <input class="form-control" type="text" id="autocomp" />
-                        </div>
-                        <div class="form-group">
-                            <label for="chemist_price"><span class="red"> * </span>chemist_price:</label>
-                            <input disabled id="chemist_price" class="form-control" type="input" name="chemist_price" value="<?php echo set_value('chemist_price'); ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="sell_price"><span class="red"> * </span>sell_price:</label>
-                            <input class="form-control" type="input" name="sell_price" value="<?php echo set_value('sell_price'); ?>">
+                            <label for="consumer_id"><span class="red"> * </span>consumer_name:</label>
+                            <select class="form-control" name="consumer_id">
+                                <?php foreach ($consumer as $consumer_item): ?>
+                                    <option value="<?php echo $consumer_item['consumer_id'] ?>" 
+                                        <?php if ($consumer_item['consumer_id'] === set_value('consumer_id')) { echo "selected"; } ?>>
+                                        <?php echo $consumer_item['consumer_name'] ;  ?>
+                                    </option>
+                                <?php endforeach ?>
+                            </select>
                         </div>
                     </div>
                 </div> 
+
+
             </div> 
 
 
-            <div class="col-lg-6">
-                
-            </div>
+            
+            <div class="col-lg-3">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <b>Consumer info(receiver)</b>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="consumer_name"><span class="red"> * </span>consumer_name:</label>
+                            <input class="form-control" type="input" name="consumer_name" value="<?php echo set_value('consumer_name'); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="consumer_nation_id"><span class="red"> * </span>consumer_nation_id:</label>
+                            <input class="form-control" type="input" name="consumer_nation_id" value="<?php echo set_value('consumer_nation_id'); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="consumer_address"><span class="red"> * </span>consumer_address:</label>
+                            <input class="form-control" type="input" name="consumer_address" value="<?php echo set_value('consumer_address'); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="consumer_phone"><span class="red"> * </span>consumer_phone:</label>
+                            <input class="form-control" type="input" name="consumer_phone" value="<?php echo set_value('consumer_phone'); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="consumer_postcode"><span class="red"> * </span>consumer_postcode:</label>
+                            <input class="form-control" type="input" name="consumer_postcode" value="<?php echo set_value('consumer_postcode'); ?>">
+                        </div>
+                        <label for="is_agent"><span class="red"> * </span>is_agent:</label>
+                        <select class="form-control" name="is_agent">
+                            <option value="1" <?php if ("1" === set_value('is_agent')) { echo "selected"; } ?>>1</option>
+                            <option value="0" <?php if ("1" === set_value('is_agent')) { echo "selected"; } ?>>0</option>
+                        </select>
+                    </div>
+                </div> 
+            </div> 
 
         </div>
         <!-- /.row -->
@@ -71,21 +105,4 @@
     <?php echo form_close();?>
 </div>
 
-
-<script type="text/javascript">
- 
-    $("#autocomp").autocomplete({
-        source: "/index.php/stock/get_product_json",
-        minLength: 2, 
-        select: function(e, ui) {
-            console.log(ui);
-            $("#os_product_id").val(ui.item.id);
-            $("#chemist_price").val(ui.item.chemist_price);
-            $("#source_type").val(ui.item.source_type);
-            //$("#autocomp").val(ui.item.label);
-            //alert(ui.item.label + ui.item.value) ;
-        }
-    });
-
-</script>
 

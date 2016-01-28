@@ -101,8 +101,6 @@
                                 <th style='display:none'>order_id</th>
                                     <th>order_id</th>
                                     <th>order_code</th>
-                                    <th>agent_id</th>
-                                    <th>agent_name</th>
                                     <th>entry_time</th>
                                     <th>update_time</th>
                                     <th>操作</th>
@@ -119,8 +117,6 @@
                                             <td style='display:none'><?php echo $order_item['order_id']; ?></td>
                                             <td><?php echo $order_item['order_id']; ?></td>
                                             <td><?php echo $order_item['order_code']; ?></td>
-                                            <td><?php echo $order_item['agent_id']; ?></td>
-                                            <td><?php echo $order_item['agent_name']; ?></td>
                                             <td><?php echo $order_item['entry_time']; ?></td>
                                             <td><?php echo $order_item['update_time']; ?></td>
                                             <td>
