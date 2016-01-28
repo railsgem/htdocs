@@ -24,6 +24,7 @@ class Address_model extends CI_Model {
 								,t.address_detail
 								,t.phone
 								,t.recevier_name
+								,t.recevier_nation_id
 								,t.entry_time
 								,t.update_time
 						FROM os_address t 
@@ -66,7 +67,8 @@ class Address_model extends CI_Model {
 		    $data = array(
 		        'address_detail' => $this->input->post('address_detail'),
 		        'phone' => $this->input->post('phone'),
-		        'recevier_name' => $this->input->post('recevier_name')
+		        'recevier_name' => $this->input->post('recevier_name'),
+		        'recevier_nation_id' => $this->input->post('recevier_nation_id')
 		    );
  			return $this->db->insert('os_address', $data);
 		}
@@ -78,7 +80,8 @@ class Address_model extends CI_Model {
 			    $data = array(
 		        'address_detail' => $this->input->post('address_detail'),
 		        'phone' => $this->input->post('phone'),
-		        'recevier_name' => $this->input->post('recevier_name')
+		        'recevier_name' => $this->input->post('recevier_name'),
+		        'recevier_nation_id' => $this->input->post('recevier_nation_id')
 			    );
 
 			    $this->db->where('address_id', $address_id);

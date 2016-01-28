@@ -62,6 +62,7 @@ class Address extends CI_Controller {
                 $this->form_validation->set_rules('address_detail', 'address_name', 'trim|required|xss_clean');
                 $this->form_validation->set_rules('phone', 'address_nation_id', 'trim|required|xss_clean');
                 $this->form_validation->set_rules('recevier_name', 'address_address', 'trim|required|xss_clean');
+                $this->form_validation->set_rules('recevier_nation_id', 'recevier_nation_id', 'trim|required|xss_clean');
 
                 if ($this->form_validation->run() === FALSE)
                 {
@@ -98,6 +99,7 @@ class Address extends CI_Controller {
             $this->form_validation->set_rules('address_detail', 'address_name', 'trim|required|xss_clean');
             $this->form_validation->set_rules('phone', 'address_nation_id', 'trim|required|xss_clean');
             $this->form_validation->set_rules('recevier_name', 'address_address', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('recevier_nation_id', 'recevier_nation_id', 'trim|required|xss_clean');
             
             if ($this->form_validation->run() === FALSE)
             {

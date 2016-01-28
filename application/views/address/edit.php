@@ -56,6 +56,10 @@
                             <label for="recevier_name"><span class="red"> * </span>recevier_name:</label>
                             <input class="form-control" type="input" name="recevier_name" value="<?php echo $address['recevier_name']; ?>">
                         </div>
+                        <div class="form-group">
+                            <label for="recevier_nation_id"><span class="red"> * </span>recevier_nation_id:</label>
+                            <input class="form-control" type="input" name="recevier_nation_id" value="<?php echo $address['recevier_nation_id']; ?>">
+                        </div>
                     </div>
                 </div> 
             </div> 

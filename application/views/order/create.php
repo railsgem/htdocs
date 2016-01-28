@@ -35,7 +35,7 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <label for="order_code"><span class="red"> * </span>order_code:</label>
-                            <input id="order_code" class="form-control" type="input" name="order_code" value="<?php echo set_value('order_code'); ?>">
+                            <input id="order_code" class="form-control" type="input" name="order_code" value="<?php echo set_value('order_code'); ?>" disabled>
                             <?php foreach ($consumer as $consumer_item): ?>
                                     <?php if ($consumer_item['consumer_id'] === set_value('consumer_id')) { echo $consumer_item['consumer_name']; } ?>
                             <?php endforeach ?>
@@ -115,7 +115,7 @@
            
             console.log(consumer_id);
             $("#order_code").val(consumer_id);
-            $("#order_code").css("background-color","#FFFFCC");
+            //$("#order_code").css("background-color","#FFFFCC");
 
 
             var data = {
@@ -129,7 +129,8 @@
 
                 },
                 success: function(msg){
-                    var consumer_Obj = eval(msg);
+                    var consumer_Obj = new Array();
+                    consumer_Obj = eval(msg);
                     console.log(consumer_Obj);
                     agent_name_code = consumer_Obj[0]['agent_name_code'];
                     console.log(consumer_Obj);
@@ -138,7 +139,10 @@
                 }
             });
         }
-        $("#consumer_id").change(get_consumer_id());
+        get_consumer_id();
+        $("#consumer_id").change(function(){
+            get_consumer_id();
+        });
 
     });
    

@@ -103,6 +103,7 @@
                                     <th>phone</th>
 
                                     <th>recevier_name</th>
+                                    <th>recevier_nation_id</th>
                                     <th>entry_time</th>
 
                                     <th>update_time</th>
@@ -121,6 +122,7 @@
                                             <td><?php echo $address_item['address_detail']; ?></td>
                                             <td><?php echo $address_item['phone']; ?></td>
                                             <td><?php echo $address_item['recevier_name']; ?></td>
+                                            <td><?php echo $address_item['recevier_nation_id']; ?></td>
                                             <td><?php echo $address_item['entry_time']; ?></td>
                                             <td><?php echo $address_item['update_time']; ?></td>
                                             <td>
