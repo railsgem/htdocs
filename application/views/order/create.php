@@ -110,8 +110,7 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
-         var a=0;
-        $("#consumer_id").change(function(a=0){
+        function get_consumer_id(){
             var consumer_id = $("#consumer_id").val();
            
             console.log(consumer_id);
@@ -121,7 +120,7 @@
 
             var data = {
                 consumer_id : consumer_id
-            }
+            };
             $.ajax({
                 type: 'POST',
                 url: '/index.php/consumer/get_consumer_json',
@@ -130,14 +129,16 @@
 
                 },
                 success: function(msg){
-                    consumerObj = eval(msg);
-                    agent_name_code = consumerObj[0]['agent_name_code'];
-                    console.log(consumerObj);
-                    console.log(consumerObj[0]['agent_name_code']);
-                    $("#order_code").val(agent_name_code+"<?php echo date('Ymd-His');?>");
+                    var consumer_Obj = eval(msg);
+                    console.log(consumer_Obj);
+                    agent_name_code = consumer_Obj[0]['agent_name_code'];
+                    console.log(consumer_Obj);
+                    console.log(consumer_Obj[0]['agent_name_code']);
+                    $("#order_code").val(agent_name_code+"<?php echo date('Ymd_His');?>");
                 }
             });
-        });
+        }
+        $("#consumer_id").change(get_consumer_id());
 
     });
    
