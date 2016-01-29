@@ -94,8 +94,9 @@ class Order extends CI_Controller {
             $this->load->helper('form');
             $this->load->helper('security');
             $this->load->library('form_validation');
-
-
+            //test from here
+/*print_r($this->session);
+exit;*/
             $this->form_validation->set_rules('consumer_id', 'consumer_id', 'required|integer');
             
             $data['product'] = $this->product_model->get_product();
@@ -117,6 +118,33 @@ class Order extends CI_Controller {
                 $this->load->view('order/success');
                 $this->load->view('templates/footer');
             }
+        }
+
+        public function order_cart()
+        {
+            $this->load->helper('form');
+            $this->load->helper('security');
+            $this->load->library('form_validation');/*
+            $this->form_validation->set_rules('consumer_id', 'consumer_id', 'required|integer');
+            $this->form_validation->set_rules('address_id', 'address_id', 'required|integer');*/
+            
+            $data['product'] = $this->product_model->get_product();
+            $data['consumer'] = $this->consumer_model->get_agent();
+            $data['address'] = $this->address_model->get_address();
+            
+                $this->order_model->set_order_cart_session();/*
+            if ($this->form_validation->run() === FALSE)
+            {
+                $this->load->view('templates/header');
+                $this->load->view('order/create',$data);
+                $this->load->view('templates/footer');
+            }
+            else
+            {
+
+                $this->order_model->set_order_cart_session();
+
+            }*/
         }
 
 

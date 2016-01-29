@@ -24,6 +24,38 @@
             <?php echo validation_errors(); ?>
         </div>
     <?php  } ?>
+     <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>Product</b>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="os_product_id"><span class="red"> * </span>product_name:</label>
+                    <input id="os_product_id" class="form-control" type="hidden" name="os_product_id" value="<?php echo set_value('os_product_id'); ?>">
+                    <input class="form-control" type="text" id="autocomp" />
+                </div>
+                <div class="form-group">
+                    <label for="chemist_price"><span class="red"> * </span>chemist_price:</label>
+                    <input disabled id="chemist_price" class="form-control" type="input" name="chemist_price" value="<?php echo set_value('real_cost'); ?>">
+                </div>
+                <div class="form-group">
+                    <label for="buy_shop"><span class="red"> * </span>source_type:</label>
+                    <input disabled id="source_type" class="form-control" type="input" name="buy_shop" value="<?php echo set_value('buy_shop'); ?>">
+                </div>
+                <div class="form-group">
+                    <label for="quantity"><span class="red"> * </span>quantity:</label>
+                    <input id="quantity" class="form-control" type="input" name="quantity" value="<?php echo set_value('quantity'); ?>">
+                </div>
+                <div class="form-group">
+                    <label for="sell_price"><span class="red"> * </span>sell_price:</label>
+                    <input id="sell_price" class="form-control" type="input" name="sell_price" value="<?php echo set_value('sell_price'); ?>">
+                </div>
+                <button id="add_product_to_cart" class="btn btn-primary" />Add to Cart</button>
+            </div>
+        </div> 
+    </div> 
+
     <?php echo form_open('order/create') ?>
 
         <div class="row">
@@ -97,38 +129,7 @@
                     </div>
                 </div> 
             </div> 
-
-            <div class="col-lg-6">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <b>Product</b>
-                    </div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label for="os_product_id"><span class="red"> * </span>product_name:</label>
-                            <input id="os_product_id" class="form-control" type="hidden" name="os_product_id" value="<?php echo set_value('os_product_id'); ?>">
-                            <input class="form-control" type="text" id="autocomp" />
-                        </div>
-                        <div class="form-group">
-                            <label for="chemist_price"><span class="red"> * </span>chemist_price:</label>
-                            <input disabled id="chemist_price" class="form-control" type="input" name="chemist_price" value="<?php echo set_value('real_cost'); ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="buy_shop"><span class="red"> * </span>source_type:</label>
-                            <input disabled id="source_type" class="form-control" type="input" name="buy_shop" value="<?php echo set_value('buy_shop'); ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="quantity"><span class="red"> * </span>quantity:</label>
-                            <input class="form-control" type="input" name="quantity" value="<?php echo set_value('quantity'); ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="sell_price"><span class="red"> * </span>sell_price:</label>
-                            <input class="form-control" type="input" name="sell_price" value="<?php echo set_value('sell_price'); ?>">
-                        </div>
-                    </div>
-                </div> 
-            </div> 
+           
 
         </div>
         <!-- /.row -->
@@ -152,7 +153,7 @@
             console.log("get_address_id");
             get_address_id();
         });
-
+        //find product
         $("#autocomp").autocomplete({
             source: "/index.php/stock/get_product_json",
             minLength: 2, 
@@ -165,7 +166,58 @@
                 //alert(ui.item.label + ui.item.value) ;
             }
         });
+
+        //
+        $("#add_product_to_cart").click(function(){
+            console.log("add_product_to_cart button is clicked!");
+            //get product_item data
+            var data = {
+                os_product_id : $("#os_product_id").val(),
+                product_name : $("#autocomp").val(),
+                chemist_price : $("#chemist_price").val(),
+                source_type : $("#source_type").val(),
+                quantity : $("#quantity").val(),
+                sell_price : $("#sell_price").val()
+            }
+            console.log(data);
+
+            var cart_data = new Array();
+            cart_data.push(data);
+            console.log(cart_data);
+
+            //post product_item to session
+            $.ajax({
+                type: 'POST',
+                url: 'order_cart',
+                data: data,
+                beforeSend: function(data){
+                    console.log("this data will post---");
+                    console.log(data);
+                },
+                success: function(msg){
+                    console.log(msg);
+                }
+            });
+
+           /* var data = {
+                product : $("#product").html()
+            }
+            console.log("product:"+product);
+            console.log(product);
+            $.ajax({
+                type: 'POST',
+                url: 'fetch/save_fetch',
+                data: data,
+                beforeSend: function(){
+                },
+                success: function(msg){
+                }
+            });*/
+
+        });
+
     });
+
     function get_address_id(){
 
         var address_id = $("#recevier_name").val();

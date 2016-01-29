@@ -112,6 +112,34 @@ class Order_model extends CI_Model {
  			return ;
 		}
 
+		public function set_order_cart_session()
+		{
+		    $product_item = array(
+		        'os_product_id' => $this->input->post('os_product_id'),
+		        'product_name' => $this->input->post('product_name'),
+		        'chemist_price' => $this->input->post('chemist_price'),
+		        'source_type' => $this->input->post('source_type'),
+		        'quantity' => $this->input->post('quantity'),
+		        'sell_price' => $this->input->post('sell_price')
+		    );
+			//1 . if there is no product key in session ,create a product key
+		    if( $this->session->has_userdata('product')!=1) {
+		    	$data = array();
+	    		array_push($data, $product_item);
+		    	$this->session->set_userdata('product', $data);
+		    } else {
+			    //2. if there has a product key in session , get the session value, store to a data array, append the new product item,unset the value then create a new product session 
+		    	$data =  $this->session->product;
+
+	    		array_push($data, $product_item);
+
+				$this->session->unset_userdata('product');
+		    	$this->session->set_userdata('product', $data);
+		    }
+			print_r($this->session->product);
+ 			return ;
+		}
+
 		public function update_order($order_id = FALSE)
 		{
 			if ($order_id !== FALSE)
