@@ -58,7 +58,6 @@
                 </div> 
 
             </div> 
-<?php echo date('Ymd-His');?>
             
             <div class="col-lg-3">
 
@@ -99,6 +98,38 @@
                 </div> 
             </div> 
 
+            <div class="col-lg-6">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <b>Product</b>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="os_product_id"><span class="red"> * </span>product_name:</label>
+                            <input id="os_product_id" class="form-control" type="hidden" name="os_product_id" value="<?php echo set_value('os_product_id'); ?>">
+                            <input class="form-control" type="text" id="autocomp" />
+                        </div>
+                        <div class="form-group">
+                            <label for="chemist_price"><span class="red"> * </span>chemist_price:</label>
+                            <input disabled id="chemist_price" class="form-control" type="input" name="chemist_price" value="<?php echo set_value('real_cost'); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="buy_shop"><span class="red"> * </span>source_type:</label>
+                            <input disabled id="source_type" class="form-control" type="input" name="buy_shop" value="<?php echo set_value('buy_shop'); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity"><span class="red"> * </span>quantity:</label>
+                            <input class="form-control" type="input" name="quantity" value="<?php echo set_value('quantity'); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="sell_price"><span class="red"> * </span>sell_price:</label>
+                            <input class="form-control" type="input" name="sell_price" value="<?php echo set_value('sell_price'); ?>">
+                        </div>
+                    </div>
+                </div> 
+            </div> 
+
         </div>
         <!-- /.row -->
 
@@ -122,6 +153,18 @@
             get_address_id();
         });
 
+        $("#autocomp").autocomplete({
+            source: "/index.php/stock/get_product_json",
+            minLength: 2, 
+            select: function(e, ui) {
+                console.log(ui);
+                $("#os_product_id").val(ui.item.id);
+                $("#chemist_price").val(ui.item.chemist_price);
+                $("#source_type").val(ui.item.source_type);
+                //$("#autocomp").val(ui.item.label);
+                //alert(ui.item.label + ui.item.value) ;
+            }
+        });
     });
     function get_address_id(){
 
@@ -195,44 +238,4 @@
             }
         });
     }
-    /*function get_address_id(){
-        var address_id = $("#recevier_name").val();
-       
-        console.log("address_id*" + address_id);
-        $("#address_id").val(address_id);
-        //$("#order_code").css("background-color","#FFFFCC");
-
-        var data = {
-            address_id : address_id
-        };
-        $.ajax({
-            type: 'POST',
-            url: '/index.php/address/get_address_json',
-            data: data,
-            beforeSend: function(){
-
-            },
-            success: function(address_json){
-                var address_Obj = new Array();
-                address_Obj = eval(address_json);
-
-                console.log("address_json*"+JSON.parse(address_json));
-
-                var address_detail;
-                var phone;
-                var recevier_name;
-                var recevier_nation_id;
-
-
-                phone = address_Obj[0]['phone'];
-                recevier_name = address_Obj[0]['recevier_name'];
-                recevier_nation_id = address_Obj[0]['recevier_nation_id'];
-                address_detail = address_Obj[0]['address_detail'];
-                $("#address_detail").val(address_detail);
-                $("#phone").val(phone);
-                $("#recevier_name").val(recevier_name);
-                $("#recevier_nation_id").val(recevier_nation_id);
-            }
-        });
-    }*/
 </script>
