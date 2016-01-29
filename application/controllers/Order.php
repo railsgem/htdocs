@@ -132,7 +132,7 @@ exit;*/
             $data['consumer'] = $this->consumer_model->get_agent();
             $data['address'] = $this->address_model->get_address();
             
-                $this->order_model->set_order_cart_session();/*
+            $this->order_model->set_order_cart_session();/*
             if ($this->form_validation->run() === FALSE)
             {
                 $this->load->view('templates/header');

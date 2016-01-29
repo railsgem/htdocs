@@ -24,38 +24,112 @@
             <?php echo validation_errors(); ?>
         </div>
     <?php  } ?>
-     <div class="col-lg-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <b>Product</b>
-            </div>
-            <div class="panel-body">
-                <div class="form-group">
-                    <label for="os_product_id"><span class="red"> * </span>product_name:</label>
-                    <input id="os_product_id" class="form-control" type="hidden" name="os_product_id" value="<?php echo set_value('os_product_id'); ?>">
-                    <input class="form-control" type="text" id="autocomp" />
-                </div>
-                <div class="form-group">
-                    <label for="chemist_price"><span class="red"> * </span>chemist_price:</label>
-                    <input disabled id="chemist_price" class="form-control" type="input" name="chemist_price" value="<?php echo set_value('real_cost'); ?>">
-                </div>
-                <div class="form-group">
-                    <label for="buy_shop"><span class="red"> * </span>source_type:</label>
-                    <input disabled id="source_type" class="form-control" type="input" name="buy_shop" value="<?php echo set_value('buy_shop'); ?>">
-                </div>
-                <div class="form-group">
-                    <label for="quantity"><span class="red"> * </span>quantity:</label>
-                    <input id="quantity" class="form-control" type="input" name="quantity" value="<?php echo set_value('quantity'); ?>">
-                </div>
-                <div class="form-group">
-                    <label for="sell_price"><span class="red"> * </span>sell_price:</label>
-                    <input id="sell_price" class="form-control" type="input" name="sell_price" value="<?php echo set_value('sell_price'); ?>">
-                </div>
-                <button id="add_product_to_cart" class="btn btn-primary" />Add to Cart</button>
-            </div>
-        </div> 
-    </div> 
 
+
+
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b>Product</b>
+                    <button style="float:right;" id="add_product_to_cart" class="btn btn-primary btn-xs" />Add to Cart</button>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="os_product_id"><span class="red"> * </span>product_name:</label>
+                        <input id="os_product_id" class="form-control" type="hidden" name="os_product_id" value="<?php echo set_value('os_product_id'); ?>">
+                        <input class="form-control" type="text" id="autocomp" />
+                    </div>
+                    <div class="form-group">
+                        <label for="chemist_price"><span class="red"> * </span>chemist_price:</label>
+                        <input disabled id="chemist_price" class="form-control" type="input" name="chemist_price" value="<?php echo set_value('real_cost'); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="buy_shop"><span class="red"> * </span>source_type:</label>
+                        <input disabled id="source_type" class="form-control" type="input" name="buy_shop" value="<?php echo set_value('buy_shop'); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity"><span class="red"> * </span>quantity:</label>
+                        <input id="quantity" class="form-control" type="input" name="quantity" value="<?php echo set_value('quantity'); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="sell_price"><span class="red"> * </span>sell_price:</label>
+                        <input id="sell_price" class="form-control" type="input" name="sell_price" value="<?php echo set_value('sell_price'); ?>">
+                    </div>
+                </div>
+            </div> 
+        </div> 
+        <div class="col-lg-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b>Product List</b>
+                </div>
+                <div class="panel-body">
+                        <table class="table table-bordered table-hover table-striped" >
+                            <thead>
+                                <tr>
+                                    <th style='display:none'>os_product_id</th>
+                                        <th>product_name</th>
+                                        <th>chemist_price</th>
+                                        <th>source_type</th>
+                                        <th>quantity</th>
+                                        <th>sell_price</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </tr>
+                            </thead>
+                            <tbody id="product_order_list_table">
+                                
+                                <?php if(isset($_SESSION['product'])) { foreach ($_SESSION['product'] as $product_item): ?>
+                                        <tr>
+                                            <?php echo form_open('address/index/delete') ?>
+                                                <td style='display:none'><?php echo $product_item['os_product_id']; ?></td>
+                                                <td><?php echo $product_item['product_name']; ?></td>
+                                                <td><?php echo $product_item['chemist_price']; ?></td>
+                                                <td><?php echo $product_item['source_type']; ?></td>
+                                                <td><?php echo $product_item['quantity']; ?></td>
+                                                <td><?php echo $product_item['sell_price']; ?></td>
+                                                <td>
+                                                    <a href="/index.php/address/edit/<?php echo $product_item['os_product_id']; ?>" class="btn btn-danger btn-xs" >View/Edit</a>
+                                                    
+                                                    <input type="hidden" name="address_id" value="<?php echo $product_item['os_product_id']; ?>">
+                                                    <button style="display:none"type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_address_<?php echo $product_item['os_product_id'];?>">Delete</button>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="delete_address_<?php echo $product_item['os_product_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                      <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                          <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title" id="myModalLabel">Delete Distribution List Confirm</h4>
+                                                          </div>
+                                                          <div class="modal-body">
+                                                            Are you sure you want to delete ?</em>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                                            <button type="button" class="btn btn-primary" onclick="delete_address('<?php echo $product_item['os_product_id']; ?>')">Yes, Delete</button>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                </td>
+
+                                            </form>
+                                        </tr>
+                                <?php endforeach ?>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                </div>
+
+            </div> 
+        </div> 
+
+
+
+    </div>
+    <!-- /.row -->
     <?php echo form_open('order/create') ?>
 
         <div class="row">
@@ -67,12 +141,8 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <input style="display:none" id="order_code" class="form-control" type="input" name="order_code" value="<?php echo set_value('order_code'); ?>" >
-
                             <label for="order_code_auto"><span class="red"> * </span>order_code:</label>
                             <input disabled="disabled" id="order_code_auto" class="form-control" type="input" name="order_code_auto" value="<?php echo set_value('order_code_auto'); ?>" >
-
-
-
                         </div>
                         <div class="form-group">
                             <label for="consumer_id"><span class="red"> * </span>agent_name:</label>
@@ -81,18 +151,15 @@
                                     <option value="<?php echo $consumer_item['consumer_id'] ?>" 
                                         <?php if ($consumer_item['consumer_id'] === set_value('consumer_id')) { echo "selected"; } ?>>
                                         <?php echo $consumer_item['consumer_name'];?>
-
                                     </option>
                                 <?php endforeach ?>
                             </select>
                         </div>
                     </div>
                 </div> 
-
             </div> 
             
             <div class="col-lg-3">
-
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <b>Receiver info(Address)</b>
@@ -109,7 +176,6 @@
                                     <option value="<?php echo $address_item['address_id'] ?>" 
                                         <?php if ($address_item['address_id'] === set_value('address_id')) { echo "selected"; } ?>>
                                         <?php echo $address_item['recevier_name'];?>
-
                                     </option>
                                 <?php endforeach ?>
                             </select>
@@ -129,7 +195,6 @@
                     </div>
                 </div> 
             </div> 
-           
 
         </div>
         <!-- /.row -->
@@ -178,13 +243,23 @@
                 source_type : $("#source_type").val(),
                 quantity : $("#quantity").val(),
                 sell_price : $("#sell_price").val()
-            }
+            };
             console.log(data);
+
+            var newtr_str ="<tr id='os_product_id'><td style='display:none'>"+data['os_product_id']+"</td>" +
+            "<td>"+data['product_name']+"</td>" +
+            "<td>"+data['chemist_price']+"</td>" +
+            "<td>"+data['source_type']+"</td>" +
+            "<td>"+data['quantity']+"</td>" +
+            "<td>"+data['sell_price']+"</td>" +"<td>"+data['os_product_id']+"</td></tr>";
+
+            $("#product_order_list_table").prepend(newtr_str);
 
             var cart_data = new Array();
             cart_data.push(data);
             console.log(cart_data);
 
+                    console.log($("#os_product_id").val());
             //post product_item to session
             $.ajax({
                 type: 'POST',
@@ -196,6 +271,52 @@
                 },
                 success: function(msg){
                     console.log(msg);
+/*
+                     <tr>
+                                            <form action="http://localhost/index.php/address/index/delete" method="post" accept-charset="utf-8">
+                                                <td style='display:none'>160</td>
+                                                <td>Swisse Ultiboost Inner Balance Probiotic 50 Billion 40 Capsules</td>
+                                                <td>27.99</td>
+                                                <td>chemist warehouse</td>
+                                                <td>10</td>
+                                                <td>20</td>
+                                                <td>
+                                                    <a href="/index.php/address/edit/160" class="btn btn-danger btn-xs" >View/Edit</a>
+                                                    
+                                                    <input type="hidden" name="address_id" value="160">
+                                                    <button style="display:none"type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_address_160">Delete</button>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="delete_address_160" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                      <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                          <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title" id="myModalLabel">Delete Distribution List Confirm</h4>
+                                                          </div>
+                                                          <div class="modal-body">
+                                                            Are you sure you want to delete ?</em>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                                            <button type="button" class="btn btn-primary" onclick="delete_address('160')">Yes, Delete</button>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                </td>
+
+                                            </form>
+                                        </tr>*/
+/*                    Array
+                    (
+                        [os_product_id] => 41
+                        [product_name] => Novalac SD Sweet Dreams Infant Formula 800g
+                        [chemist_price] => 28.99
+                        [source_type] => chemist warehouse
+                        [quantity] => 2
+                        [sell_price] => 8
+                    )*/
                 }
             });
 

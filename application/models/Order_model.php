@@ -30,7 +30,7 @@ class Order_model extends CI_Model {
 		{
 			$from_date = $this->input->get('from_date');
 			$to_date = $this->input->get('to_date');
-			$myquery = 'SELECT
+			$myquery = "SELECT
 								od_ag.order_id,
 								od_ag.order_code,
 								od_ag.entry_time,
@@ -41,7 +41,8 @@ class Order_model extends CI_Model {
 								oad.address_detail,
 								oad.phone,
 								oad.recevier_name,
-								oad.recevier_nation_id
+								oad.recevier_nation_id,
+								odr_pdt.product_list
 							FROM
 								(
 									SELECT
@@ -59,9 +60,11 @@ class Order_model extends CI_Model {
 								) od_ag
 							LEFT JOIN os_consumer ocs ON od_ag.agent_id = ocs.consumer_id
 							LEFT JOIN os_address oad ON od_ag.address_id = oad.address_id
+							LEFT JOIN (select orp.order_id,REPLACE(group_concat(op.product_name,' * ',orp.quantity ),',','</br></br>')   product_list from os_order_product orp left join os_product OP
+on orp.os_product_id = op.os_product_id) odr_pdt on od_ag.order_id = odr_pdt.order_id
 							WHERE
-								1 = 1
-						';
+								1 = 1 
+						";
 			if ($from_date != '')
 			{
 				$myquery = $myquery.' and op.order_rep_date >= \''.$from_date.'\'';
@@ -104,10 +107,20 @@ class Order_model extends CI_Model {
 		    $order_id = $this->db->insert_id();
 		    $agent_id = $this->input->post('consumer_id');
 		    $address_id = $this->input->post('recevier_name');
+		    $os_product_id = $this->input->post('recevier_name');
+		    $quantity = $this->input->post('recevier_name');
+		    $sell_price = $this->input->post('recevier_name');
 			$myquery = "insert into os_order_agent (order_id, agent_id) values (".$order_id.",".$agent_id."  )";
 			$query = $this->db->query($myquery);
 
 			$myquery = "insert into os_order_address (order_id, address_id) values (".$order_id.",".$address_id."  )";
+			$query = $this->db->query($myquery);
+
+			$myquery = "insert into os_order_product (order_id, os_product_id, quantity, sell_price)
+							 select ".$order_id.",  optmp.os_product_id, sum(optmp.quantity)quantity,  optmp.sell_price
+							   from os_order_product_tmp optmp
+							  group by optmp.os_product_id, optmp.sell_price
+							   ";
 			$query = $this->db->query($myquery);
  			return ;
 		}
@@ -136,7 +149,12 @@ class Order_model extends CI_Model {
 				$this->session->unset_userdata('product');
 		    	$this->session->set_userdata('product', $data);
 		    }
-			print_r($this->session->product);
+			$myquery = "insert into os_order_product_tmp ( os_product_id, quantity, sell_price) 
+						values (".$product_item['os_product_id'].",".$product_item['quantity'].",".$product_item['sell_price']."  )";
+			$query = $this->db->query($myquery);
+			//print_r($this->session->product);
+			print_r(json_encode($product_item));
+
  			return ;
 		}
 
