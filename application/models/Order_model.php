@@ -61,7 +61,7 @@ class Order_model extends CI_Model {
 							LEFT JOIN os_consumer ocs ON od_ag.agent_id = ocs.consumer_id
 							LEFT JOIN os_address oad ON od_ag.address_id = oad.address_id
 							LEFT JOIN (select orp.order_id,REPLACE(group_concat(op.product_name,' * ',orp.quantity ),',','</br></br>')   product_list from os_order_product orp left join os_product OP
-on orp.os_product_id = op.os_product_id) odr_pdt on od_ag.order_id = odr_pdt.order_id
+on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag.order_id = odr_pdt.order_id
 							WHERE
 								1 = 1 
 						";
@@ -121,6 +121,11 @@ on orp.os_product_id = op.os_product_id) odr_pdt on od_ag.order_id = odr_pdt.ord
 							   from os_order_product_tmp optmp
 							  group by optmp.os_product_id, optmp.sell_price
 							   ";
+			$query = $this->db->query($myquery);
+
+			// empty the session cart
+            $this->session->unset_userdata('product');
+			$myquery = "delete from os_order_product_tmp";
 			$query = $this->db->query($myquery);
  			return ;
 		}

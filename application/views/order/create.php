@@ -271,70 +271,16 @@
                 },
                 success: function(msg){
                     console.log(msg);
-/*
-                     <tr>
-                                            <form action="http://localhost/index.php/address/index/delete" method="post" accept-charset="utf-8">
-                                                <td style='display:none'>160</td>
-                                                <td>Swisse Ultiboost Inner Balance Probiotic 50 Billion 40 Capsules</td>
-                                                <td>27.99</td>
-                                                <td>chemist warehouse</td>
-                                                <td>10</td>
-                                                <td>20</td>
-                                                <td>
-                                                    <a href="/index.php/address/edit/160" class="btn btn-danger btn-xs" >View/Edit</a>
-                                                    
-                                                    <input type="hidden" name="address_id" value="160">
-                                                    <button style="display:none"type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_address_160">Delete</button>
-
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="delete_address_160" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                      <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                          <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                            <h4 class="modal-title" id="myModalLabel">Delete Distribution List Confirm</h4>
-                                                          </div>
-                                                          <div class="modal-body">
-                                                            Are you sure you want to delete ?</em>
-                                                          </div>
-                                                          <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                                            <button type="button" class="btn btn-primary" onclick="delete_address('160')">Yes, Delete</button>
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                </td>
-
-                                            </form>
-                                        </tr>*/
-/*                    Array
-                    (
-                        [os_product_id] => 41
-                        [product_name] => Novalac SD Sweet Dreams Infant Formula 800g
-                        [chemist_price] => 28.99
-                        [source_type] => chemist warehouse
-                        [quantity] => 2
-                        [sell_price] => 8
-                    )*/
                 }
             });
 
-           /* var data = {
-                product : $("#product").html()
-            }
-            console.log("product:"+product);
-            console.log(product);
-            $.ajax({
-                type: 'POST',
-                url: 'fetch/save_fetch',
-                data: data,
-                beforeSend: function(){
-                },
-                success: function(msg){
-                }
-            });*/
-
+            //empty product search
+            $("#os_product_id").val("");
+            $("#autocomp").val("");
+            $("#chemist_price").val("");
+            $("#source_type").val("");
+            $("#quantity").val("");
+            $("#sell_price").val("");
         });
 
     });
