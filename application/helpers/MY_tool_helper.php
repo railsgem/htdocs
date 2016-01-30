@@ -9,7 +9,7 @@
         */
         function getImg($url = "", $product_id = "")
         {
-        		$filename = 'upload/product/'.$product_id.'/'.substr($url, (64 + mb_strlen($product_id)));
+        		/*$filename = 'upload/product/'.$product_id.'/'.substr($url, (64 + mb_strlen($product_id)));
 
         		//创建文件夹
         		createFile($product_id);
@@ -25,7 +25,7 @@
                 curl_setopt($hander,CURLOPT_TIMEOUT,60);
                 curl_exec($hander);
                 curl_close($hander);
-                fclose($fp);
+                fclose($fp);*/
                 Return true;
         }
 

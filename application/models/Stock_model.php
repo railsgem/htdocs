@@ -8,7 +8,7 @@ class stock_model extends CI_Model {
 
 	public function get_stock($stock_id = FALSE)
 	{
-		$myquery = "select op.product_name,stk.* from os_stock_entry stk left join os_product OP on stk.os_product_id = op.os_product_id ";
+		$myquery = "select op.product_name,stk.* from os_stock_entry stk left join os_product op on stk.os_product_id = op.os_product_id ";
 
 		$query = $this->db->query($myquery);
         return $query->result_array();

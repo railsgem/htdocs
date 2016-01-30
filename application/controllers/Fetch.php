@@ -40,6 +40,7 @@ class Fetch extends CI_Controller {
 	public function fetch()
 	{
         $this->load->helper('form');
+        $this->load->helper('MY_tool');
 
         $data['update_success'] ='Fetch Successfully.';
 	    $data['category_address'] = $this->input->post('category_address'); 
@@ -48,6 +49,7 @@ class Fetch extends CI_Controller {
 	public function save_fetch()
 	{
         $this->load->helper('form');
+        $this->load->helper('MY_tool');
 
         $data['update_success'] ='Save Successfully.';
         //$data['product'] ='Save Successfully.';

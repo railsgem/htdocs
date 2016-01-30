@@ -130,6 +130,43 @@ class Order extends CI_Controller {
             $this->order_model->delete_cart_product();
            
         }
+        public function delete_order_product()
+        {
+            $this->order_model->delete_order_product();
+           
+        }
+        public function order_product_list($order_id = FALSE)
+        {
+            $this->load->helper('form');
+            $this->load->helper('security');
+            $this->load->library('form_validation');
+            //test from here
+            $this->form_validation->set_rules('order_id', 'order_id', 'required|integer');
+                        
+
+            $data['product'] = $this->order_model->order_product_list($order_id);
+            $data['consumer'] = $this->consumer_model->get_agent();
+            $data['address'] = $this->address_model->get_address();
+            $data['cart_product'] = $this->order_model->get_cart_product();
+
+
+            if ($this->form_validation->run() === FALSE)
+            {   
+                $this->load->view('templates/header');
+                $this->load->view('order/order_product_list',$data);
+                $this->load->view('templates/footer');
+            }
+            else
+            {
+
+                //$this->order_model->set_order();
+
+               // $data['consumer_json'] = $this->consumer_model->get_consumer($consumer_id);
+                $this->load->view('templates/header');
+                $this->load->view('order/success');
+                $this->load->view('templates/footer');
+            }
+        }
 
 
 }

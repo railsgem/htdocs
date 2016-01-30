@@ -60,7 +60,7 @@ class Order_model extends CI_Model {
 								) od_ag
 							LEFT JOIN os_consumer ocs ON od_ag.agent_id = ocs.consumer_id
 							LEFT JOIN os_address oad ON od_ag.address_id = oad.address_id
-							LEFT JOIN (select orp.order_id,REPLACE(group_concat(op.product_name,' * ',orp.quantity ),',','</br></br>')   product_list from os_order_product orp left join os_product OP
+							LEFT JOIN (select orp.order_id,REPLACE(group_concat(op.product_name,' * ',orp.quantity ),',','</br></br>')   product_list from os_order_product orp left join os_product op
 on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag.order_id = odr_pdt.order_id
 							WHERE
 								1 = 1 
@@ -190,6 +190,22 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 	        return $query->result_array();
 		}
 
+		public function order_product_list($order_id = FALSE)
+		{
+			if ($order_id !== FALSE)
+			{
+				$myquery = "select otmp.order_id,otmp.order_product_id,otmp.os_product_id, otmp.quantity, otmp.sell_price , op.product_name
+								, op.chemist_price , op.source_type
+							  from os_order_product otmp left join os_product op
+							  on otmp.os_product_id = op.os_product_id 
+							  where otmp.order_id =".$order_id  ;
+				$this->db->query($myquery);
+				$query = $this->db->query($myquery);
+            
+		        return $query->result_array();
+		    }
+		}
+
 		public function update_order($order_id = FALSE)
 		{
 			if ($order_id !== FALSE)
@@ -220,6 +236,15 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 			{
 			    $this->db->where('order_product_id', $order_product_id);
 			    $this->db->delete('os_order_product_tmp');
+		    }
+		}		
+		public function delete_order_product($order_product_id = FALSE)
+		{
+			$order_product_id = $this->input->post('order_product_id');
+			if ($order_product_id !== FALSE)
+			{
+			    $this->db->where('order_product_id', $order_product_id);
+			    $this->db->delete('os_order_product');
 		    }
 		}		
 

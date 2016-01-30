@@ -11,7 +11,7 @@
  Target Server Version : 50505
  File Encoding         : utf-8
 
- Date: 01/30/2016 01:03:05 AM
+ Date: 01/30/2016 23:02:30 PM
 */
 
 SET NAMES utf8;
@@ -59,7 +59,7 @@ CREATE TABLE `menu` (
   `li_text` varchar(255) DEFAULT NULL,
   `display` int(11) DEFAULT NULL,
   `entrytime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
@@ -81,7 +81,7 @@ CREATE TABLE `os_address` (
   `recevier_name` varchar(255) DEFAULT NULL,
   `recevier_nation_id` varchar(255) DEFAULT NULL,
   `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`address_id`),
   KEY `address_id` (`address_id`,`address_detail`,`phone`,`recevier_name`,`entry_time`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
@@ -143,7 +143,7 @@ CREATE TABLE `os_chemist_product` (
   `big_img_src` varchar(255) DEFAULT NULL,
   `chemist_price` decimal(10,2) DEFAULT NULL,
   `entrytime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`rowid`),
   KEY `chemist_product_id` (`chemist_product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=446 DEFAULT CHARSET=utf8;
@@ -191,7 +191,7 @@ CREATE TABLE `os_consumer` (
   `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `is_agent` int(11) DEFAULT NULL,
   `agent_name_code` varchar(255) DEFAULT NULL,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`consumer_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
@@ -212,7 +212,7 @@ CREATE TABLE `os_despatch` (
   `stock_id` int(11) DEFAULT NULL,
   `despatch_num` int(11) DEFAULT NULL COMMENT '提货数量',
   `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`despatch_id`),
   KEY `order_id` (`order_id`),
   KEY `stock_id` (`stock_id`),
@@ -228,15 +228,15 @@ CREATE TABLE `os_order` (
   `order_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_code` varchar(255) DEFAULT NULL,
   `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `os_order`
 -- ----------------------------
 BEGIN;
-INSERT INTO `os_order` VALUES ('1', 'wshop201101', '2016-01-28 11:33:34', '2016-01-28 11:33:34'), ('2', 'wd001', '2016-01-28 13:42:24', '2016-01-28 13:42:24'), ('3', 'wd002', '2016-01-28 13:42:46', '2016-01-28 13:42:46'), ('4', 'wd003', '2016-01-28 13:51:05', '2016-01-28 13:51:05'), ('5', '005', '2016-01-28 13:51:49', '2016-01-28 13:51:49'), ('6', '007', '2016-01-28 13:52:23', '2016-01-28 13:52:23'), ('7', '006', '2016-01-28 13:53:40', '2016-01-28 13:53:40'), ('8', 'ly20160128-173955', '2016-01-28 17:40:02', '2016-01-28 17:40:02'), ('9', null, '2016-01-29 03:03:11', '2016-01-29 03:03:11'), ('10', null, '2016-01-29 03:05:11', '2016-01-29 03:05:11'), ('11', null, '2016-01-29 03:05:41', '2016-01-29 03:05:41'), ('12', null, '2016-01-29 03:06:37', '2016-01-29 03:06:37'), ('13', null, '2016-01-29 03:17:30', '2016-01-29 03:17:30'), ('14', null, '2016-01-29 03:18:32', '2016-01-29 03:18:32'), ('15', null, '2016-01-29 03:19:11', '2016-01-29 03:19:11'), ('16', 'wd20160129_031945', '2016-01-29 03:19:50', '2016-01-29 03:19:50'), ('17', 'wd20160129_032318', '2016-01-29 03:23:23', '2016-01-29 03:23:23'), ('18', 'ly20160129_033243', '2016-01-29 03:32:50', '2016-01-29 03:32:50'), ('19', 'wd20160129_160426', '2016-01-29 16:04:31', '2016-01-29 16:04:31'), ('20', 'wd20160129_160544', '2016-01-29 16:05:48', '2016-01-29 16:05:48'), ('21', 'ly20160130_003751', '2016-01-30 00:38:00', '2016-01-30 00:38:00'), ('22', 'ly20160130_003906', '2016-01-30 00:39:40', '2016-01-30 00:39:40'), ('23', 'ly20160130_004123', '2016-01-30 00:41:55', '2016-01-30 00:41:55');
+INSERT INTO `os_order` VALUES ('1', 'wshop201101', '2016-01-28 11:33:34', '2016-01-28 11:33:34'), ('2', 'wd001', '2016-01-28 13:42:24', '2016-01-28 13:42:24'), ('3', 'wd002', '2016-01-28 13:42:46', '2016-01-28 13:42:46'), ('4', 'wd003', '2016-01-28 13:51:05', '2016-01-28 13:51:05'), ('5', '005', '2016-01-28 13:51:49', '2016-01-28 13:51:49'), ('6', '007', '2016-01-28 13:52:23', '2016-01-28 13:52:23'), ('7', '006', '2016-01-28 13:53:40', '2016-01-28 13:53:40'), ('8', 'ly20160128-173955', '2016-01-28 17:40:02', '2016-01-28 17:40:02'), ('9', null, '2016-01-29 03:03:11', '2016-01-29 03:03:11'), ('10', null, '2016-01-29 03:05:11', '2016-01-29 03:05:11'), ('11', null, '2016-01-29 03:05:41', '2016-01-29 03:05:41'), ('12', null, '2016-01-29 03:06:37', '2016-01-29 03:06:37'), ('13', null, '2016-01-29 03:17:30', '2016-01-29 03:17:30'), ('14', null, '2016-01-29 03:18:32', '2016-01-29 03:18:32'), ('15', null, '2016-01-29 03:19:11', '2016-01-29 03:19:11'), ('16', 'wd20160129_031945', '2016-01-29 03:19:50', '2016-01-29 03:19:50'), ('17', 'wd20160129_032318', '2016-01-29 03:23:23', '2016-01-29 03:23:23'), ('18', 'ly20160129_033243', '2016-01-29 03:32:50', '2016-01-29 03:32:50'), ('19', 'wd20160129_160426', '2016-01-29 16:04:31', '2016-01-29 16:04:31'), ('20', 'wd20160129_160544', '2016-01-29 16:05:48', '2016-01-29 16:05:48'), ('21', 'ly20160130_003751', '2016-01-30 00:38:00', '2016-01-30 00:38:00'), ('22', 'ly20160130_003906', '2016-01-30 00:39:40', '2016-01-30 00:39:40'), ('23', 'ly20160130_004123', '2016-01-30 00:41:55', '2016-01-30 00:41:55'), ('24', 'wd20160130_083703', '2016-01-30 08:39:57', '2016-01-30 08:39:57'), ('25', 'wd20160130_084105', '2016-01-30 08:41:27', '2016-01-30 08:41:27'), ('26', 'wd20160130_084816', '2016-01-30 08:48:31', '2016-01-30 08:48:31'), ('27', 'wd20160130_085045', '2016-01-30 08:50:58', '2016-01-30 08:50:58'), ('28', 'wd20160130_085133', '2016-01-30 08:51:45', '2016-01-30 08:51:45'), ('29', 'wd20160130_085316', '2016-01-30 08:53:29', '2016-01-30 08:53:29'), ('30', 'ly20160130_085340', '2016-01-30 08:53:56', '2016-01-30 08:53:56'), ('31', 'ly20160130_085413', '2016-01-30 08:54:27', '2016-01-30 08:54:27'), ('32', 'wd20160130_085937', '2016-01-30 08:59:46', '2016-01-30 08:59:46'), ('33', 'wd20160130_090007', '2016-01-30 09:01:03', '2016-01-30 09:01:03'), ('34', 'wd20160130_090301', '2016-01-30 09:03:28', '2016-01-30 09:03:28'), ('35', 'wd20160130_090301', '2016-01-30 09:03:39', '2016-01-30 09:03:39'), ('36', 'wd20160130_090350', '2016-01-30 09:03:59', '2016-01-30 09:03:59'), ('37', 'wd20160130_090404', '2016-01-30 09:04:28', '2016-01-30 09:04:28'), ('38', 'ly20160130_090522', '2016-01-30 09:05:31', '2016-01-30 09:05:31'), ('39', 'ly20160130_132311', '2016-01-30 13:23:25', '2016-01-30 13:23:25');
 COMMIT;
 
 -- ----------------------------
@@ -248,17 +248,17 @@ CREATE TABLE `os_order_address` (
   `order_id` int(11) DEFAULT NULL,
   `address_id` int(11) DEFAULT NULL,
   `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`order_address_id`),
   KEY `order_id` (`order_id`),
   CONSTRAINT `fk_ordadd_order_id` FOREIGN KEY (`order_id`) REFERENCES `os_order` (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `os_order_address`
 -- ----------------------------
 BEGIN;
-INSERT INTO `os_order_address` VALUES ('4', '14', '2', '2016-01-29 03:18:32', '2016-01-29 03:18:32'), ('5', '15', '2', '2016-01-29 03:19:11', '2016-01-29 03:19:11'), ('6', '16', '2', '2016-01-29 03:19:50', '2016-01-29 03:19:50'), ('7', '17', '2', '2016-01-29 03:23:23', '2016-01-29 03:23:23'), ('8', '18', '2', '2016-01-29 03:32:50', '2016-01-29 03:32:50'), ('9', '19', '1', '2016-01-29 16:04:31', '2016-01-29 16:04:31'), ('10', '20', '1', '2016-01-29 16:05:48', '2016-01-29 16:05:48'), ('11', '21', '2', '2016-01-30 00:38:00', '2016-01-30 00:38:00'), ('12', '22', '2', '2016-01-30 00:39:40', '2016-01-30 00:39:40'), ('13', '23', '2', '2016-01-30 00:41:55', '2016-01-30 00:41:55');
+INSERT INTO `os_order_address` VALUES ('4', '14', '2', '2016-01-29 03:18:32', '2016-01-29 03:18:32'), ('5', '15', '2', '2016-01-29 03:19:11', '2016-01-29 03:19:11'), ('6', '16', '2', '2016-01-29 03:19:50', '2016-01-29 03:19:50'), ('7', '17', '2', '2016-01-29 03:23:23', '2016-01-29 03:23:23'), ('8', '18', '2', '2016-01-29 03:32:50', '2016-01-29 03:32:50'), ('9', '19', '1', '2016-01-29 16:04:31', '2016-01-29 16:04:31'), ('10', '20', '1', '2016-01-29 16:05:48', '2016-01-29 16:05:48'), ('11', '21', '2', '2016-01-30 00:38:00', '2016-01-30 00:38:00'), ('12', '22', '2', '2016-01-30 00:39:40', '2016-01-30 00:39:40'), ('13', '23', '2', '2016-01-30 00:41:55', '2016-01-30 00:41:55'), ('14', '24', '2', '2016-01-30 08:39:57', '2016-01-30 08:39:57'), ('15', '25', '2', '2016-01-30 08:41:27', '2016-01-30 08:41:27'), ('16', '26', '1', '2016-01-30 08:48:31', '2016-01-30 08:48:31'), ('17', '27', '1', '2016-01-30 08:50:58', '2016-01-30 08:50:58'), ('18', '28', '1', '2016-01-30 08:51:45', '2016-01-30 08:51:45'), ('19', '29', '2', '2016-01-30 08:53:29', '2016-01-30 08:53:29'), ('20', '30', '2', '2016-01-30 08:53:56', '2016-01-30 08:53:56'), ('21', '31', '2', '2016-01-30 08:54:27', '2016-01-30 08:54:27'), ('22', '32', '1', '2016-01-30 08:59:46', '2016-01-30 08:59:46'), ('23', '33', '1', '2016-01-30 09:01:03', '2016-01-30 09:01:03'), ('24', '34', '1', '2016-01-30 09:03:28', '2016-01-30 09:03:28'), ('25', '35', '1', '2016-01-30 09:03:39', '2016-01-30 09:03:39'), ('26', '36', '1', '2016-01-30 09:03:59', '2016-01-30 09:03:59'), ('27', '37', '2', '2016-01-30 09:04:28', '2016-01-30 09:04:28'), ('28', '38', '2', '2016-01-30 09:05:31', '2016-01-30 09:05:31'), ('29', '39', '2', '2016-01-30 13:23:25', '2016-01-30 13:23:25');
 COMMIT;
 
 -- ----------------------------
@@ -270,20 +270,20 @@ CREATE TABLE `os_order_agent` (
   `order_id` int(11) DEFAULT NULL,
   `agent_id` int(11) DEFAULT NULL,
   `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`order_agent_id`),
   KEY `order_id` (`order_id`),
   KEY `order_id_2` (`order_id`),
   KEY `agent_id` (`agent_id`),
   CONSTRAINT `fk_ag_agent_id` FOREIGN KEY (`agent_id`) REFERENCES `os_consumer` (`consumer_id`),
   CONSTRAINT `fk_ag_order_id` FOREIGN KEY (`order_id`) REFERENCES `os_order` (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `os_order_agent`
 -- ----------------------------
 BEGIN;
-INSERT INTO `os_order_agent` VALUES ('1', '6', '1', '2016-01-28 13:52:23', '2016-01-28 13:52:23'), ('2', '7', '1', '2016-01-28 13:53:40', '2016-01-28 13:53:40'), ('3', '8', '3', '2016-01-28 17:40:02', '2016-01-28 17:40:02'), ('4', '9', '1', '2016-01-29 03:03:11', '2016-01-29 03:03:11'), ('5', '12', '1', '2016-01-29 03:06:37', '2016-01-29 03:06:37'), ('6', '13', '1', '2016-01-29 03:17:30', '2016-01-29 03:17:30'), ('7', '14', '1', '2016-01-29 03:18:32', '2016-01-29 03:18:32'), ('8', '15', '3', '2016-01-29 03:19:11', '2016-01-29 03:19:11'), ('9', '16', '1', '2016-01-29 03:19:50', '2016-01-29 03:19:50'), ('10', '17', '1', '2016-01-29 03:23:23', '2016-01-29 03:23:23'), ('11', '18', '3', '2016-01-29 03:32:50', '2016-01-29 03:32:50'), ('12', '19', '1', '2016-01-29 16:04:31', '2016-01-29 16:04:31'), ('13', '20', '1', '2016-01-29 16:05:48', '2016-01-29 16:05:48'), ('14', '21', '3', '2016-01-30 00:38:00', '2016-01-30 00:38:00'), ('15', '22', '3', '2016-01-30 00:39:40', '2016-01-30 00:39:40'), ('16', '23', '3', '2016-01-30 00:41:55', '2016-01-30 00:41:55');
+INSERT INTO `os_order_agent` VALUES ('1', '6', '1', '2016-01-28 13:52:23', '2016-01-28 13:52:23'), ('2', '7', '1', '2016-01-28 13:53:40', '2016-01-28 13:53:40'), ('3', '8', '3', '2016-01-28 17:40:02', '2016-01-28 17:40:02'), ('4', '9', '1', '2016-01-29 03:03:11', '2016-01-29 03:03:11'), ('5', '12', '1', '2016-01-29 03:06:37', '2016-01-29 03:06:37'), ('6', '13', '1', '2016-01-29 03:17:30', '2016-01-29 03:17:30'), ('7', '14', '1', '2016-01-29 03:18:32', '2016-01-29 03:18:32'), ('8', '15', '3', '2016-01-29 03:19:11', '2016-01-29 03:19:11'), ('9', '16', '1', '2016-01-29 03:19:50', '2016-01-29 03:19:50'), ('10', '17', '1', '2016-01-29 03:23:23', '2016-01-29 03:23:23'), ('11', '18', '3', '2016-01-29 03:32:50', '2016-01-29 03:32:50'), ('12', '19', '1', '2016-01-29 16:04:31', '2016-01-29 16:04:31'), ('13', '20', '1', '2016-01-29 16:05:48', '2016-01-29 16:05:48'), ('14', '21', '3', '2016-01-30 00:38:00', '2016-01-30 00:38:00'), ('15', '22', '3', '2016-01-30 00:39:40', '2016-01-30 00:39:40'), ('16', '23', '3', '2016-01-30 00:41:55', '2016-01-30 00:41:55'), ('17', '24', '1', '2016-01-30 08:39:57', '2016-01-30 08:39:57'), ('18', '25', '1', '2016-01-30 08:41:27', '2016-01-30 08:41:27'), ('19', '26', '1', '2016-01-30 08:48:31', '2016-01-30 08:48:31'), ('20', '27', '1', '2016-01-30 08:50:58', '2016-01-30 08:50:58'), ('21', '28', '1', '2016-01-30 08:51:45', '2016-01-30 08:51:45'), ('22', '29', '1', '2016-01-30 08:53:29', '2016-01-30 08:53:29'), ('23', '30', '3', '2016-01-30 08:53:56', '2016-01-30 08:53:56'), ('24', '31', '3', '2016-01-30 08:54:27', '2016-01-30 08:54:27'), ('25', '32', '1', '2016-01-30 08:59:46', '2016-01-30 08:59:46'), ('26', '33', '1', '2016-01-30 09:01:03', '2016-01-30 09:01:03'), ('27', '34', '1', '2016-01-30 09:03:28', '2016-01-30 09:03:28'), ('28', '35', '1', '2016-01-30 09:03:39', '2016-01-30 09:03:39'), ('29', '36', '1', '2016-01-30 09:03:59', '2016-01-30 09:03:59'), ('30', '37', '1', '2016-01-30 09:04:28', '2016-01-30 09:04:28'), ('31', '38', '3', '2016-01-30 09:05:31', '2016-01-30 09:05:31'), ('32', '39', '3', '2016-01-30 13:23:25', '2016-01-30 13:23:25');
 COMMIT;
 
 -- ----------------------------
@@ -295,7 +295,7 @@ CREATE TABLE `os_order_postage` (
   `order_id` int(11) DEFAULT NULL,
   `postage_id` int(11) DEFAULT NULL,
   `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`order_postage_id`),
   KEY `order_id` (`order_id`),
   KEY `postage_id` (`postage_id`),
@@ -314,19 +314,19 @@ CREATE TABLE `os_order_product` (
   `quantity` int(11) NOT NULL DEFAULT '1',
   `sell_price` decimal(10,0) DEFAULT NULL,
   `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`order_product_id`),
   KEY `order_id` (`order_id`),
   KEY `os_product_id` (`os_product_id`),
   CONSTRAINT `fk_orderproduct_order_id` FOREIGN KEY (`order_id`) REFERENCES `os_order` (`order_id`),
   CONSTRAINT `fk_orderproduct_product_id` FOREIGN KEY (`os_product_id`) REFERENCES `os_product` (`os_product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `os_order_product`
 -- ----------------------------
 BEGIN;
-INSERT INTO `os_order_product` VALUES ('1', '23', '77', '3', '20', '2016-01-30 00:41:55', '2016-01-30 00:41:55'), ('2', '23', '78', '3', '6', '2016-01-30 00:41:55', '2016-01-30 00:41:55');
+INSERT INTO `os_order_product` VALUES ('1', '23', '77', '3', '20', '2016-01-30 00:41:55', '2016-01-30 00:41:55'), ('2', '23', '78', '3', '6', '2016-01-30 00:41:55', '2016-01-30 00:41:55'), ('4', '24', '77', '3', '20', '2016-01-30 08:39:57', '2016-01-30 08:39:57'), ('5', '24', '77', '1', '40', '2016-01-30 08:39:57', '2016-01-30 08:39:57'), ('6', '24', '78', '3', '6', '2016-01-30 08:39:57', '2016-01-30 08:39:57'), ('7', '25', '77', '3', '1', '2016-01-30 08:41:27', '2016-01-30 08:41:27'), ('8', '25', '77', '3', '20', '2016-01-30 08:41:27', '2016-01-30 08:41:27'), ('9', '25', '77', '1', '40', '2016-01-30 08:41:27', '2016-01-30 08:41:27'), ('10', '25', '78', '3', '6', '2016-01-30 08:41:27', '2016-01-30 08:41:27'), ('14', '26', '77', '3', '1', '2016-01-30 08:48:31', '2016-01-30 08:48:31'), ('15', '26', '77', '3', '20', '2016-01-30 08:48:31', '2016-01-30 08:48:31'), ('16', '26', '77', '1', '40', '2016-01-30 08:48:31', '2016-01-30 08:48:31'), ('17', '26', '78', '3', '6', '2016-01-30 08:48:31', '2016-01-30 08:48:31'), ('21', '27', '77', '3', '1', '2016-01-30 08:50:58', '2016-01-30 08:50:58'), ('22', '27', '77', '3', '20', '2016-01-30 08:50:58', '2016-01-30 08:50:58'), ('23', '27', '77', '1', '40', '2016-01-30 08:50:58', '2016-01-30 08:50:58'), ('24', '27', '78', '3', '6', '2016-01-30 08:50:58', '2016-01-30 08:50:58'), ('28', '28', '2', '1', '2', '2016-01-30 08:51:45', '2016-01-30 08:51:45'), ('29', '28', '77', '3', '1', '2016-01-30 08:51:45', '2016-01-30 08:51:45'), ('30', '28', '77', '3', '20', '2016-01-30 08:51:45', '2016-01-30 08:51:45'), ('31', '28', '77', '1', '40', '2016-01-30 08:51:45', '2016-01-30 08:51:45'), ('32', '28', '78', '3', '6', '2016-01-30 08:51:45', '2016-01-30 08:51:45'), ('35', '29', '2', '1', '2', '2016-01-30 08:53:29', '2016-01-30 08:53:29'), ('36', '29', '77', '3', '1', '2016-01-30 08:53:29', '2016-01-30 08:53:29'), ('37', '29', '77', '3', '20', '2016-01-30 08:53:29', '2016-01-30 08:53:29'), ('38', '29', '77', '1', '40', '2016-01-30 08:53:29', '2016-01-30 08:53:29'), ('39', '29', '78', '3', '6', '2016-01-30 08:53:29', '2016-01-30 08:53:29'), ('40', '29', '78', '1', '222', '2016-01-30 08:53:29', '2016-01-30 08:53:29'), ('42', '30', '77', '333', '111', '2016-01-30 08:53:56', '2016-01-30 08:53:56'), ('43', '31', '5', '69', '23', '2016-01-30 08:54:27', '2016-01-30 08:54:27'), ('44', '32', '121', '22', '22', '2016-01-30 08:59:46', '2016-01-30 08:59:46'), ('45', '34', '117', '11', '1', '2016-01-30 09:03:28', '2016-01-30 09:03:28'), ('46', '36', '5', '2', '1', '2016-01-30 09:03:59', '2016-01-30 09:03:59'), ('47', '37', '160', '2', '1', '2016-01-30 09:04:28', '2016-01-30 09:04:28'), ('48', '37', '384', '11', '11', '2016-01-30 09:04:28', '2016-01-30 09:04:28'), ('50', '38', '5', '2', '2', '2016-01-30 09:05:31', '2016-01-30 09:05:31'), ('51', '38', '5', '22', '22', '2016-01-30 09:05:31', '2016-01-30 09:05:31'), ('53', '39', '32', '22', '22', '2016-01-30 13:23:25', '2016-01-30 13:23:25'), ('54', '39', '78', '10', '100', '2016-01-30 13:23:25', '2016-01-30 13:23:25');
 COMMIT;
 
 -- ----------------------------
@@ -340,18 +340,11 @@ CREATE TABLE `os_order_product_tmp` (
   `quantity` int(11) NOT NULL DEFAULT '1',
   `sell_price` decimal(10,0) DEFAULT NULL,
   `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`order_product_id`),
   KEY `order_id` (`order_id`),
   KEY `os_product_id` (`os_product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
--- ----------------------------
---  Records of `os_order_product_tmp`
--- ----------------------------
-BEGIN;
-INSERT INTO `os_order_product_tmp` VALUES ('1', null, '77', '3', '20', '2016-01-30 00:41:33', '2016-01-30 00:41:33'), ('2', null, '78', '3', '6', '2016-01-30 00:41:43', '2016-01-30 00:41:43');
-COMMIT;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `os_postage`
@@ -360,10 +353,10 @@ DROP TABLE IF EXISTS `os_postage`;
 CREATE TABLE `os_postage` (
   `postage_id` int(11) NOT NULL AUTO_INCREMENT,
   `postage_company_id` int(255) DEFAULT NULL,
-  `postage_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `postage_date` timestamp NULL DEFAULT NULL,
   `postage_code` varchar(255) NOT NULL COMMENT '快递单号',
   `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`postage_id`),
   KEY `postage_company_id` (`postage_company_id`),
   CONSTRAINT `fk_post_com_id` FOREIGN KEY (`postage_company_id`) REFERENCES `os_postage_company` (`postage_company_id`)
@@ -385,7 +378,7 @@ CREATE TABLE `os_postage_company` (
   `postage_company_name` varchar(255) DEFAULT NULL,
   `postage_website` varchar(255) DEFAULT NULL,
   `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`postage_company_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -408,7 +401,7 @@ CREATE TABLE `os_product` (
   `big_img_src` varchar(255) DEFAULT NULL,
   `chemist_price` decimal(10,2) DEFAULT NULL,
   `entrytime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   `source_type` varchar(255) DEFAULT NULL COMMENT 'chemist, manmade',
   `barcode` varchar(255) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
@@ -436,9 +429,9 @@ CREATE TABLE `os_stock_entry` (
   `stock_num` int(11) DEFAULT NULL,
   `buy_shop` varchar(255) DEFAULT NULL,
   `buyer` varchar(255) DEFAULT NULL,
-  `purchase_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `purchase_time` timestamp NULL DEFAULT NULL,
   `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`stock_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='商品入库';
 
@@ -550,7 +543,7 @@ CREATE TABLE `users` (
 --  Records of `users`
 -- ----------------------------
 BEGIN;
-INSERT INTO `users` VALUES ('1', '127.0.0.1', 'admin', '$2y$08$FQNBgZCRXKKHMjSMyGrCUOjwmjUzZuOYpO03jT333ChYvvUJE.t.6', '', 'admin@admin.com', '', null, null, 'oBdQNfA3ag.p.ndQVJv2zu', '1268889823', '1454074879', '1', 'Admin', 'istrator', 'ADMIN', '0', 'oneshop123'), ('2', '::1', 'y c', '$2y$08$wMkc3nAJHmM5yqaVoDmNKuPrU6AHMIirVY/Z//KGeuAM4.7X5gPj2', null, 'qq@qqq.com', null, null, null, null, '1453691691', null, '1', 'yaaa', 'c', 'aaaaa', '112121', null), ('3', '::1', 'q c', '$2y$08$jLx3D8/FtulyeTGhFDMpfuHfvTBdP5ThRul87p44JPLO6b6Xhk2f2', null, '1qq@qqq.com', null, null, null, null, '1453692598', null, '1', 'q', 'c', 'ccc', '112121', null), ('4', '::1', 'y2 c2', '$2y$08$JLWZdyNF2fgLST14yya/a.Pn6q8tumwagjfHj5bo5jhpFdAmok1PK', null, '1@asd.com', null, null, null, null, '1453692704', null, '1', 'y2', 'c2', 'ccc', '112121', null), ('5', '::1', 'a b', '$2y$08$VtcuYVzqra57UUqinx9h/eIL2em92.n7UqI7b55kpK2fo3q0u.rIG', null, 'd@d.com', null, null, null, null, '1453692942', null, '1', 'a', 'b', 'c', 'www', null), ('6', '::1', 'a a', '$2y$08$dn28ad4q2Ko93yAsfZhHm.iE6BQEUd31AHB3Oz9jDsysojORETT/6', null, 'a@aa.com', null, null, null, null, '1453697585', null, '1', 'a', 'a', 'a', '11111', null), ('7', '::1', 'c c', '$2y$08$cl/gGttm4PLy9gIh7NKDruzQssk9VfNQX4/hN73aLr/s.JztDhHwa', null, 'c@cc.com', null, null, null, null, '1453702875', null, '1', 'c', 'c', 'c', '1', null), ('8', '::1', 'cc-ccc', '$2y$08$3EP8.zI8ElQQ4ofnJjoSAe5zfBv6OkhQrGIxqwP8y/Qd6VCf97PJC', null, 'cccc@cc.com', null, null, null, null, '1453703337', null, '1', 'cc', 'ccc', 'cc', '1111', null), ('9', '::1', 'kitty', '$2y$08$M.4O0.CrYGKaFBB1g/rZNOlbtTdbijCwO5zYQ759ZcF.qlDx8atZq', null, 'hellokitty@hello.com', null, null, null, null, '1453703640', null, '1', 'hello', 'kitty', 'hellokitty', '1111111111', null), ('10', '::1', 'hellokitty', '$2y$08$Dr9NAWINuMCpgoyLUqen3eWzUsgflj/z833T.AvvCm5/TPIa452A2', null, 'kitty@hello.com', null, null, null, null, '1453703717', '1453863201', '1', 'hello', 'kitty', 'hellokitty', '11111111112', null);
+INSERT INTO `users` VALUES ('1', '127.0.0.1', 'admin', '$2y$08$FQNBgZCRXKKHMjSMyGrCUOjwmjUzZuOYpO03jT333ChYvvUJE.t.6', '', 'admin@admin.com', '', null, null, 'oBdQNfA3ag.p.ndQVJv2zu', '1268889823', '1454141304', '1', 'Admin', 'istrator', 'ADMIN', '0', 'oneshop123'), ('2', '::1', 'y c', '$2y$08$wMkc3nAJHmM5yqaVoDmNKuPrU6AHMIirVY/Z//KGeuAM4.7X5gPj2', null, 'qq@qqq.com', null, null, null, null, '1453691691', null, '1', 'yaaa', 'c', 'aaaaa', '112121', null), ('3', '::1', 'q c', '$2y$08$jLx3D8/FtulyeTGhFDMpfuHfvTBdP5ThRul87p44JPLO6b6Xhk2f2', null, '1qq@qqq.com', null, null, null, null, '1453692598', null, '1', 'q', 'c', 'ccc', '112121', null), ('4', '::1', 'y2 c2', '$2y$08$JLWZdyNF2fgLST14yya/a.Pn6q8tumwagjfHj5bo5jhpFdAmok1PK', null, '1@asd.com', null, null, null, null, '1453692704', null, '1', 'y2', 'c2', 'ccc', '112121', null), ('5', '::1', 'a b', '$2y$08$VtcuYVzqra57UUqinx9h/eIL2em92.n7UqI7b55kpK2fo3q0u.rIG', null, 'd@d.com', null, null, null, null, '1453692942', null, '1', 'a', 'b', 'c', 'www', null), ('6', '::1', 'a a', '$2y$08$dn28ad4q2Ko93yAsfZhHm.iE6BQEUd31AHB3Oz9jDsysojORETT/6', null, 'a@aa.com', null, null, null, null, '1453697585', null, '1', 'a', 'a', 'a', '11111', null), ('7', '::1', 'c c', '$2y$08$cl/gGttm4PLy9gIh7NKDruzQssk9VfNQX4/hN73aLr/s.JztDhHwa', null, 'c@cc.com', null, null, null, null, '1453702875', null, '1', 'c', 'c', 'c', '1', null), ('8', '::1', 'cc-ccc', '$2y$08$3EP8.zI8ElQQ4ofnJjoSAe5zfBv6OkhQrGIxqwP8y/Qd6VCf97PJC', null, 'cccc@cc.com', null, null, null, null, '1453703337', null, '1', 'cc', 'ccc', 'cc', '1111', null), ('9', '::1', 'kitty', '$2y$08$M.4O0.CrYGKaFBB1g/rZNOlbtTdbijCwO5zYQ759ZcF.qlDx8atZq', null, 'hellokitty@hello.com', null, null, null, null, '1453703640', null, '1', 'hello', 'kitty', 'hellokitty', '1111111111', null), ('10', '::1', 'hellokitty', '$2y$08$Dr9NAWINuMCpgoyLUqen3eWzUsgflj/z833T.AvvCm5/TPIa452A2', null, 'kitty@hello.com', null, null, null, null, '1453703717', '1453863201', '1', 'hello', 'kitty', 'hellokitty', '11111111112', null);
 COMMIT;
 
 -- ----------------------------

@@ -98,8 +98,8 @@ switch (ENVIRONMENT)
  * Include the path if the folder is not in the same directory
  * as this file.
  */
-	$system_path = 'system';
-
+	//$system_path = 'system';
+	$system_path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'system';
 /*
  *---------------------------------------------------------------
  * APPLICATION FOLDER NAME
@@ -113,7 +113,8 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
-	$application_folder = 'application';
+	//$application_folder = 'application';
+	$application_folder = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'application';
 
 /*
  *---------------------------------------------------------------

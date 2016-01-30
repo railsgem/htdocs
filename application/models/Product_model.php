@@ -135,7 +135,7 @@ class Product_model extends CI_Model {
 									"chemist warehouse" source_type
 								from 
 								os_chemist_product_fetch of left join
-								os_product OP on
+								os_product op on
 								of.chemist_product_id = op.chemist_product_id
 								where op.chemist_product_id is null ');
 
