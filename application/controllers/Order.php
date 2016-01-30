@@ -9,6 +9,7 @@ class Order extends CI_Controller {
                 $this->load->model('consumer_model');
                 $this->load->model('address_model');
                 $this->load->library('ion_auth');
+                $this->load->helper('url');
                 if (!$this->ion_auth->logged_in())
                 {
                     redirect('auth/login');
@@ -95,15 +96,14 @@ class Order extends CI_Controller {
             $this->load->helper('security');
             $this->load->library('form_validation');
             //test from here
-/*print_r($this->session);
-exit;*/
             $this->form_validation->set_rules('consumer_id', 'consumer_id', 'required|integer');
             
             $data['product'] = $this->product_model->get_product();
             $data['consumer'] = $this->consumer_model->get_agent();
             $data['address'] = $this->address_model->get_address();
+            $data['cart_product'] = $this->order_model->get_cart_product();
             if ($this->form_validation->run() === FALSE)
-            {
+            {   
                 $this->load->view('templates/header');
                 $this->load->view('order/create',$data);
                 $this->load->view('templates/footer');
@@ -120,31 +120,15 @@ exit;*/
             }
         }
 
-        public function order_cart()
+        public function add_product_to_cart()
         {
-            $this->load->helper('form');
-            $this->load->helper('security');
-            $this->load->library('form_validation');/*
-            $this->form_validation->set_rules('consumer_id', 'consumer_id', 'required|integer');
-            $this->form_validation->set_rules('address_id', 'address_id', 'required|integer');*/
-            
-            $data['product'] = $this->product_model->get_product();
-            $data['consumer'] = $this->consumer_model->get_agent();
-            $data['address'] = $this->address_model->get_address();
-            
-            $this->order_model->set_order_cart_session();/*
-            if ($this->form_validation->run() === FALSE)
-            {
-                $this->load->view('templates/header');
-                $this->load->view('order/create',$data);
-                $this->load->view('templates/footer');
-            }
-            else
-            {
+            $this->order_model->add_product_to_cart();
+        }
 
-                $this->order_model->set_order_cart_session();
-
-            }*/
+        public function delete_cart_product()
+        {
+            $this->order_model->delete_cart_product();
+           
         }
 
 

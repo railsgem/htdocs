@@ -163,6 +163,33 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
  			return ;
 		}
 
+		public function add_product_to_cart()
+		{
+		    $product_item = array(
+		        'os_product_id' => $this->input->post('os_product_id'),
+		        'product_name' => $this->input->post('product_name'),
+		        'chemist_price' => $this->input->post('chemist_price'),
+		        'source_type' => $this->input->post('source_type'),
+		        'quantity' => $this->input->post('quantity'),
+		        'sell_price' => $this->input->post('sell_price')
+		    );
+			$myquery = "insert into os_order_product_tmp ( os_product_id, quantity, sell_price) 
+						values (".$product_item['os_product_id'].",".$product_item['quantity'].",".$product_item['sell_price']."  )";
+			$query = $this->db->query($myquery);
+
+ 			return $query;
+		}
+		public function get_cart_product()
+		{
+			$myquery = "select otmp.order_product_id,otmp.os_product_id, otmp.quantity, otmp.sell_price , op.product_name
+							, op.chemist_price , op.source_type
+						  from os_order_product_tmp otmp left join os_product op
+						  on otmp.os_product_id = op.os_product_id " ;
+			$this->db->query($myquery);
+			$query = $this->db->query($myquery);
+	        return $query->result_array();
+		}
+
 		public function update_order($order_id = FALSE)
 		{
 			if ($order_id !== FALSE)
@@ -184,6 +211,15 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 			{
 			    $this->db->where('order_id', $order_id);
 			    $this->db->delete('os_order');
+		    }
+		}		
+		public function delete_cart_product($order_product_id = FALSE)
+		{
+			$order_product_id = $this->input->post('order_product_id');
+			if ($order_product_id !== FALSE)
+			{
+			    $this->db->where('order_product_id', $order_product_id);
+			    $this->db->delete('os_order_product_tmp');
 		    }
 		}		
 

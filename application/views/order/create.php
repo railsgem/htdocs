@@ -62,7 +62,7 @@
         <div class="col-lg-9">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <b>Product List</b>
+                    <b>Cart (Product List)</b>
                 </div>
                 <div class="panel-body">
                         <table class="table table-bordered table-hover table-striped" >
@@ -80,9 +80,10 @@
                             </thead>
                             <tbody id="product_order_list_table">
                                 
-                                <?php if(isset($_SESSION['product'])) { foreach ($_SESSION['product'] as $product_item): ?>
+                            <?php  foreach ($cart_product as $product_item): ?>
                                         <tr>
-                                            <?php echo form_open('address/index/delete') ?>
+                                            <?php echo form_open('order/delete_cart_product') ?>
+                                                <td style='display:none'><?php echo $product_item['os_product_id']; ?></td>
                                                 <td style='display:none'><?php echo $product_item['os_product_id']; ?></td>
                                                 <td><?php echo $product_item['product_name']; ?></td>
                                                 <td><?php echo $product_item['chemist_price']; ?></td>
@@ -90,25 +91,25 @@
                                                 <td><?php echo $product_item['quantity']; ?></td>
                                                 <td><?php echo $product_item['sell_price']; ?></td>
                                                 <td>
-                                                    <a href="/index.php/address/edit/<?php echo $product_item['os_product_id']; ?>" class="btn btn-danger btn-xs" >View/Edit</a>
+                                                    <a style="display:none" href="/index.php/order/edit_cart/<?php echo $product_item['order_product_id']; ?>" class="btn btn-danger btn-xs" >View/Edit</a>
                                                     
-                                                    <input type="hidden" name="address_id" value="<?php echo $product_item['os_product_id']; ?>">
-                                                    <button style="display:none"type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_address_<?php echo $product_item['os_product_id'];?>">Delete</button>
+                                                    <input type="hidden" name="delete_product_id" value="<?php echo $product_item['os_product_id']; ?>">
+                                                    <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_product_<?php echo $product_item['os_product_id'];?>">Delete</button>
 
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="delete_address_<?php echo $product_item['os_product_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="delete_product_<?php echo $product_item['os_product_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                       <div class="modal-dialog">
                                                         <div class="modal-content">
                                                           <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                            <h4 class="modal-title" id="myModalLabel">Delete Distribution List Confirm</h4>
+                                                            <h4 class="modal-title" id="myModalLabel">Delete product List Confirm</h4>
                                                           </div>
                                                           <div class="modal-body">
-                                                            Are you sure you want to delete ?</em>
+                                                            Are you sure you want to delete ?</em>--<?php echo $product_item['product_name']; ?>
                                                           </div>
                                                           <div class="modal-footer">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                                            <button type="button" class="btn btn-primary" onclick="delete_address('<?php echo $product_item['os_product_id']; ?>')">Yes, Delete</button>
+                                                            <button type="button" class="btn btn-primary" onclick="delete_cart_product('<?php echo $product_item['order_product_id']; ?>')">Yes, Delete</button>
                                                           </div>
                                                         </div>
                                                       </div>
@@ -118,7 +119,6 @@
                                             </form>
                                         </tr>
                                 <?php endforeach ?>
-                                <?php } ?>
                             </tbody>
                         </table>
                 </div>
@@ -244,26 +244,10 @@
                 quantity : $("#quantity").val(),
                 sell_price : $("#sell_price").val()
             };
-            console.log(data);
-
-            var newtr_str ="<tr id='os_product_id'><td style='display:none'>"+data['os_product_id']+"</td>" +
-            "<td>"+data['product_name']+"</td>" +
-            "<td>"+data['chemist_price']+"</td>" +
-            "<td>"+data['source_type']+"</td>" +
-            "<td>"+data['quantity']+"</td>" +
-            "<td>"+data['sell_price']+"</td>" +"<td>"+data['os_product_id']+"</td></tr>";
-
-            $("#product_order_list_table").prepend(newtr_str);
-
-            var cart_data = new Array();
-            cart_data.push(data);
-            console.log(cart_data);
-
-                    console.log($("#os_product_id").val());
             //post product_item to session
             $.ajax({
                 type: 'POST',
-                url: 'order_cart',
+                url: 'add_product_to_cart',
                 data: data,
                 beforeSend: function(data){
                     console.log("this data will post---");
@@ -273,18 +257,30 @@
                     console.log(msg);
                 }
             });
-
-            //empty product search
-            $("#os_product_id").val("");
-            $("#autocomp").val("");
-            $("#chemist_price").val("");
-            $("#source_type").val("");
-            $("#quantity").val("");
-            $("#sell_price").val("");
+            parent.document.location.href = "create";
         });
 
     });
 
+    function delete_cart_product(order_product_id) {
+
+        var data = {
+            order_product_id : order_product_id
+        };
+        $.ajax({
+            type: 'POST',
+            url: 'delete_cart_product',
+            data: data,
+            beforeSend: function(data){
+                console.log("this data will post---");
+                console.log(data);
+            },
+            success: function(msg){
+                console.log(msg);
+                parent.document.location.href = "create";
+            }
+        });
+    }
     function get_address_id(){
 
         var address_id = $("#recevier_name").val();
