@@ -13,7 +13,7 @@ class Order_model extends CI_Model {
 								od_ag.order_id,
 								od_ag.order_code,
 								od_ag.active,
-								od_ag.despatch_flag,
+								od_ag.post_flag,
 								od_ag.entry_time,
 								od_ag.update_time,
 								od_ag.agent_id,
@@ -29,7 +29,7 @@ class Order_model extends CI_Model {
 										op.order_id,
 										op.order_code,
 										op.active,
-										op.despatch_flag,
+										op.post_flag,
 										op.entry_time,
 										op.update_time,
 										oag.agent_id,
@@ -50,7 +50,7 @@ class Order_model extends CI_Model {
 								od_ag.order_id,
 								od_ag.order_code,
 								od_ag.active,
-								od_ag.despatch_flag,
+								od_ag.post_flag,
 								od_ag.entry_time,
 								od_ag.update_time,
 								od_ag.agent_id,
@@ -66,7 +66,7 @@ class Order_model extends CI_Model {
 										op.order_id,
 										op.order_code,
 										op.active,
-										op.despatch_flag,
+										op.post_flag,
 										op.entry_time,
 										op.update_time,
 										oag.agent_id,
@@ -93,7 +93,7 @@ class Order_model extends CI_Model {
 								od_ag.order_id,
 								od_ag.order_code,
 								od_ag.active,
-								od_ag.despatch_flag,
+								od_ag.post_flag,
 								od_ag.entry_time,
 								od_ag.update_time,
 								od_ag.agent_id,
@@ -110,7 +110,7 @@ class Order_model extends CI_Model {
 										op.order_id,
 										op.order_code,
 										op.active,
-										op.despatch_flag,
+										op.post_flag,
 										op.entry_time,
 										op.update_time,
 										oag.agent_id,
@@ -357,7 +357,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 
 			$myquery = "insert into os_order_postage (order_id, postage_id) values (".$order_id .",".$postage_id."  )";
 			$query = $this->db->query($myquery);
-			$myquery = "update os_order set despatch_flag = 1 where order_id= ".$order_id ;
+			$myquery = "update os_order set post_flag = 1 where order_id= ".$order_id ;
 			$query = $this->db->query($myquery);
 			return;
 		}

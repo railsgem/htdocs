@@ -163,9 +163,9 @@
 
 
 
-                        <label for="despatch_flag"><span class="red"> * </span>despatch_flag:</label>
-                        <select class="form-control" name="despatch_flag">
-                            <option value="1" <?php if ("1" === set_value('despatch_flag')) { echo "selected"; } ?>>发货</option>
-                            <option value="0" <?php if ("1" === set_value('despatch_flag')) { echo "selected"; } ?>>未发货</option>
+                        <label for="post_flag"><span class="red"> * </span>post_flag:</label>
+                        <select class="form-control" name="post_flag">
+                            <option value="1" <?php if ("1" === set_value('post_flag')) { echo "selected"; } ?>>发货</option>
+                            <option value="0" <?php if ("1" === set_value('post_flag')) { echo "selected"; } ?>>未发货</option>
                         </select>
 </div>

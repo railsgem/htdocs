@@ -122,7 +122,7 @@
                             
                             <?php foreach ($order as $order_item): ?>
                                     <tr <?php if ($order_item['active'] == 0 ){ echo 'class="danger"';} 
-                                              elseif ($order_item['despatch_flag'] == 1 ) {  echo 'class="info"';} 
+                                              elseif ($order_item['post_flag'] == 1 ) {  echo 'class="info"';} 
                                         ?>>
                                         <?php echo form_open('order/index/delete') ?>
                                             <td style='display:none'><?php echo $order_item['order_id']; ?></td>
@@ -140,7 +140,7 @@
                                             <td style="display:none" ><?php echo $order_item['update_time']; ?></td>
                                             <td>
                                                 <?php echo ($order_item['active']) ? anchor("order/deactivate/".$order_item['order_id'], "active") : anchor("order/activate/". $order_item['order_id'], "inactive");?></br>
-                                                <?php echo ($order_item['despatch_flag']) ? anchor("order/postage/".$order_item['order_id'], "despatched") : anchor("order/postage/". $order_item['order_id'], "post now!");?>
+                                                <?php echo ($order_item['post_flag']) ? anchor("order/postage/".$order_item['order_id'], "POSTED") : anchor("order/postage/". $order_item['order_id'], "post now!");?>
 
                                             </td>
                                             <td>
