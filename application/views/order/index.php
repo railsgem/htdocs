@@ -108,7 +108,7 @@
                                     <th>phone</th>
                                     <th>recevier_name</th>
                                     <th>recevier_nation_id</th>
-                                    <th>product_list</th>
+                                    <th colspan="2">product_list</th>
                                     <th>entry_time</th>
                                     <th>update_time</th>
                                     <th>操作</th>
@@ -132,12 +132,12 @@
                                             <td><?php echo $order_item['phone']; ?></td>
                                             <td><?php echo $order_item['recevier_name']; ?></td>
                                             <td><?php echo $order_item['recevier_nation_id']; ?></td>
-                                            <td><a target="_blank" href="/index.php/order/order_product_list/<?php echo $order_item['order_id']; ?>" class="btn btn-danger btn-xs" >View/Edit</a>
-                                                <?php echo $order_item['product_list']; ?></td>
+                                            <td><?php echo $order_item['product_list']; ?></td>
+                                            <td><a target="_blank" href="/index.php/order/order_product_list/<?php echo $order_item['order_id']; ?>" class="btn btn-danger btn-xs" >Edit Product</a></td>
                                             <td><?php echo $order_item['entry_time']; ?></td>
                                             <td><?php echo $order_item['update_time']; ?></td>
                                             <td>
-                                                <a target="_blank" href="/index.php/order/edit/<?php echo $order_item['order_id']; ?>" class="btn btn-danger btn-xs" >View/Edit</a>
+                                                <a target="_blank" href="/index.php/order/edit/<?php echo $order_item['order_id']; ?>" class="btn btn-danger btn-xs" >Edit Address</a>
                                                 
                                                 <input type="hidden" name="order_id" value="<?php echo $order_item['order_id']; ?>">
                                                 <button style="display:none"type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_order_<?php echo $order_item['order_id'];?>">Delete</button>

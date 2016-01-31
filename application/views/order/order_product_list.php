@@ -133,7 +133,7 @@
     <!-- /.row -->
     <?php echo form_open('order/create') ?>
 
-        <div class="row">
+        <div style="display:none" class="row">
             <div class="col-lg-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -200,7 +200,7 @@
         </div>
         <!-- /.row -->
 
-        <div class="text-left">
+        <div style="display:none" class="text-left">
             <input class="btn btn-primary" type="submit" name="submit" value="Add New order" />
         </div>
 

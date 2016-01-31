@@ -9,19 +9,70 @@ class Order_model extends CI_Model {
 		{
 		        if ($order_id === FALSE)
 		        {
-					$myquery = 'select  op.order_id
-								,op.order_code
-								,op.entry_time
-								,op.update_time
-						 from os_order op 
+					$myquery = 'SELECT
+								od_ag.order_id,
+								od_ag.order_code,
+								od_ag.entry_time,
+								od_ag.update_time,
+								od_ag.agent_id,
+								ocs.consumer_name agent_name,
+								od_ag.address_id,
+								oad.address_detail,
+								oad.phone,
+								oad.recevier_name,
+								oad.recevier_nation_id
+							FROM
+								(
+									SELECT
+										op.order_id,
+										op.order_code,
+										op.entry_time,
+										op.update_time,
+										oag.agent_id,
+										odr_ad.order_address_id,
+										odr_ad.address_id
+									FROM
+										os_order op
+									LEFT JOIN os_order_agent oag ON op.order_id = oag.order_id
+									LEFT JOIN os_order_address odr_ad ON op.order_id = odr_ad.order_id
+								) od_ag
+							LEFT JOIN os_consumer ocs ON od_ag.agent_id = ocs.consumer_id
+							LEFT JOIN os_address oad ON od_ag.address_id = oad.address_id
+							WHERE
+								1 = 1 
 						';
 		        }
-				$myquery = 'select  op.order_id
-								,op.order_code
-								,op.entry_time
-								,op.update_time
-					 from os_order op 
-					where 1 = 1 and op.order_id = '.$order_id;
+				$myquery = 'SELECT
+								od_ag.order_id,
+								od_ag.order_code,
+								od_ag.entry_time,
+								od_ag.update_time,
+								od_ag.agent_id,
+								ocs.consumer_name agent_name,
+								od_ag.address_id,
+								oad.address_detail,
+								oad.phone,
+								oad.recevier_name,
+								oad.recevier_nation_id
+							FROM
+								(
+									SELECT
+										op.order_id,
+										op.order_code,
+										op.entry_time,
+										op.update_time,
+										oag.agent_id,
+										odr_ad.order_address_id,
+										odr_ad.address_id
+									FROM
+										os_order op
+									LEFT JOIN os_order_agent oag ON op.order_id = oag.order_id
+									LEFT JOIN os_order_address odr_ad ON op.order_id = odr_ad.order_id
+								) od_ag
+							LEFT JOIN os_consumer ocs ON od_ag.agent_id = ocs.consumer_id
+							LEFT JOIN os_address oad ON od_ag.address_id = oad.address_id
+							WHERE
+								1 = 1 and od_ag.order_id = '.$order_id;
 				$query = $this->db->query($myquery);
 				return $query->row_array();
 		}
@@ -212,12 +263,10 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 			if ($order_id !== FALSE)
 			{
 			    $data = array(
-			        'order_id' => $this->input->post('order_id'),
-			        'order_code' => $this->input->post('order_code')
+			        'address_id' => $this->input->post('post_address_id')
 			    );
-
 			    $this->db->where('order_id', $order_id);
-			    $this->db->update('os_order', $data);
+			    $this->db->update('os_order_address', $data);
 		    }
 		}
 

@@ -62,12 +62,14 @@ class Order extends CI_Controller {
                 $this->load->helper('security');
                 $this->load->library('form_validation');
 
-                $this->form_validation->set_rules('order_code', 'order_code', 'trim|required|xss_clean');
+                $this->form_validation->set_rules('post_address_id', 'post_address_id', 'required|integer');
                 
                 if ($this->form_validation->run() === FALSE)
                 {
                     $data['update_success'] ='';
                     $data['order'] = $this->order_model->get_order($order_id);
+                    $data['address'] = $this->address_model->get_address();
+                    $data['product'] = $this->order_model->order_product_list($order_id);
                     
                     $this->load->view('templates/header');
                     $this->load->view('order/edit',$data);
@@ -78,6 +80,7 @@ class Order extends CI_Controller {
                     $this->order_model->update_order($order_id);
 
                     $data['order'] = $this->order_model->get_order($order_id);
+                    $data['product'] = $this->order_model->order_product_list($order_id);
 
                     $data['update_success'] ='Save Successfully.';
 
