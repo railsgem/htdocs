@@ -71,7 +71,7 @@
                                     <td><?php echo $stock_item['os_product_id']; ?></td>
                                     <td><?php echo $stock_item['product_name']; ?></td>
                                     <td><?php echo $stock_item['real_cost']; ?></td>
-                                    <td><?php echo $stock_item['stock_num']; ?></td>
+                                    <td><?php echo $stock_item['stock_entry_num']; ?></td>
                                     <td><?php echo $stock_item['buy_shop']; ?></td>
                                     <td><?php echo $stock_item['buyer']; ?></td>
                                     <td><?php echo $stock_item['purchase_time']; ?></td>

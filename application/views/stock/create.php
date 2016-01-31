@@ -38,8 +38,8 @@
                     <input id="chemist_price" class="form-control" type="input" name="real_cost" value="<?php echo set_value('real_cost'); ?>">
                 </div>
                 <div class="form-group">
-                    <label for="stock_num"><span class="red"> * </span>stock_num:</label>
-                    <input class="form-control" type="input" name="stock_num" value="<?php echo set_value('stock_num'); ?>">
+                    <label for="stock_entry_num"><span class="red"> * </span>stock_entry_num:</label>
+                    <input class="form-control" type="input" name="stock_entry_num" value="<?php echo set_value('stock_entry_num'); ?>">
                 </div>
                 <div class="form-group">
                     <label for="buy_shop"><span class="red"> * </span>buy_shop:</label>

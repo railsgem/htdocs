@@ -28,7 +28,7 @@ class stock_model extends CI_Model {
 	    $data = array(
 	        'os_product_id' => $this->input->post('os_product_id'),
 	        'real_cost' => $this->input->post('real_cost'),
-	        'stock_num' => $this->input->post('stock_num'),
+	        'stock_entry_num' => $this->input->post('stock_entry_num'),
 	        'buy_shop' => $this->input->post('buy_shop'),
 	        'buyer' => $this->input->post('buyer'),
 	        'purchase_time' => $this->input->post('purchase_time')
@@ -43,7 +43,7 @@ class stock_model extends CI_Model {
 		    $data = array(
 		        'os_product_id' => $this->input->post('os_product_id'),
 		        'real_cost' => $this->input->post('real_cost'),
-		        'stock_num' => $this->input->post('stock_num'),
+		        'stock_entry_num' => $this->input->post('stock_entry_num'),
 		        'buy_shop' => $this->input->post('buy_shop'),
 		        'buyer' => $this->input->post('buyer'),
 		        'purchase_time' => $this->input->post('purchase_time')
