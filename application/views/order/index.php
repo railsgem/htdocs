@@ -108,9 +108,9 @@
                                     <th>phone</th>
                                     <th>recevier_name</th>
                                     <th>recevier_nation_id</th>
-                                    <th colspan="2">product_list</th>
+                                    <th>product_list</th>
                                     <th>entry_time</th>
-                                    <th>update_time</th>
+                                    <th style="display:none" >update_time</th>
                                     <th>操作</th>
                                 </tr>
                             </tr>
@@ -133,10 +133,10 @@
                                             <td><?php echo $order_item['recevier_name']; ?></td>
                                             <td><?php echo $order_item['recevier_nation_id']; ?></td>
                                             <td><?php echo $order_item['product_list']; ?></td>
-                                            <td><a target="_blank" href="/index.php/order/order_product_list/<?php echo $order_item['order_id']; ?>" class="btn btn-danger btn-xs" >Edit Product</a></td>
                                             <td><?php echo $order_item['entry_time']; ?></td>
-                                            <td><?php echo $order_item['update_time']; ?></td>
+                                            <td style="display:none" ><?php echo $order_item['update_time']; ?></td>
                                             <td>
+                                                <a target="_blank" href="/index.php/order/order_product_list/<?php echo $order_item['order_id']; ?>" class="btn btn-primary btn-xs" >Edit Product</a>
                                                 <a target="_blank" href="/index.php/order/edit/<?php echo $order_item['order_id']; ?>" class="btn btn-danger btn-xs" >Edit Address</a>
                                                 
                                                 <input type="hidden" name="order_id" value="<?php echo $order_item['order_id']; ?>">
