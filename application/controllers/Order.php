@@ -10,6 +10,7 @@ class Order extends CI_Controller {
                 $this->load->model('address_model');
                 $this->load->model('postage_model');
                 $this->load->model('postage_company_model');
+                $this->load->model('stock_model');
                 $this->load->library('ion_auth');
                 $this->load->helper('url');
                 if (!$this->ion_auth->logged_in())
@@ -254,15 +255,50 @@ class Order extends CI_Controller {
             redirect('order/postage/'.$order_id, 'refresh');
             $this->load->view('templates/footer');
         }
-       /* $order_id = (int) $order_id;
-
-        $this->order_model->postage($order_id);
-
-        //redirect them back to the auth page
-        $this->load->view('templates/header'); 
-        redirect('order', 'refresh');
-        $this->load->view('templates/footer'); */
     }
 
+    function despatch($order_id = NULL)
+    {
+
+        $this->load->helper('form');
+        $this->load->helper('security');
+        $this->load->library('form_validation');
+
+
+        $this->form_validation->set_rules('despatch_id', 'despatch_id', 'required|integer');
+        $this->form_validation->set_rules('stock_id', 'stock_id', 'required|integer');
+        $this->form_validation->set_rules('despatch_num', 'despatch_num', 'required|integer');
+        
+        //$data['postage_company'] = $this->postage_company_model->get_postage_company_list(NULL,NULL,FALSE,FALSE);
+        $data['order_id'] = $order_id;
+
+        if ($this->form_validation->run() === FALSE)
+        {   
+            $data['update_success'] ='';            
+            $data['order'] = $this->order_model->get_order($order_id);
+            $data['product'] = $this->order_model->order_product_list($order_id);
+            $data['stock'] = $this->stock_model->get_stock_by_order_id($order_id);
+           /* print_r($data['stock']);
+            exit;*/
+            //$data['postage'] = $this->order_model->get_order_postage_list($order_id);
+            $this->load->view('templates/header');
+            $this->load->view('order/despatch',$data);
+            $this->load->view('templates/footer');
+        }
+        else
+        {
+            $data['update_success'] ='despatch Successfully';  
+
+            $this->order_model->set_despatch($order_id);
+
+            $data['order'] = $this->order_model->get_order($order_id);
+            $data['product'] = $this->order_model->order_product_list($order_id);
+
+            $this->load->view('templates/header');
+            //$this->load->view('postage/success');
+            redirect('order/despatch/'.$order_id, 'refresh');
+            $this->load->view('templates/footer');
+        }
+    }
 
 }

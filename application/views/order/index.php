@@ -146,6 +146,7 @@
                                             <td>
                                                 <a target="_blank" href="/index.php/order/order_product_list/<?php echo $order_item['order_id']; ?>" class="btn btn-primary btn-xs" >Edit Product</a>
                                                 <a target="_blank" href="/index.php/order/edit/<?php echo $order_item['order_id']; ?>" class="btn btn-warning btn-xs" >Edit Address</a>
+                                                <a target="_blank" href="/index.php/order/despatch/<?php echo $order_item['order_id']; ?>" class="btn btn-success btn-xs" >despatch</a>
                                                 <a target="_blank" href="/index.php/order/postage/<?php echo $order_item['order_id']; ?>" class="btn btn-info btn-xs" >Postage</a>
                                                 
                                                 <input type="hidden" name="order_id" value="<?php echo $order_item['order_id']; ?>">

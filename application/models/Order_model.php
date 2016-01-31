@@ -381,5 +381,25 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		        return $query->result_array();
 		    }
 		}
+		public function set_despatch($order_id)
+		{
+
+		    /*$data = array(
+		        'postage_company_id' => $this->input->post('postage_company_id'),
+		        'postage_date' => $this->input->post('postage_date'),
+		        'postage_code' => $this->input->post('postage_code'),
+		        'postage_fee' => $this->input->post('postage_fee'),
+		        'postage_weight' => $this->input->post('postage_weight'),
+		        'remark' => $this->input->post('remark')
+		    );
+ 			$this->db->insert('os_postage', $data);
+		    $postage_id = $this->db->insert_id();
+
+			$myquery = "insert into os_order_postage (order_id, postage_id) values (".$order_id .",".$postage_id."  )";
+			$query = $this->db->query($myquery);
+			$myquery = "update os_order set post_flag = 1 where order_id= ".$order_id ;
+			$query = $this->db->query($myquery);
+			return;*/
+		}
 
 }
