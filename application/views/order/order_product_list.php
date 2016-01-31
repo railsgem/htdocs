@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header">
-                order_product_list
+                order_product_list - <span id="order_id"><?php echo $order_id ?></span>
             </h3>
             <ol class="breadcrumb">
                 <li>
@@ -32,7 +32,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <b>Product</b>
-                    <button style="float:right;" id="add_product_to_cart" class="btn btn-primary btn-xs" />Add to Cart</button>
+                    <button style="float:right;" id="add_order_product" class="btn btn-primary btn-xs" />Add to Cart</button>
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
@@ -234,8 +234,8 @@
         });
 
         //
-        $("#add_product_to_cart").click(function(){
-            console.log("add_product_to_cart button is clicked!");
+        $("#add_order_product").click(function(){
+            console.log("add_order_product button is clicked!");
             //get product_item data
             var data = {
                 os_product_id : $("#os_product_id").val(),
@@ -243,12 +243,13 @@
                 chemist_price : $("#chemist_price").val(),
                 source_type : $("#source_type").val(),
                 quantity : $("#quantity").val(),
-                sell_price : $("#sell_price").val()
+                sell_price : $("#sell_price").val(),
+                order_id : $("#order_id").html()
             };
             //post product_item to session
             $.ajax({
                 type: 'POST',
-                url: 'add_product_to_cart',
+                url: '/index.php/order/add_order_product',
                 data: data,
                 beforeSend: function(data){
                     console.log("this data will post---");
@@ -256,9 +257,9 @@
                 },
                 success: function(msg){
                     console.log(msg);
+                    parent.document.location.href = "/index.php/order/order_product_list/"+$("#order_id").html();
                 }
             });
-            parent.document.location.href = "create";
         });
 
     });

@@ -135,6 +135,11 @@ class Order extends CI_Controller {
             $this->order_model->delete_order_product();
            
         }
+        public function add_order_product()
+        {
+            $this->order_model->add_order_product();
+           
+        }
         public function order_product_list($order_id = FALSE)
         {
             $this->load->helper('form');
@@ -143,7 +148,8 @@ class Order extends CI_Controller {
             //test from here
             $this->form_validation->set_rules('order_id', 'order_id', 'required|integer');
                         
-
+            
+            $data['order_id'] = $order_id;
             $data['product'] = $this->order_model->order_product_list($order_id);
             $data['consumer'] = $this->consumer_model->get_agent();
             $data['address'] = $this->address_model->get_address();
