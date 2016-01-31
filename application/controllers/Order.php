@@ -70,7 +70,7 @@ class Order extends CI_Controller {
                     $data['order'] = $this->order_model->get_order($order_id);
                     $data['address'] = $this->address_model->get_address();
                     $data['product'] = $this->order_model->order_product_list($order_id);
-                    
+
                     $this->load->view('templates/header');
                     $this->load->view('order/edit',$data);
                     $this->load->view('templates/footer');
@@ -176,6 +176,79 @@ class Order extends CI_Controller {
                 $this->load->view('templates/footer');
             }
         }
+
+
+    //activate the order
+    function activate($order_id)
+    {
+        $order_id = (int) $order_id;
+
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('order_id', 'order_id', 'required|integer');
+
+        if ($this->form_validation->run() == FALSE)
+        {
+           /* $this->data['order'] = $this->order_model->order($order_id)->row();
+
+            $this->load->view('templates/header'); 
+            $this->_render_page('order/deactivate_user', $this->data);
+            $this->load->view('templates/footer'); */
+            $this->order_model->activate($order_id);
+
+            //redirect them back to the auth page
+            $this->load->view('templates/header'); 
+            redirect('order', 'refresh');
+            $this->load->view('templates/footer'); 
+        }
+        else
+        {
+            $this->order_model->activate($order_id);
+
+            //redirect them back to the auth page
+            $this->load->view('templates/header'); 
+            redirect('order', 'refresh');
+            $this->load->view('templates/footer'); 
+        }
+        /*if ($code !== false)
+        {
+            $activation = $this->ion_auth->activate($id, $code);
+        }
+        else if ($this->ion_auth->is_admin())
+        {
+            $activation = $this->ion_auth->activate($id);
+        }
+
+        if ($activation)
+        {
+            //redirect them to the auth page
+            $this->session->set_flashdata('message', $this->ion_auth->messages());
+            $this->load->view('templates/header'); 
+            redirect("auth", 'refresh');
+            $this->load->view('templates/footer'); 
+        }
+        else
+        {
+            //redirect them to the forgot password page
+            $this->session->set_flashdata('message', $this->ion_auth->errors());
+            $this->load->view('templates/header'); 
+            redirect("auth/forgot_password", 'refresh');
+            $this->load->view('templates/footer'); 
+        }*/
+    }
+
+    //deactivate the order
+    function deactivate($order_id = NULL)
+    {
+
+        $order_id = (int) $order_id;
+
+            $this->order_model->deactivate($order_id);
+
+            //redirect them back to the auth page
+            $this->load->view('templates/header'); 
+            redirect('order', 'refresh');
+            $this->load->view('templates/footer'); 
+    }
 
 
 }

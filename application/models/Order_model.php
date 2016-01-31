@@ -12,6 +12,7 @@ class Order_model extends CI_Model {
 					$myquery = 'SELECT
 								od_ag.order_id,
 								od_ag.order_code,
+								od_ag.active,
 								od_ag.entry_time,
 								od_ag.update_time,
 								od_ag.agent_id,
@@ -26,6 +27,7 @@ class Order_model extends CI_Model {
 									SELECT
 										op.order_id,
 										op.order_code,
+										op.active,
 										op.entry_time,
 										op.update_time,
 										oag.agent_id,
@@ -45,6 +47,7 @@ class Order_model extends CI_Model {
 				$myquery = 'SELECT
 								od_ag.order_id,
 								od_ag.order_code,
+								od_ag.active,
 								od_ag.entry_time,
 								od_ag.update_time,
 								od_ag.agent_id,
@@ -59,6 +62,7 @@ class Order_model extends CI_Model {
 									SELECT
 										op.order_id,
 										op.order_code,
+										op.active,
 										op.entry_time,
 										op.update_time,
 										oag.agent_id,
@@ -84,6 +88,7 @@ class Order_model extends CI_Model {
 			$myquery = "SELECT
 								od_ag.order_id,
 								od_ag.order_code,
+								od_ag.active,
 								od_ag.entry_time,
 								od_ag.update_time,
 								od_ag.agent_id,
@@ -99,6 +104,7 @@ class Order_model extends CI_Model {
 									SELECT
 										op.order_id,
 										op.order_code,
+										op.active,
 										op.entry_time,
 										op.update_time,
 										oag.agent_id,
@@ -314,6 +320,20 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 			$query = $this->db->query($myquery);
 
  			return $query;
+		}
+
+		public function deactivate($order_id)
+		{
+			$myquery = "update os_order set active= 0 where order_id= ".$order_id ;
+			$query = $this->db->query($myquery);
+ 			return ;
+		}
+
+		public function activate($order_id)
+		{
+			$myquery = "update os_order set active= 1 where order_id= ".$order_id ;
+			$query = $this->db->query($myquery);
+ 			return ;
 		}
 
 }
