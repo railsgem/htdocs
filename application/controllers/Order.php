@@ -8,6 +8,8 @@ class Order extends CI_Controller {
                 $this->load->model('product_model');
                 $this->load->model('consumer_model');
                 $this->load->model('address_model');
+                $this->load->model('postage_model');
+                $this->load->model('postage_company_model');
                 $this->load->library('ion_auth');
                 $this->load->helper('url');
                 if (!$this->ion_auth->logged_in())
@@ -188,11 +190,6 @@ class Order extends CI_Controller {
 
         if ($this->form_validation->run() == FALSE)
         {
-           /* $this->data['order'] = $this->order_model->order($order_id)->row();
-
-            $this->load->view('templates/header'); 
-            $this->_render_page('order/deactivate_user', $this->data);
-            $this->load->view('templates/footer'); */
             $this->order_model->activate($order_id);
 
             //redirect them back to the auth page
@@ -209,31 +206,6 @@ class Order extends CI_Controller {
             redirect('order', 'refresh');
             $this->load->view('templates/footer'); 
         }
-        /*if ($code !== false)
-        {
-            $activation = $this->ion_auth->activate($id, $code);
-        }
-        else if ($this->ion_auth->is_admin())
-        {
-            $activation = $this->ion_auth->activate($id);
-        }
-
-        if ($activation)
-        {
-            //redirect them to the auth page
-            $this->session->set_flashdata('message', $this->ion_auth->messages());
-            $this->load->view('templates/header'); 
-            redirect("auth", 'refresh');
-            $this->load->view('templates/footer'); 
-        }
-        else
-        {
-            //redirect them to the forgot password page
-            $this->session->set_flashdata('message', $this->ion_auth->errors());
-            $this->load->view('templates/header'); 
-            redirect("auth/forgot_password", 'refresh');
-            $this->load->view('templates/footer'); 
-        }*/
     }
 
     //deactivate the order
@@ -242,12 +214,54 @@ class Order extends CI_Controller {
 
         $order_id = (int) $order_id;
 
-            $this->order_model->deactivate($order_id);
+        $this->order_model->deactivate($order_id);
 
-            //redirect them back to the auth page
-            $this->load->view('templates/header'); 
-            redirect('order', 'refresh');
-            $this->load->view('templates/footer'); 
+        //redirect them back to the auth page
+        $this->load->view('templates/header'); 
+        redirect('order', 'refresh');
+        $this->load->view('templates/footer'); 
+    }
+
+    function postage($order_id = NULL)
+    {
+
+        $this->load->helper('form');
+        $this->load->helper('security');
+        $this->load->library('form_validation');
+
+
+        $this->form_validation->set_rules('postage_company_id', 'postage_company_id', 'required|integer');
+        $this->form_validation->set_rules('postage_date', 'postage_date', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('postage_code', 'postage_code', 'trim|required|xss_clean');
+        
+        $data['postage_company'] = $this->postage_company_model->get_postage_company_list(NULL,NULL,FALSE,FALSE);
+        $data['order_id'] = $order_id;
+
+        if ($this->form_validation->run() === FALSE)
+        {   
+            
+            $data['postage'] = $this->order_model->get_order_postage_list($order_id);
+            $this->load->view('templates/header');
+            $this->load->view('order/postage',$data);
+            $this->load->view('templates/footer');
+        }
+        else
+        {
+
+            $this->order_model->set_postage($order_id);
+            $this->load->view('templates/header');
+            //$this->load->view('postage/success');
+            redirect('order/postage/'.$order_id, 'refresh');
+            $this->load->view('templates/footer');
+        }
+       /* $order_id = (int) $order_id;
+
+        $this->order_model->postage($order_id);
+
+        //redirect them back to the auth page
+        $this->load->view('templates/header'); 
+        redirect('order', 'refresh');
+        $this->load->view('templates/footer'); */
     }
 
 

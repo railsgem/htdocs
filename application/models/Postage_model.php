@@ -76,7 +76,10 @@ class Postage_model extends CI_Model {
 			    $data = array(
 			        'postage_company_id' => $this->input->post('postage_company_id'),
 			        'postage_date' => $this->input->post('postage_date'),
-			        'postage_code' => $this->input->post('postage_code')
+			        'postage_code' => $this->input->post('postage_code'),
+			        'postage_fee' => $this->input->post('postage_fee'),
+			        'postage_weight' => $this->input->post('postage_weight'),
+			        'remark' => $this->input->post('remark')
 			    );
 
 			    $this->db->where('postage_id', $postage_id);

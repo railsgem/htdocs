@@ -13,6 +13,7 @@ class Order_model extends CI_Model {
 								od_ag.order_id,
 								od_ag.order_code,
 								od_ag.active,
+								od_ag.despatch_flag,
 								od_ag.entry_time,
 								od_ag.update_time,
 								od_ag.agent_id,
@@ -28,6 +29,7 @@ class Order_model extends CI_Model {
 										op.order_id,
 										op.order_code,
 										op.active,
+										op.despatch_flag,
 										op.entry_time,
 										op.update_time,
 										oag.agent_id,
@@ -48,6 +50,7 @@ class Order_model extends CI_Model {
 								od_ag.order_id,
 								od_ag.order_code,
 								od_ag.active,
+								od_ag.despatch_flag,
 								od_ag.entry_time,
 								od_ag.update_time,
 								od_ag.agent_id,
@@ -63,6 +66,7 @@ class Order_model extends CI_Model {
 										op.order_id,
 										op.order_code,
 										op.active,
+										op.despatch_flag,
 										op.entry_time,
 										op.update_time,
 										oag.agent_id,
@@ -89,6 +93,7 @@ class Order_model extends CI_Model {
 								od_ag.order_id,
 								od_ag.order_code,
 								od_ag.active,
+								od_ag.despatch_flag,
 								od_ag.entry_time,
 								od_ag.update_time,
 								od_ag.agent_id,
@@ -105,6 +110,7 @@ class Order_model extends CI_Model {
 										op.order_id,
 										op.order_code,
 										op.active,
+										op.despatch_flag,
 										op.entry_time,
 										op.update_time,
 										oag.agent_id,
@@ -334,6 +340,46 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 			$myquery = "update os_order set active= 1 where order_id= ".$order_id ;
 			$query = $this->db->query($myquery);
  			return ;
+		}
+		public function set_postage($order_id)
+		{
+
+		    $data = array(
+		        'postage_company_id' => $this->input->post('postage_company_id'),
+		        'postage_date' => $this->input->post('postage_date'),
+		        'postage_code' => $this->input->post('postage_code'),
+		        'postage_fee' => $this->input->post('postage_fee'),
+		        'postage_weight' => $this->input->post('postage_weight'),
+		        'remark' => $this->input->post('remark')
+		    );
+ 			$this->db->insert('os_postage', $data);
+		    $postage_id = $this->db->insert_id();
+
+			$myquery = "insert into os_order_postage (order_id, postage_id) values (".$order_id .",".$postage_id."  )";
+			$query = $this->db->query($myquery);
+			$myquery = "update os_order set despatch_flag = 1 where order_id= ".$order_id ;
+			$query = $this->db->query($myquery);
+			return;
+		}
+		public function get_order_postage_list($order_id)
+		{
+
+			if ($order_id !== FALSE)
+			{
+				$myquery = 'select op.postage_id,op.postage_company_id,op.postage_date,op.postage_code,
+								   op.postage_fee,op.postage_weight,op.remark,
+								   op.entry_time,op.update_time,
+								   opc.postage_company_name,opc.postage_website
+							 from os_postage op left join os_postage_company opc 
+							on op.postage_company_id = opc.postage_company_id
+							where 1 = 1  and op.postage_id 
+							in (select opst.postage_id from os_order_postage opst where opst.order_id='.$order_id.')';
+
+				$this->db->query($myquery);
+				$query = $this->db->query($myquery);
+            
+		        return $query->result_array();
+		    }
 		}
 
 }

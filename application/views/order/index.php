@@ -121,7 +121,9 @@
                         <span style="display:none" id="order_json_list" > <?php echo $order_json=json_encode($order_echart);  ?> </span>
                             
                             <?php foreach ($order as $order_item): ?>
-                                    <tr <?php if ($order_item['active'] == 0 ){ echo 'class="danger"';} ?>>
+                                    <tr <?php if ($order_item['active'] == 0 ){ echo 'class="danger"';} 
+                                              elseif ($order_item['despatch_flag'] == 1 ) {  echo 'class="info"';} 
+                                        ?>>
                                         <?php echo form_open('order/index/delete') ?>
                                             <td style='display:none'><?php echo $order_item['order_id']; ?></td>
                                             <td><?php echo $order_item['order_id']; ?></td>
@@ -136,10 +138,15 @@
                                             <td><?php echo $order_item['product_list']; ?></td>
                                             <td><?php echo $order_item['entry_time']; ?></td>
                                             <td style="display:none" ><?php echo $order_item['update_time']; ?></td>
-                                            <td><?php echo ($order_item['active']) ? anchor("order/deactivate/".$order_item['order_id'], "active") : anchor("order/activate/". $order_item['order_id'], "inactive");?></td>
+                                            <td>
+                                                <?php echo ($order_item['active']) ? anchor("order/deactivate/".$order_item['order_id'], "active") : anchor("order/activate/". $order_item['order_id'], "inactive");?></br>
+                                                <?php echo ($order_item['despatch_flag']) ? anchor("order/postage/".$order_item['order_id'], "despatched") : anchor("order/postage/". $order_item['order_id'], "post now!");?>
+
+                                            </td>
                                             <td>
                                                 <a target="_blank" href="/index.php/order/order_product_list/<?php echo $order_item['order_id']; ?>" class="btn btn-primary btn-xs" >Edit Product</a>
                                                 <a target="_blank" href="/index.php/order/edit/<?php echo $order_item['order_id']; ?>" class="btn btn-warning btn-xs" >Edit Address</a>
+                                                <a target="_blank" href="/index.php/order/postage/<?php echo $order_item['order_id']; ?>" class="btn btn-info btn-xs" >Postage</a>
                                                 
                                                 <input type="hidden" name="order_id" value="<?php echo $order_item['order_id']; ?>">
                                                 <button style="display:none"type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_order_<?php echo $order_item['order_id'];?>">Delete</button>
