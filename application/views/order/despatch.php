@@ -37,7 +37,7 @@
 
         <div class="row">
 
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <b>Cart (Product List)</b>
@@ -73,9 +73,20 @@
                                                     <td>
                                                         <?php foreach ($stock as $stock_item): ?>
                                                         <?php if($stock_item['os_product_id'] == $product_item['os_product_id']) {
-                                                                echo $stock_item['product_name']." * ".$stock_item['real_cost']." * ".$stock_item['stock_present_num']." </br> ";
+                                                                echo "<span>";
+                                                                echo '<input type="hidden" name="despatch_stock_id" value="'.$stock_item["stock_id"].'" >';
+                                                                echo $stock_item['product_name']." * ".$stock_item['real_cost']." * ".$stock_item['stock_present_num'];
+                                                                echo '<input type="text" name="despatch_stock_id" value="'.$stock_item["stock_id"].'" >';
+                                                                
+                                                                echo "</span></br>";
                                                                 } ?>
                                                         <?php endforeach ?>
+                                                       <!--  <span width="10%">
+                                                            <div class="input-group" id="inputgroup_<?php echo $stock_item['stock_id'].'_'.$stock_item['os_product_id']?>">
+                                                              <input id="stock_take_<?php echo $stock_item['stock_id'].'_'.$stock_item['os_product_id']?>" type="text" class="form-control" aria-describedby="basic-addon2" value="<?php echo $stock_item['stock_present_num']; ?>" disabled="disabled" >
+                                                              <span class="input-group-addon" id="basic-addon2" onclick="edit_stock_take(<?php echo $stock_item['stock_id'].','.$stock_item['os_product_id']?>)"><span id="pencil_<?php echo $stock_item['stock_id'].'_'.$stock_item['os_product_id']?>" class="glyphicon glyphicon-pencil"></span></span>
+                                                            </div>
+                                                        </span> -->
                                                     </td>
                                                     <td style="display:none;">
                                                         <a style="display:none" href="/index.php/order/edit_cart/<?php echo $product_item['order_product_id']; ?>" class="btn btn-danger btn-xs" >View/Edit</a>
@@ -245,5 +256,49 @@
                 $("#recevier_nation_id").val(recevier_nation_id);
             }
         });
+    }
+    function edit_stock_take(store_id,product_id,oldValue)
+    {
+
+        console.log(store_id,product_id);
+        vSpanId="stock_take_"+store_id+'_'+product_id;
+        console.log(vSpanId);
+        if ($("#pencil_"+store_id+'_'+product_id).hasClass("glyphicon-pencil")){
+            $("#inputgroup_"+store_id+'_'+product_id).addClass(" has-success");
+            $("#pencil_"+store_id+'_'+product_id).removeClass("glyphicon glyphicon-pencil");
+            $("#pencil_"+store_id+'_'+product_id).toggleClass(" glyphicon glyphicon-ok");
+            $("#"+vSpanId).removeAttr("disabled");
+            console.log("old value:"+oldValue);
+        } else {
+            $("#inputgroup_"+store_id+'_'+product_id).removeClass(" has-success");
+            $("#pencil_"+store_id+'_'+product_id).removeClass("glyphicon glyphicon-ok");
+            $("#pencil_"+store_id+'_'+product_id).toggleClass(" glyphicon glyphicon-pencil");
+            $("#"+vSpanId).attr("disabled","disabled");
+            var newValue=$("#"+vSpanId).val();
+            console.log("new value:"+newValue);
+            if ( product_id == parseInt(product_id, 10) && newValue == parseInt(newValue, 10) && store_id == parseInt(store_id, 10) ) {
+                $.ajax({
+                    url:'/index.php/stocktake/quick_update_stock_take/'+store_id+'/'+product_id+'/'+newValue,
+                    type: "GET",
+
+                    dataType: "text",
+                    success: function(response) {
+                        if (response =='success') {
+                           // message('Add Purchase Stock Take Success:'+store_id+'/'+product_id+'/'+newValue,1);
+                            message('Add Purchase Stock Take Success',1);
+                        }else{
+                            message('Add Purchase Stock Take Fail',0);
+                            message(response,0);
+                        }
+                    }
+
+                })
+                console.log("save success");
+            }else{
+                message("Invalid Value!",0)
+                $("#"+vSpanId).val(oldValue);
+            }
+
+        }
     }
 </script>
