@@ -257,7 +257,7 @@
                     console.log(msg);
                 }
             });
-            parent.document.location.href = "create";
+            //parent.document.location.href = "create";
         });
 
     });

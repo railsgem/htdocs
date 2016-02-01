@@ -131,6 +131,41 @@ class stock_model extends CI_Model {
         return $query->row_array();
 
 	}
+
+	public function get_despatch_by_order_id($order_id = FALSE)
+	{
+		$myquery = "select 
+							dep.product_name,
+							dep.order_id,
+							dep.os_product_id,
+							dep.quantity,
+							dep.sell_price,
+							dep.despatch_num,
+							dep.stock_id
+						from (
+						SELECT
+							op.product_name,
+							odp.order_id,
+							odp.os_product_id,
+							odp.quantity,
+							odp.sell_price,
+							od.despatch_num,
+							od.stock_id
+						FROM
+							os_order_product odp
+						LEFT JOIN os_product op ON odp.os_product_id = op.os_product_id
+						LEFT JOIN os_despatch od ON odp.order_id = od.order_id
+						AND odp.os_product_id = od.os_product_id
+						WHERE
+							odp.order_id = ".$order_id
+						.") dep where dep.despatch_num >0 ";
+
+		$query = $this->db->query($myquery);
+        return $query->result_array();
+
+	}
+
+
 	public function set_stock()
 	{
 	    $data = array(
