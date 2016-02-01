@@ -407,6 +407,44 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 			return;*/
 		}
 
+		public function set_despatch_num($stock_id = FALSE,$order_id = FALSE,$os_product_id = FALSE,$despatch_num = FALSE)
+		{
+            if ($stock_id !== FALSE AND $order_id !==FALSE AND $despatch_num !==FALSE ) 
+            {
+				
+			/*	// update os_transaction
+				$myquery = " insert into os_transaction (stock_id, order_id, despatch_num) values ( ".$stock_id." , ".$order_id.", ".$despatch_num." )";
+				$this->db->query($myquery);*/
+
+				// find if there is already a record in despatch table , then updated it ,else insert new record.
+				
+				$myquery = 'select * from os_despatch dsp where dsp.order_id='.$order_id.' and dsp.stock_id = '.$stock_id.' and dsp.despatch_num = '.$despatch_num ;
+
+				$query = $this->db->query($myquery);
+            	if ( $query->num_rows() > 0 ) {
+					$myquery = ' update os_despatch dsp
+									set stock_id= '.$stock_id.' , 
+									order_id= '.$order_id.' ,  
+									despatch_num= '.$despatch_num.' , 
+									os_product_id= '.$os_product_id.' where dsp.order_id='.$order_id.' and dsp.stock_id = '.$stock_id.' and dsp.despatch_num = '.$despatch_num ;
+					$this->db->query($myquery);
+            	} else {
+					// update os_despatch
+					$myquery = " insert into os_despatch (stock_id, order_id, despatch_num, os_product_id) values ( ".$stock_id." , ".$order_id." , ".$despatch_num." , ".$os_product_id." )";
+					$this->db->query($myquery);
+            	}
+            	return;
+
+
+				/*$myquery = 'update os_stock_entry ose set ose.stock_despatch_num='.$stock_despatch_num.' ,  ose.stock_present_num = ( ose.stock_entry_num - '.$stock_despatch_num.' )
+								where ose.stock_id= '.$stock_id ;
+								
+				$this->db->query($myquery);*/
+
+            }
+
+
+		}
 		public function quick_update_stock_take($stock_id = FALSE,$order_id = FALSE,$os_product_id = FALSE,$stock_despatch_num = FALSE)
 		{
             if ($stock_id !== FALSE AND $order_id !==FALSE AND $stock_despatch_num !==FALSE ) 

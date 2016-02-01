@@ -315,5 +315,19 @@ class Order extends CI_Controller {
             echo "fail";
         }
     }   
+    public function set_despatch_num($stock_id = FALSE,$order_id = FALSE,$os_product_id = FALSE,$new_stocktake = FALSE)
+    {
+            //echo "store_id:".$store_id;
+            //return;
+        if ($stock_id !== FALSE AND $order_id !==FALSE ) 
+        {
+            $this->order_model->set_despatch_num($stock_id,$order_id,$os_product_id,$new_stocktake);
+            echo "success";
+        }
+        else
+        {
+            echo "fail";
+        }
+    }   
 
 }

@@ -143,13 +143,6 @@
 
 
     });
-/*<div class="input-group" id="stock_inputgroup_22_39">
-<span class="input-group-addon" id="basic-addon1">29.99<span id="stock_present_num_22_39" class="badge">7</span></span>
-
-                                                            
-<input style="width:50px;display:inline;" type="text" class="form-control" id="despatch_num_22_39" aria-describedby="basic-addon1" value="3" disabled="disabled">
-<span class="input-group-addon" onclick="set_despatch_num(22,39,77,3)"><span id="pencil_22_39" class="glyphicon glyphicon-pencil"></span></span>
-</div>*/
     function set_despatch_num(stock_id,order_id,os_product_id,stock_despatch_num)
     {
 
@@ -170,9 +163,9 @@
             $("#"+vSpanId).attr("disabled","disabled");
             var newValue=$("#"+vSpanId).val();
             console.log("new value:"+newValue);
-            /*if ( order_id == parseInt(order_id, 10) && newValue == parseInt(newValue, 10) && stock_id == parseInt(stock_id, 10) ) {
+            if ( order_id == parseInt(order_id, 10) && newValue == parseInt(newValue, 10) && stock_id == parseInt(stock_id, 10) ) {
                 $.ajax({
-                    url: "",//'/index.php/order/quick_update_stock_take/'+stock_id+'/'+order_id+'/'+os_product_id +'/'+ newValue,
+                    url: '/index.php/order/set_despatch_num/'+stock_id+'/'+order_id+'/'+os_product_id +'/'+ newValue,
                     type: "GET",
 
                     dataType: "text",
@@ -180,7 +173,7 @@
                         if (response =='success') {
                            // message('Add Purchase Stock Take Success:'+stock_id+'/'+order_id+'/'+newValue,1);
                             message('Add Purchase Stock Take Success',1);
-                            var stock_present_num = stock_entry_num - newValue;
+                            //var stock_present_num = stock_entry_num - newValue;
                             console.log("stock_entry_num:" + stock_entry_num);
                            // $("#stock_present_num_"+stock_id+'_'+order_id).html(stock_present_num);
                         }else{
@@ -190,12 +183,12 @@
                         }
                     }
 
-                })
+                });
                 console.log("save success");
             }else{
-                message("Invalid Value!",0)
+                message("Invalid Value!",0);
                 //$("#"+vSpanId).val(stock_despatch_num);
-            }*/
+            }
 
         }
     }
