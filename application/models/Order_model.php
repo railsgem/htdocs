@@ -402,4 +402,18 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 			return;*/
 		}
 
+		public function quick_update_stock_take($stock_id = FALSE,$product_id = FALSE,$stock_despatch_num = FALSE)
+		{
+            if ($stock_id !== FALSE AND $product_id !==FALSE AND $stock_despatch_num !==FALSE ) 
+            {
+				$myquery = 'update os_stock_entry ose set ose.stock_despatch_num='.$stock_despatch_num.' ,  ose.stock_present_num = ( ose.stock_entry_num - '.$stock_despatch_num.' )
+								where ose.stock_id= '.$stock_id ;
+								
+				$this->db->query($myquery);
+
+
+            }
+
+
+		}
 }
