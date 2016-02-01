@@ -300,13 +300,13 @@ class Order extends CI_Controller {
             $this->load->view('templates/footer');
         }
     }
-    public function quick_update_stock_take($stock_id = FALSE,$order_id = FALSE,$new_stocktake = FALSE)
+    public function quick_update_stock_take($stock_id = FALSE,$order_id = FALSE,$os_product_id = FALSE,$new_stocktake = FALSE)
     {
             //echo "store_id:".$store_id;
             //return;
         if ($stock_id !== FALSE AND $order_id !==FALSE ) 
         {
-            $this->order_model->quick_update_stock_take($stock_id,$order_id,$new_stocktake);
+            $this->order_model->quick_update_stock_take($stock_id,$order_id,$os_product_id,$new_stocktake);
             echo "success";
         }
         else

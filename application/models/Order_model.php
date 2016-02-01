@@ -402,7 +402,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 			return;*/
 		}
 
-		public function quick_update_stock_take($stock_id = FALSE,$order_id = FALSE,$stock_despatch_num = FALSE)
+		public function quick_update_stock_take($stock_id = FALSE,$order_id = FALSE,$os_product_id = FALSE,$stock_despatch_num = FALSE)
 		{
             if ($stock_id !== FALSE AND $order_id !==FALSE AND $stock_despatch_num !==FALSE ) 
             {
@@ -415,7 +415,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 				$this->db->query($myquery);
 
 				// update os_despatch
-				$myquery = " insert into os_despatch (stock_id, order_id, despatch_num) values ( ".$stock_id." , ".$order_id." , ".$stock_despatch_num." )";
+				$myquery = " insert into os_despatch (stock_id, order_id, despatch_num, os_product_id) values ( ".$stock_id." , ".$order_id." , ".$stock_despatch_num." , ".$os_product_id." )";
 				$this->db->query($myquery);
 
 

@@ -78,7 +78,7 @@
                                                     <td style="width:10%">
                                                         <div class="input-group" id="inputgroup_<?php echo $stock_item['stock_id'].'_'.$stock_item['order_id']?>">
                                                           <input id="stock_take_<?php echo $stock_item['stock_id'].'_'.$stock_item['order_id']?>" type="text" class="form-control" aria-describedby="basic-addon2" value="<?php echo $stock_item['stock_despatch_num']; ?>" disabled="disabled" >
-                                                          <span class="input-group-addon" id="basic-addon2" onclick="edit_stock_take(<?php echo $stock_item['stock_id'].','.$stock_item['order_id'].','.$stock_item['stock_despatch_num']?>)"><span id="pencil_<?php echo $stock_item['stock_id'].'_'.$stock_item['order_id']?>" class="glyphicon glyphicon-pencil"></span></span>
+                                                          <span class="input-group-addon" id="basic-addon2" onclick="edit_stock_take(<?php echo $stock_item['stock_id'].','.$stock_item['order_id'].','.$stock_item['os_product_id'].','.$stock_item['stock_despatch_num']?>)"><span id="pencil_<?php echo $stock_item['stock_id'].'_'.$stock_item['order_id']?>" class="glyphicon glyphicon-pencil"></span></span>
                                                         </div>
                                                     </td>
                                                     <td id="stock_present_num_<?php echo $stock_item['stock_id'].'_'.$stock_item['order_id']?>" ><?php echo $stock_item['stock_present_num']; ?></td>
@@ -425,7 +425,7 @@
         });
     }
 
-    function edit_stock_take(stock_id,order_id,stock_despatch_num)
+    function edit_stock_take(stock_id,order_id,os_product_id,stock_despatch_num)
     {
 
         console.log(stock_id,order_id);
@@ -447,7 +447,7 @@
             console.log("new value:"+newValue);
             if ( order_id == parseInt(order_id, 10) && newValue == parseInt(newValue, 10) && stock_id == parseInt(stock_id, 10) ) {
                 $.ajax({
-                    url:'/index.php/order/quick_update_stock_take/'+stock_id+'/'+order_id+'/'+newValue,
+                    url:'/index.php/order/quick_update_stock_take/'+stock_id+'/'+order_id+'/'+os_product_id +'/'+ newValue,
                     type: "GET",
 
                     dataType: "text",
