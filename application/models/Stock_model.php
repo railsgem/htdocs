@@ -97,7 +97,7 @@ class stock_model extends CI_Model {
 							skpro.update_time
 					FROM
 						os_order_product ordpro
-					LEFT JOIN (
+					inner JOIN (
 						SELECT
 							op.product_name,
 							stk.stock_id,
