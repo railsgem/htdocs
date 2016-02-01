@@ -261,14 +261,19 @@
                                                     <td><?php echo $product_item['quantity']; ?></td>
                                                     <td><?php echo $product_item['sell_price']; ?></td>
                                                     <td>
+
+                                                        <ul class="list-group">
                                                         <?php foreach ($stock as $stock_item): ?>
-                                                        <?php if($stock_item['os_product_id'] == $product_item['os_product_id']) {
-                                                                echo "<span>";
-                                                                echo '<input type="hidden" name="despatch_stock_id" value="'.$stock_item["stock_id"].'" >';
-                                                                echo $stock_item['product_name']." * ".$stock_item['real_cost']." * ".$stock_item['stock_present_num'];
-                                                                echo "</span></br>";
-                                                                } ?>
+                                                        <?php if($stock_item['os_product_id'] == $product_item['os_product_id']) { ?>
+                                                          <li class="list-group-item">
+                                                            <span class="badge"><?php echo $stock_item['stock_present_num']; ?></span>
+                                                            <?php //echo $stock_item['product_name']." * "; ?>
+                                                            <?php echo $stock_item['real_cost']; ?>
+                                                          </li>
+                                                        <?php   } ?>
                                                         <?php endforeach ?>
+                                                        </ul>
+
                                                        <!--  <span width="10%">
                                                             <div class="input-group" id="inputgroup_<?php echo $stock_item['stock_id'].'_'.$stock_item['os_product_id']?>">
                                                               <input id="stock_take_<?php echo $stock_item['stock_id'].'_'.$stock_item['os_product_id']?>" type="text" class="form-control" aria-describedby="basic-addon2" value="<?php echo $stock_item['stock_present_num']; ?>" disabled="disabled" >

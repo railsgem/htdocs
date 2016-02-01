@@ -172,6 +172,7 @@ class stock_model extends CI_Model {
 	        'os_product_id' => $this->input->post('os_product_id'),
 	        'real_cost' => $this->input->post('real_cost'),
 	        'stock_entry_num' => $this->input->post('stock_entry_num'),
+		    'stock_present_num' => $this->input->post('stock_present_num'),
 	        'buy_shop' => $this->input->post('buy_shop'),
 	        'buyer' => $this->input->post('buyer'),
 	        'purchase_time' => $this->input->post('purchase_time')
