@@ -260,26 +260,25 @@
                                                     <td><?php echo $product_item['source_type']; ?></td>
                                                     <td><?php echo $product_item['quantity']; ?></td>
                                                     <td><?php echo $product_item['sell_price']; ?></td>
-                                                    <td>
+                                                    <td  style="width:50px;">
 
-                                                        <ul class="list-group">
+                                                       <!--  <ul class="list-group"> -->
                                                         <?php foreach ($stock as $stock_item): ?>
                                                         <?php if($stock_item['os_product_id'] == $product_item['os_product_id']) { ?>
-                                                          <li class="list-group-item">
-                                                            <span class="badge"><?php echo $stock_item['stock_present_num']; ?></span>
-                                                            <?php //echo $stock_item['product_name']." * "; ?>
-                                                            <?php echo $stock_item['real_cost']; ?>
-                                                          </li>
+                                                          <!-- <li class="list-group-item" > -->
+                                                            <div class="input-group" id="stock_inputgroup_<?php echo $stock_item['stock_id'].'_'.$stock_item['order_id']?>" >
+                                                                <span class="input-group-addon" id="basic-addon1"><?php echo $stock_item['real_cost']; ?><span id="stock_present_num_<?php echo $stock_item['stock_id'].'_'.$stock_item['order_id']?>" class="badge"><?php echo $stock_item['stock_present_num'] ; ?></span></span>
+                                                                
+                                                                <?php //echo $stock_item['product_name']." * "; ?>
+                                                                
+                                                                <input style="width:50px;display:inline;" type="text" class="form-control" id="stock_take_<?php echo $stock_item['stock_id'].'_'.$stock_item['order_id']?>" type="text" class="form-control"  aria-describedby="basic-addon1" value="<?php echo $stock_item['stock_despatch_num']; ?>" disabled="disabled" >
+                                                                <span class="input-group-addon" id="basic-addon2" onclick="edit_stock_take(<?php echo $stock_item['stock_id'].','.$stock_item['order_id'].','.$stock_item['os_product_id'].','.$stock_item['stock_despatch_num']?>)"><span id="pencil_<?php echo $stock_item['stock_id'].'_'.$stock_item['order_id']?>" class="glyphicon glyphicon-pencil"></span></span>
+                                                             </div>
+                                                          <!--</li> -->
                                                         <?php   } ?>
                                                         <?php endforeach ?>
-                                                        </ul>
+                                                        <!-- </ul> -->
 
-                                                       <!--  <span width="10%">
-                                                            <div class="input-group" id="inputgroup_<?php echo $stock_item['stock_id'].'_'.$stock_item['os_product_id']?>">
-                                                              <input id="stock_take_<?php echo $stock_item['stock_id'].'_'.$stock_item['os_product_id']?>" type="text" class="form-control" aria-describedby="basic-addon2" value="<?php echo $stock_item['stock_present_num']; ?>" disabled="disabled" >
-                                                              <span class="input-group-addon" id="basic-addon2" onclick="edit_stock_take(<?php echo $stock_item['stock_id'].','.$stock_item['os_product_id']?>)"><span id="pencil_<?php echo $stock_item['stock_id'].'_'.$stock_item['os_product_id']?>" class="glyphicon glyphicon-pencil"></span></span>
-                                                            </div>
-                                                        </span> -->
                                                     </td>
                                                     <td style="display:none;">
                                                         <a style="display:none" href="/index.php/order/edit_cart/<?php echo $product_item['order_product_id']; ?>" class="btn btn-danger btn-xs" >View/Edit</a>
