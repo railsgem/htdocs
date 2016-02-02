@@ -416,22 +416,103 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 				$myquery = " insert into os_transaction (stock_id, order_id, despatch_num) values ( ".$stock_id." , ".$order_id.", ".$despatch_num." )";
 				$this->db->query($myquery);*/
 
-				// find if there is already a record in despatch table , then updated it ,else insert new record.
+				// find if there is already a record in despatch table , then update it ,else insert new record.
 				
-				$myquery = 'select * from os_despatch dsp where dsp.order_id='.$order_id.' and dsp.stock_id = '.$stock_id.' and dsp.despatch_num = '.$despatch_num ;
+				$myquery = 'select * from os_despatch dsp where dsp.order_id='.$order_id.' and dsp.stock_id = '.$stock_id;
 
 				$query = $this->db->query($myquery);
             	if ( $query->num_rows() > 0 ) {
+					// update os_stock_entry
+					// get old values -- stock value
+					$myquery = "select sty.* from os_stock_entry sty where sty.stock_id = ".$stock_id ;
+					$query = $this->db->query($myquery);
+			        $stock_entry_num = 0;
+			        $stock_despatch_num = 0;
+			        $stock_present_num = 0;
+					foreach ($query->result_array() as $row)
+					{
+				        $stock_entry_num = $row['stock_entry_num'];
+				        $stock_despatch_num = $row['stock_despatch_num'];
+				        $stock_present_num = $row['stock_present_num'];
+					}/*
+				print_r("stock_entry_num -".$stock_entry_num."/");
+				print_r("stock_despatch_num -".$stock_despatch_num."/");
+				print_r("stock_present_num -".$stock_present_num."/");*/
+					// get old values -- last despatched value
+					$myquery = 'select dsp.* from os_despatch dsp  where dsp.order_id='.$order_id.' and dsp.stock_id = '.$stock_id;
+					$query = $this->db->query($myquery);
+
+			        $old_despatch_num = 0;
+					foreach ($query->result_array() as $row)
+					{
+				        $old_despatch_num = $row['despatch_num'];
+					}
+/*
+				print_r("old_despatch_num -".$old_despatch_num."/");
+				print_r("despatch_num -".$despatch_num."/");*/
+					// update os_despatch
 					$myquery = ' update os_despatch dsp
 									set stock_id= '.$stock_id.' , 
 									order_id= '.$order_id.' ,  
 									despatch_num= '.$despatch_num.' , 
-									os_product_id= '.$os_product_id.' where dsp.order_id='.$order_id.' and dsp.stock_id = '.$stock_id.' and dsp.despatch_num = '.$despatch_num ;
+									os_product_id= '.$os_product_id.' where dsp.order_id='.$order_id.' and dsp.stock_id = '.$stock_id;
+									
+									/*print_r($myquery);*/
+
 					$this->db->query($myquery);
+
+					// new stock value
+					if ( $despatch_num > $old_despatch_num ) {
+				        $stock_despatch_num = $stock_despatch_num + ($despatch_num - $old_despatch_num);
+				        $stock_present_num = $stock_present_num - ($despatch_num - $old_despatch_num);
+				       /* print_r("old-value: old_despatch_num - ".$old_despatch_num."</br>");
+				        print_r("new-value: stock_despatch_num - ".$stock_despatch_num."</br>");
+				        print_r("new-value: stock_present_num - ".$stock_present_num."</br>");*/
+
+					} else {
+				        $stock_despatch_num = $stock_despatch_num - ($old_despatch_num - $despatch_num );
+				        $stock_present_num = $stock_present_num + ($old_despatch_num - $despatch_num);
+				        /*print_r("old-value: old_despatch_num - ".$old_despatch_num."</br>");
+				        print_r("new-value: stock_despatch_num - ".$stock_despatch_num."</br>");
+				        print_r("new-value: stock_present_num - ".$stock_present_num."</br>");*/
+
+					}
+					// update stock table 
+					$myquery = "update os_stock_entry sty set sty.stock_despatch_num = ".$stock_despatch_num." 
+								, sty.stock_present_num = ".$stock_present_num." 
+					 			"."where sty.stock_id =  ".$stock_id;
+									/*print_r($myquery);*/
+									//exit;
+					$this->db->query($myquery);
+
+
             	} else {
 					// update os_despatch
 					$myquery = " insert into os_despatch (stock_id, order_id, despatch_num, os_product_id) values ( ".$stock_id." , ".$order_id." , ".$despatch_num." , ".$os_product_id." )";
 					$this->db->query($myquery);
+
+					// update os_stock_entry
+					// old value
+					$myquery = "select sty.* from os_stock_entry sty where sty.stock_id = ".$stock_id ;
+					$query = $this->db->query($myquery);
+			        $stock_entry_num = 0;
+			        $stock_despatch_num = 0;
+			        $stock_present_num = 0;
+					foreach ($query->result_array() as $row)
+					{
+				        $stock_entry_num = $row['stock_entry_num'];
+				        $stock_despatch_num = $row['stock_despatch_num'];
+				        $stock_present_num = $row['stock_present_num'];
+					}
+					// new value
+					$stock_despatch_num = $stock_despatch_num + $despatch_num;
+					$stock_present_num = $stock_present_num - $despatch_num;
+					// update table 
+					$myquery = "update os_stock_entry sty set sty.stock_despatch_num = ".$stock_despatch_num." 
+								, sty.stock_present_num = ".$stock_present_num." 
+					 			"."where sty.stock_id =  ".$stock_id;
+					$this->db->query($myquery);
+
             	}
             	return;
 
