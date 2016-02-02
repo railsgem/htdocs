@@ -148,8 +148,8 @@ $route['auth/change_password'] = 'auth/change_password';
 $route['auth/(:any)'] = 'auth/index';
 $route['auth'] = 'auth';
 
-$route['(:any)'] = 'brand';
-$route['default_controller'] = 'brand';
+$route['(:any)'] = 'order';
+$route['default_controller'] = 'order';
 
 //$route['default_controller'] = 'home/index';
 //$route['default_controller'] = 'welcome';

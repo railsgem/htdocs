@@ -146,23 +146,23 @@ date_default_timezone_set("Australia/NSW");
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li id="order_li">
-                        <a href="/index.php/order"><i class="fa fa-fw fa-home"></i> Dashboard</a>
+                        <a href="/index.php/order"><i class="fa fa-fw fa-tasks"></i> Order</a>
                     </li>                   
-                    <li id="brand_li" >
+                    <li style="display:none" id="brand_li" >
                         <a href="/index.php/brand"><i class="fa fa-fw fa-tags"></i> Brand</a>
                     </li> 
-                    <li id="category_li" >
+                    <li style="display:none" id="category_li" >
                         <a href="/index.php/category"><i class="fa fa-fw fa-list"></i> Category</a>
                     </li>           
                     <li id="product_li">
                         <a href="/index.php/product"><i class="fa fa-fw fa-shopping-cart"></i> Product</a>
                     </li> 
                     <li id="stock_li">
-                        <a href="/index.php/stock"><i class="fa fa-fw fa-shopping-cart"></i> Stock</a>
+                        <a href="/index.php/stock"><i class="fa fa-fw fa-university"></i> Stock</a>
                     </li> 
-                    <li id="fetch_li">
-                        <a href="/index.php/fetch"><i class="fa fa-fw fa-shopping-cart"></i> Fetch</a>
-                    </li>  
+                    <li id="postage_li">
+                        <a href="/index.php/postage"><i class="fa fa-paper-plane"></i> Postage </a>
+                    </li> 
                     <li id="consumer_li">
                         <a href="/index.php/consumer"><i class="fa fa-fw fa-male"></i> Consumer</a>
                     </li> 
@@ -170,11 +170,11 @@ date_default_timezone_set("Australia/NSW");
                         <a href="/index.php/address"><i class="fa fa-envelope-o"></i>  Address</a>
                     </li> 
                     <li id="postage_company_li">
-                        <a href="/index.php/postage_company"><i class="fa fa-envelope-o"></i> Postage Company</a>
+                        <a href="/index.php/postage_company"><i class="fa fa-truck"></i> Postage Company</a>
                     </li> 
-                    <li id="postage_li">
-                        <a href="/index.php/postage"><i class="fa fa-envelope-o"></i> Postage </a>
-                    </li> 
+                    <li id="fetch_li">
+                        <a href="/index.php/fetch"><i class="fa fa-fw fa-bug"></i> Fetch</a>
+                    </li>  
                     <li id="auth_li" >
                         <a href="/index.php/auth"><i class="fa fa-fw fa-cog"></i> User Setting</a>
                     </li>
