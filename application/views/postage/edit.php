@@ -58,7 +58,7 @@
                         </div>
                         <div class="form-group">
                             <label for="postage_date"><span class="red"> * </span>postage_date:</label>
-                            <input class="form-control" type="input" name="postage_date" value="<?php echo $postage['postage_date']; ?>">
+                            <input class="form-control dp" type="input" name="postage_date" value="<?php echo $postage['postage_date']; ?>">
                         </div>
                         <div class="form-group">
                             <label for="postage_code"><span class="red"> * </span>postage_code:</label>

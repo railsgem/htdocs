@@ -3,6 +3,8 @@ class Order_model extends CI_Model {
         public function __construct()
         {
                 $this->load->database();
+				date_default_timezone_set('Australia/Sydney');
+				$today = date("Y-m-d H:i:s");
         }
 
 		public function get_order($order_id = FALSE)
@@ -163,7 +165,9 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		public function set_order()
 		{
 		    $data = array(
-		        'order_code' => $this->input->post('order_code')
+		        'order_code' => $this->input->post('order_code'),
+		        'entry_time' => $today,
+		        'update_time' => $today
 		    );
 		    $this->db->insert('os_order', $data);
 
@@ -173,15 +177,16 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		    $os_product_id = $this->input->post('recevier_name');
 		    $quantity = $this->input->post('recevier_name');
 		    $sell_price = $this->input->post('recevier_name');
-			$myquery = "insert into os_order_agent (order_id, agent_id) values (".$order_id.",".$agent_id."  )";
+
+			$myquery = "insert into os_order_agent (order_id, agent_id ,entry_time ,update_time) values (".$order_id.",".$agent_id.",".$today.",".$today." )";
 			$query = $this->db->query($myquery);
 
-			$myquery = "insert into os_order_address (order_id, address_id) values (".$order_id.",".$address_id."  )";
+			$myquery = "insert into os_order_address (order_id, address_id,entry_time ,update_time) values (".$order_id.",".$address_id.",".$today.",".$today." )";
 			$query = $this->db->query($myquery);
 
-			$myquery = "insert into os_order_product (order_id, os_product_id, quantity, sell_price)
-							 select ".$order_id.",  optmp.os_product_id, sum(optmp.quantity)quantity,  optmp.sell_price
-							   from os_order_product_tmp optmp
+			$myquery = "insert into os_order_product (order_id, os_product_id, quantity, sell_price,entry_time ,update_time)
+							 select ".$order_id.",  optmp.os_product_id, sum(optmp.quantity)quantity,  optmp.sell_price".",".$today.",".$today.
+							   " from os_order_product_tmp optmp
 							  group by optmp.os_product_id, optmp.sell_price
 							   ";
 			$query = $this->db->query($myquery);
@@ -201,7 +206,9 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		        'chemist_price' => $this->input->post('chemist_price'),
 		        'source_type' => $this->input->post('source_type'),
 		        'quantity' => $this->input->post('quantity'),
-		        'sell_price' => $this->input->post('sell_price')
+		        'sell_price' => $this->input->post('sell_price'),
+		        'entry_time' => $today,
+		        'update_time' => $today
 		    );
 			//1 . if there is no product key in session ,create a product key
 		    if( $this->session->has_userdata('product')!=1) {
@@ -217,8 +224,8 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 				$this->session->unset_userdata('product');
 		    	$this->session->set_userdata('product', $data);
 		    }
-			$myquery = "insert into os_order_product_tmp ( os_product_id, quantity, sell_price) 
-						values (".$product_item['os_product_id'].",".$product_item['quantity'].",".$product_item['sell_price']."  )";
+			$myquery = "insert into os_order_product_tmp ( os_product_id, quantity, sell_price,entry_time ,update_time) 
+						values (".$product_item['os_product_id'].",".$product_item['quantity'].",".$product_item['sell_price'].",".$today.",".$today."  )";
 			$query = $this->db->query($myquery);
 			//print_r($this->session->product);
 			print_r(json_encode($product_item));
@@ -235,14 +242,17 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		        'source_type' => $this->input->post('source_type'),
 		        'quantity' => $this->input->post('quantity'),
 		        'sell_price' => $this->input->post('sell_price'),
-		        'order_id' => $this->input->post('order_id')
+		        'order_id' => $this->input->post('order_id'),
+		        'entry_time' => $today,
+		        'update_time' => $today
 		    );
-		    if ( empty($this->input->post('order_id') ) != 1 ){
-				$myquery = "insert into os_order_product_tmp ( order_id, os_product_id, quantity, sell_price) 
-							values (".$product_item['order_id'].",".$product_item['os_product_id'].",".$product_item['quantity'].",".$product_item['sell_price']."  )";
+		    if ( trim($this->input->post('order_id')) == ''){
+		    //if ( empty($this->input->post('order_id') ) != 1 ){
+				$myquery = "insert into os_order_product_tmp ( order_id, os_product_id, quantity, sell_price,entry_time ,update_time) 
+							values (".$product_item['order_id'].",".$product_item['os_product_id'].",".$product_item['quantity'].",".$product_item['sell_price'].",".$today.",".$today."  )";
 		    } else {
-				$myquery = "insert into os_order_product_tmp (  os_product_id, quantity, sell_price) 
-							values (".$product_item['os_product_id'].",".$product_item['quantity'].",".$product_item['sell_price']."  )";
+				$myquery = "insert into os_order_product_tmp (  os_product_id, quantity, sell_price,entry_time ,update_time) 
+							values (".$product_item['os_product_id'].",".$product_item['quantity'].",".$product_item['sell_price'].",".$today.",".$today."  )";
 		    }
 			$query = $this->db->query($myquery);
 
@@ -280,7 +290,8 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 			if ($order_id !== FALSE)
 			{
 			    $data = array(
-			        'address_id' => $this->input->post('post_address_id')
+			        'address_id' => $this->input->post('post_address_id'),
+		        	'update_time' => $today
 			    );
 			    $this->db->where('order_id', $order_id);
 			    $this->db->update('os_order_address', $data);
@@ -324,10 +335,12 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		        'source_type' => $this->input->post('source_type'),
 		        'quantity' => $this->input->post('quantity'),
 		        'sell_price' => $this->input->post('sell_price'),
-		        'order_id' => $this->input->post('order_id')
+		        'order_id' => $this->input->post('order_id'),
+		        'entry_time' => $today,
+		        'update_time' => $today
 		    );
-			$myquery = "insert into os_order_product ( order_id, os_product_id, quantity, sell_price) 
-						values (".$product_item['order_id'].",".$product_item['os_product_id'].",".$product_item['quantity'].",".$product_item['sell_price']."  )";
+			$myquery = "insert into os_order_product ( order_id, os_product_id, quantity, sell_price ,entry_time ,update_time) 
+						values (".$product_item['order_id'].",".$product_item['os_product_id'].",".$product_item['quantity'].",".$product_item['sell_price'].",".$today.",".$today."  )";
 			$query = $this->db->query($myquery);
 
  			return $query;
@@ -355,12 +368,14 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		        'postage_code' => $this->input->post('postage_code'),
 		        'postage_fee' => $this->input->post('postage_fee'),
 		        'postage_weight' => $this->input->post('postage_weight'),
-		        'remark' => $this->input->post('remark')
+		        'remark' => $this->input->post('remark'),
+		        'entry_time' => $today,
+		        'update_time' => $today
 		    );
  			$this->db->insert('os_postage', $data);
 		    $postage_id = $this->db->insert_id();
 
-			$myquery = "insert into os_order_postage (order_id, postage_id) values (".$order_id .",".$postage_id."  )";
+			$myquery = "insert into os_order_postage (order_id, postage_id ,entry_time ,update_time) values (".$order_id .",".$postage_id.",".$today.",".$today."  )";
 			$query = $this->db->query($myquery);
 			$myquery = "update os_order set post_flag = 1 where order_id= ".$order_id ;
 			$query = $this->db->query($myquery);
@@ -488,7 +503,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 
             	} else {
 					// update os_despatch
-					$myquery = " insert into os_despatch (stock_id, order_id, despatch_num, os_product_id) values ( ".$stock_id." , ".$order_id." , ".$despatch_num." , ".$os_product_id." )";
+					$myquery = " insert into os_despatch (stock_id, order_id, despatch_num, os_product_id, entry_time, update_time ) values ( ".$stock_id." , ".$order_id." , ".$despatch_num." , ".$os_product_id.",".$today.",".$today." )";
 					$this->db->query($myquery);
 
 					// update os_stock_entry
@@ -530,19 +545,19 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		{
             if ($stock_id !== FALSE AND $order_id !==FALSE AND $stock_despatch_num !==FALSE ) 
             {
+		        $entry_time = $today;
+		        $update_time = $today;
 				$myquery = 'update os_stock_entry ose set ose.stock_despatch_num='.$stock_despatch_num.' ,  ose.stock_present_num = ( ose.stock_entry_num - '.$stock_despatch_num.' )
 								where ose.stock_id= '.$stock_id ;
 								
 				$this->db->query($myquery);
 				// update os_transaction
-				$myquery = " insert into os_transaction (stock_id, order_id) values ( ".$stock_id." , ".$order_id." )";
+				$myquery = " insert into os_transaction (stock_id, order_id, entry_time, update_time) values ( ".$stock_id." , ".$order_id.",".$today.",".$today." )";
 				$this->db->query($myquery);
 
 				// update os_despatch
-				$myquery = " insert into os_despatch (stock_id, order_id, despatch_num, os_product_id) values ( ".$stock_id." , ".$order_id." , ".$stock_despatch_num." , ".$os_product_id." )";
+				$myquery = " insert into os_despatch (stock_id, order_id, despatch_num, os_product_id, entry_time, update_time) values ( ".$stock_id." , ".$order_id." , ".$stock_despatch_num." , ".$os_product_id.",".$today.",".$today." )";
 				$this->db->query($myquery);
-
-
             }
 
 

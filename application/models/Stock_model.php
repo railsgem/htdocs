@@ -4,6 +4,8 @@ class stock_model extends CI_Model {
     public function __construct()
     {
         $this->load->database();
+		date_default_timezone_set('Australia/Sydney');
+		$today = date("Y-m-d H:i:s");
     }
 
 	public function get_stock($stock_id = FALSE)
@@ -269,7 +271,8 @@ class stock_model extends CI_Model {
 		        'stock_present_num' => $this->input->post('stock_present_num'),
 		        'buy_shop' => $this->input->post('buy_shop'),
 		        'buyer' => $this->input->post('buyer'),
-		        'purchase_time' => $this->input->post('purchase_time')
+		        'purchase_time' => $this->input->post('purchase_time'),
+		        'update_time' => $today
 		    );
 		    $this->db->where('stock_id', $stock_id);
 		    $this->db->update('os_stock_entry', $data);

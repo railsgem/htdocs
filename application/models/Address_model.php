@@ -3,6 +3,7 @@ class Address_model extends CI_Model {
         public function __construct()
         {
                 $this->load->database();
+				date_default_timezone_set('Australia/Sydney');
         }
 
 		public function get_address($address_id = FALSE)
@@ -63,12 +64,15 @@ class Address_model extends CI_Model {
 
 		}
 		public function set_address()
-		{
+		{	
+			$today = date("Y-m-d H:i:s");
 		    $data = array(
 		        'address_detail' => $this->input->post('address_detail'),
 		        'phone' => $this->input->post('phone'),
 		        'recevier_name' => $this->input->post('recevier_name'),
-		        'recevier_nation_id' => $this->input->post('recevier_nation_id')
+		        'recevier_nation_id' => $this->input->post('recevier_nation_id'),
+		        'entry_time' => $today,
+		        'update_time' => $today
 		    );
  			return $this->db->insert('os_address', $data);
 		}
@@ -81,7 +85,8 @@ class Address_model extends CI_Model {
 		        'address_detail' => $this->input->post('address_detail'),
 		        'phone' => $this->input->post('phone'),
 		        'recevier_name' => $this->input->post('recevier_name'),
-		        'recevier_nation_id' => $this->input->post('recevier_nation_id')
+		        'recevier_nation_id' => $this->input->post('recevier_nation_id'),
+		        'update_time' => $today
 			    );
 
 			    $this->db->where('address_id', $address_id);

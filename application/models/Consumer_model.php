@@ -3,6 +3,7 @@ class Consumer_model extends CI_Model {
         public function __construct()
         {
                 $this->load->database();
+				date_default_timezone_set('Australia/Sydney');
         }
 
 		public function get_consumer($consumer_id = FALSE)
@@ -104,13 +105,16 @@ class Consumer_model extends CI_Model {
 		}
 		public function set_consumer()
 		{
+			$today = date("Y-m-d H:i:s");
 		    $data = array(
 		        'consumer_name' => $this->input->post('consumer_name'),
 		        'consumer_nation_id' => $this->input->post('consumer_nation_id'),
 		        'consumer_address' => $this->input->post('consumer_address'),
 		        'consumer_phone' => $this->input->post('consumer_phone'),
 		        'consumer_postcode' => $this->input->post('consumer_postcode'),
-		        'is_agent' => $this->input->post('is_agent')
+		        'is_agent' => $this->input->post('is_agent'),
+		        'entry_time' => $today,
+		        'update_time' => $today
 		    );
  			return $this->db->insert('os_consumer', $data);
 		}
@@ -119,13 +123,15 @@ class Consumer_model extends CI_Model {
 		{
 			if ($consumer_id !== FALSE)
 			{
+				$today = date("Y-m-d H:i:s");
 			    $data = array(
 			        'consumer_name' => $this->input->post('consumer_name'),
 			        'consumer_nation_id' => $this->input->post('consumer_nation_id'),
 			        'consumer_address' => $this->input->post('consumer_address'),
 			        'consumer_phone' => $this->input->post('consumer_phone'),
 			        'consumer_postcode' => $this->input->post('consumer_postcode'),
-			        'is_agent' => $this->input->post('is_agent')
+			        'is_agent' => $this->input->post('is_agent'),
+		        	'update_time' => $today
 			    );
 
 			    $this->db->where('consumer_id', $consumer_id);

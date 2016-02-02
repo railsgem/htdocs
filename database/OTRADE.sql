@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost2
+ Source Server         : otrade
  Source Server Type    : MySQL
  Source Server Version : 50505
  Source Host           : localhost
- Source Database       : otrade
+ Source Database       : OTRADE
 
  Target Server Type    : MySQL
  Target Server Version : 50505
  File Encoding         : utf-8
 
- Date: 02/02/2016 13:40:34 PM
+ Date: 02/02/2016 21:17:55 PM
 */
 
 SET NAMES utf8;
@@ -58,7 +58,7 @@ CREATE TABLE `menu` (
   `i_class` varchar(255) DEFAULT NULL,
   `li_text` varchar(255) DEFAULT NULL,
   `display` int(11) DEFAULT NULL,
-  `entrytime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `entrytime` timestamp NULL DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
@@ -80,17 +80,17 @@ CREATE TABLE `os_address` (
   `phone` varchar(255) DEFAULT NULL,
   `recevier_name` varchar(255) DEFAULT NULL,
   `recevier_nation_id` varchar(255) DEFAULT NULL,
-  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `entry_time` timestamp NULL DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`address_id`),
   KEY `address_id` (`address_id`,`address_detail`,`phone`,`recevier_name`,`entry_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `os_address`
 -- ----------------------------
 BEGIN;
-INSERT INTO `os_address` VALUES ('1', '收件地址收件地址', '9999999999999', '收件人', null, '2016-01-27 16:52:55', '2016-01-27 16:53:07'), ('2', '四川省德阳什邡市通站路银河丽都', '13308227795', '陈茜', '5106251983111600250', '2016-01-29 01:10:00', '2016-01-29 01:10:08'), ('3', 'oooooooo,xxxxx,xxxxx,au', '1298903890', 'kitty', '9809999910000001000x', '2016-01-31 17:08:29', null);
+INSERT INTO `os_address` VALUES ('1', '收件地址收件地址', '9999999999999', '收件人', null, '2016-01-27 16:52:55', '2016-01-27 16:53:07'), ('2', '四川省德阳什邡市通站路银河丽都', '13308227795', '陈茜', '5106251983111600250', '2016-01-29 01:10:00', '2016-01-29 01:10:08'), ('3', 'oooooooo,xxxxx,xxxxx,au', '1298903890', 'kitty', '9809999910000001000x', '2016-01-31 17:08:29', null), ('4', 'xxxxx,xxxx,xxx', '9990910903039', 'today', '99999990', '2016-02-02 19:56:01', null), ('5', 'aaa', 'aaa', 'aaa', 'aaa', '2016-02-02 19:56:21', '2016-02-02 19:56:21');
 COMMIT;
 
 -- ----------------------------
@@ -188,7 +188,7 @@ CREATE TABLE `os_consumer` (
   `consumer_address` varchar(255) DEFAULT NULL,
   `consumer_phone` varchar(255) DEFAULT NULL,
   `consumer_postcode` varchar(255) DEFAULT NULL,
-  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `entry_time` timestamp NULL DEFAULT NULL,
   `is_agent` int(11) DEFAULT NULL,
   `agent_name_code` varchar(255) DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -211,7 +211,7 @@ CREATE TABLE `os_despatch` (
   `order_id` int(11) DEFAULT NULL,
   `stock_id` int(11) DEFAULT NULL,
   `despatch_num` int(11) DEFAULT NULL COMMENT '提货数量',
-  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `entry_time` timestamp NULL DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `os_product_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`despatch_id`),
@@ -238,7 +238,7 @@ CREATE TABLE `os_order` (
   `active` int(11) DEFAULT '1' COMMENT '1:valid, 0: invalid',
   `despatch_flag` int(11) DEFAULT '0' COMMENT '1: dispatched, 0: undispatched',
   `settle_flag` int(11) DEFAULT '0' COMMENT '0: unsettle, 1: settled',
-  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `entry_time` timestamp NULL DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `post_flag` int(11) DEFAULT '0',
   PRIMARY KEY (`order_id`)
@@ -259,7 +259,7 @@ CREATE TABLE `os_order_address` (
   `order_address_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) DEFAULT NULL,
   `address_id` int(11) DEFAULT NULL,
-  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `entry_time` timestamp NULL DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`order_address_id`),
   KEY `order_id` (`order_id`),
@@ -281,7 +281,7 @@ CREATE TABLE `os_order_agent` (
   `order_agent_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) DEFAULT NULL,
   `agent_id` int(11) DEFAULT NULL,
-  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `entry_time` timestamp NULL DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`order_agent_id`),
   KEY `order_id` (`order_id`),
@@ -306,7 +306,7 @@ CREATE TABLE `os_order_postage` (
   `order_postage_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) DEFAULT NULL,
   `postage_id` int(11) DEFAULT NULL,
-  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `entry_time` timestamp NULL DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`order_postage_id`),
   KEY `order_id` (`order_id`),
@@ -332,7 +332,7 @@ CREATE TABLE `os_order_product` (
   `os_product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL DEFAULT '1',
   `sell_price` decimal(10,0) DEFAULT NULL,
-  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `entry_time` timestamp NULL DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`order_product_id`),
   KEY `order_id` (`order_id`),
@@ -358,7 +358,7 @@ CREATE TABLE `os_order_product_tmp` (
   `os_product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL DEFAULT '1',
   `sell_price` decimal(10,0) DEFAULT NULL,
-  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `entry_time` timestamp NULL DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`order_product_id`),
   KEY `order_id` (`order_id`),
@@ -372,12 +372,12 @@ DROP TABLE IF EXISTS `os_postage`;
 CREATE TABLE `os_postage` (
   `postage_id` int(11) NOT NULL AUTO_INCREMENT,
   `postage_company_id` int(255) DEFAULT NULL,
-  `postage_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `postage_date` timestamp NULL DEFAULT NULL,
   `postage_code` varchar(255) NOT NULL COMMENT '快递单号',
   `postage_fee` decimal(11,2) DEFAULT NULL,
   `postage_weight` decimal(11,2) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
-  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `entry_time` timestamp NULL DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`postage_id`),
   KEY `postage_company_id` (`postage_company_id`),
@@ -399,7 +399,7 @@ CREATE TABLE `os_postage_company` (
   `postage_company_id` int(11) NOT NULL AUTO_INCREMENT,
   `postage_company_name` varchar(255) DEFAULT NULL,
   `postage_website` varchar(255) DEFAULT NULL,
-  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `entry_time` timestamp NULL DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`postage_company_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
@@ -422,7 +422,7 @@ CREATE TABLE `os_product` (
   `small_img_src` varchar(255) DEFAULT NULL,
   `big_img_src` varchar(255) DEFAULT NULL,
   `chemist_price` decimal(10,2) DEFAULT NULL,
-  `entrytime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `entrytime` timestamp NULL DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL,
   `source_type` varchar(255) DEFAULT NULL COMMENT 'chemist, manmade',
   `barcode` varchar(255) DEFAULT NULL,
@@ -453,9 +453,9 @@ CREATE TABLE `os_stock_entry` (
   `stock_present_num` int(11) DEFAULT NULL,
   `buy_shop` varchar(255) DEFAULT NULL,
   `buyer` varchar(255) DEFAULT NULL,
-  `purchase_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `entry_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT NULL,
+  `purchase_time` timestamp NULL DEFAULT NULL,
+  `entry_time` timestamp NULL DEFAULT NULL,
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`stock_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='商品入库';
 
@@ -575,7 +575,7 @@ CREATE TABLE `users` (
 --  Records of `users`
 -- ----------------------------
 BEGIN;
-INSERT INTO `users` VALUES ('1', '127.0.0.1', 'admin', '$2y$08$FQNBgZCRXKKHMjSMyGrCUOjwmjUzZuOYpO03jT333ChYvvUJE.t.6', '', 'admin@admin.com', '', null, null, 'oBdQNfA3ag.p.ndQVJv2zu', '1268889823', '1454370425', '1', 'Admin', 'istrator', 'ADMIN', '0', 'oneshop123'), ('2', '::1', 'y c', '$2y$08$wMkc3nAJHmM5yqaVoDmNKuPrU6AHMIirVY/Z//KGeuAM4.7X5gPj2', null, 'qq@qqq.com', null, null, null, null, '1453691691', null, '1', 'yaaa', 'c', 'aaaaa', '112121', null), ('3', '::1', 'q c', '$2y$08$jLx3D8/FtulyeTGhFDMpfuHfvTBdP5ThRul87p44JPLO6b6Xhk2f2', null, '1qq@qqq.com', null, null, null, null, '1453692598', null, '1', 'q', 'c', 'ccc', '112121', null), ('4', '::1', 'y2 c2', '$2y$08$JLWZdyNF2fgLST14yya/a.Pn6q8tumwagjfHj5bo5jhpFdAmok1PK', null, '1@asd.com', null, null, null, null, '1453692704', null, '1', 'y2', 'c2', 'ccc', '112121', null), ('5', '::1', 'a b', '$2y$08$VtcuYVzqra57UUqinx9h/eIL2em92.n7UqI7b55kpK2fo3q0u.rIG', null, 'd@d.com', null, null, null, null, '1453692942', null, '1', 'a', 'b', 'c', 'www', null), ('6', '::1', 'a a', '$2y$08$dn28ad4q2Ko93yAsfZhHm.iE6BQEUd31AHB3Oz9jDsysojORETT/6', null, 'a@aa.com', null, null, null, null, '1453697585', null, '1', 'a', 'a', 'a', '11111', null), ('7', '::1', 'c c', '$2y$08$cl/gGttm4PLy9gIh7NKDruzQssk9VfNQX4/hN73aLr/s.JztDhHwa', null, 'c@cc.com', null, null, null, null, '1453702875', null, '1', 'c', 'c', 'c', '1', null), ('8', '::1', 'cc-ccc', '$2y$08$3EP8.zI8ElQQ4ofnJjoSAe5zfBv6OkhQrGIxqwP8y/Qd6VCf97PJC', null, 'cccc@cc.com', null, null, null, null, '1453703337', null, '1', 'cc', 'ccc', 'cc', '1111', null), ('9', '::1', 'kitty', '$2y$08$M.4O0.CrYGKaFBB1g/rZNOlbtTdbijCwO5zYQ759ZcF.qlDx8atZq', null, 'hellokitty@hello.com', null, null, null, null, '1453703640', null, '1', 'hello', 'kitty', 'hellokitty', '1111111111', null), ('10', '::1', 'hellokitty', '$2y$08$Dr9NAWINuMCpgoyLUqen3eWzUsgflj/z833T.AvvCm5/TPIa452A2', null, 'kitty@hello.com', '4a87de6bbab07866264386d05d056a0f3383bbb9', null, null, null, '1453703717', '1453863201', '0', 'hello', 'kitty', 'hellokitty', '11111111112', null);
+INSERT INTO `users` VALUES ('1', '127.0.0.1', 'admin', '$2y$08$FQNBgZCRXKKHMjSMyGrCUOjwmjUzZuOYpO03jT333ChYvvUJE.t.6', '', 'admin@admin.com', '', null, null, 'oBdQNfA3ag.p.ndQVJv2zu', '1268889823', '1454402843', '1', 'Admin', 'istrator', 'ADMIN', '0', 'oneshop123'), ('2', '::1', 'y c', '$2y$08$wMkc3nAJHmM5yqaVoDmNKuPrU6AHMIirVY/Z//KGeuAM4.7X5gPj2', null, 'qq@qqq.com', null, null, null, null, '1453691691', null, '1', 'yaaa', 'c', 'aaaaa', '112121', null), ('3', '::1', 'q c', '$2y$08$jLx3D8/FtulyeTGhFDMpfuHfvTBdP5ThRul87p44JPLO6b6Xhk2f2', null, '1qq@qqq.com', null, null, null, null, '1453692598', null, '1', 'q', 'c', 'ccc', '112121', null), ('4', '::1', 'y2 c2', '$2y$08$JLWZdyNF2fgLST14yya/a.Pn6q8tumwagjfHj5bo5jhpFdAmok1PK', null, '1@asd.com', null, null, null, null, '1453692704', null, '1', 'y2', 'c2', 'ccc', '112121', null), ('5', '::1', 'a b', '$2y$08$VtcuYVzqra57UUqinx9h/eIL2em92.n7UqI7b55kpK2fo3q0u.rIG', null, 'd@d.com', null, null, null, null, '1453692942', null, '1', 'a', 'b', 'c', 'www', null), ('6', '::1', 'a a', '$2y$08$dn28ad4q2Ko93yAsfZhHm.iE6BQEUd31AHB3Oz9jDsysojORETT/6', null, 'a@aa.com', null, null, null, null, '1453697585', null, '1', 'a', 'a', 'a', '11111', null), ('7', '::1', 'c c', '$2y$08$cl/gGttm4PLy9gIh7NKDruzQssk9VfNQX4/hN73aLr/s.JztDhHwa', null, 'c@cc.com', null, null, null, null, '1453702875', null, '1', 'c', 'c', 'c', '1', null), ('8', '::1', 'cc-ccc', '$2y$08$3EP8.zI8ElQQ4ofnJjoSAe5zfBv6OkhQrGIxqwP8y/Qd6VCf97PJC', null, 'cccc@cc.com', null, null, null, null, '1453703337', null, '1', 'cc', 'ccc', 'cc', '1111', null), ('9', '::1', 'kitty', '$2y$08$M.4O0.CrYGKaFBB1g/rZNOlbtTdbijCwO5zYQ759ZcF.qlDx8atZq', null, 'hellokitty@hello.com', null, null, null, null, '1453703640', null, '1', 'hello', 'kitty', 'hellokitty', '1111111111', null), ('10', '::1', 'hellokitty', '$2y$08$Dr9NAWINuMCpgoyLUqen3eWzUsgflj/z833T.AvvCm5/TPIa452A2', null, 'kitty@hello.com', '4a87de6bbab07866264386d05d056a0f3383bbb9', null, null, null, '1453703717', '1453863201', '0', 'hello', 'kitty', 'hellokitty', '11111111112', null);
 COMMIT;
 
 -- ----------------------------

@@ -114,25 +114,27 @@ class Product_model extends CI_Model {
 			
 			//insert fetch product data into table os_chemist_product, if product is exits ,update it .or else insert
 			$this->db->query('insert into os_chemist_product
-				(chemist_product_id,product_name,small_img_src,big_img_src,chemist_price)
+				(chemist_product_id,product_name,small_img_src,big_img_src,chemist_price, entry_time)
 								select of.chemist_product_id,
 									of.product_name,
 									of.small_img_src,
 									of.big_img_src,
-									of.chemist_price
+									of.chemist_price,
+									CURRENT_TIMESTAMP entry_time
 								from 
 								os_chemist_product_fetch of left join
 								os_chemist_product OP on
 								of.chemist_product_id = op.chemist_product_id
 								where op.chemist_product_id is null ');
 			$this->db->query('insert into os_product
-				(chemist_product_id,product_name,small_img_src,big_img_src,chemist_price,source_type)
+				(chemist_product_id,product_name,small_img_src,big_img_src,chemist_price,source_type, entry_time)
 								select of.chemist_product_id,
 									of.product_name,
 									of.small_img_src,
 									of.big_img_src,
 									of.chemist_price,
-									"chemist warehouse" source_type
+									"chemist warehouse" source_type,
+									CURRENT_TIMESTAMP entry_time
 								from 
 								os_chemist_product_fetch of left join
 								os_product op on
