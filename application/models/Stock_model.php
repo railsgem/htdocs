@@ -207,6 +207,42 @@ class stock_model extends CI_Model {
 
 	}
 
+	public function get_despatch_cost_by_order_id($order_id = FALSE)
+	{
+		$myquery = "SELECT  
+							skpro.os_product_id,
+							sum(ifnull(skpro.real_cost,0) * ifnull(skpro.despatch_num,0)) total_cost
+					FROM
+						os_order_product ordpro
+					inner JOIN (
+						SELECT
+							op.product_name,
+							stk.stock_id,
+							stk.os_product_id,
+							stk.real_cost,
+							od.despatch_num,
+							stk.stock_entry_num,
+							stk.stock_despatch_num,
+							stk.stock_present_num,
+							stk.buy_shop,
+							stk.buyer,
+							stk.purchase_time,
+							stk.entry_time,
+							stk.update_time
+						FROM
+							os_stock_entry stk
+						LEFT JOIN os_product op ON stk.os_product_id = op.os_product_id
+						LEFT JOIN os_despatch od ON stk.stock_id = od.stock_id
+					) skpro ON ordpro.os_product_id = skpro.os_product_id
+					where ordpro.order_id =".$order_id."
+					group by skpro.os_product_id
+					";
+
+		$query = $this->db->query($myquery);
+        return $query->result_array();
+
+	}
+
 
 	public function set_stock()
 	{

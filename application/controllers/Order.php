@@ -279,6 +279,8 @@ class Order extends CI_Controller {
             $data['product'] = $this->order_model->order_product_list($order_id);
             $data['stock'] = $this->stock_model->get_stock_by_order_id($order_id);
             $data['despatch'] = $this->stock_model->get_despatch_by_order_id($order_id);
+            $data['despatch_cost'] = $this->stock_model->get_despatch_cost_by_order_id($order_id);
+
            /* print_r($data['stock']);
             exit;*/
             //$data['postage'] = $this->order_model->get_order_postage_list($order_id);
@@ -294,6 +296,7 @@ class Order extends CI_Controller {
 
             $data['order'] = $this->order_model->get_order($order_id);
             $data['product'] = $this->order_model->order_product_list($order_id);
+            $data['despatch_cost'] = $this->stock_model->get_despatch_cost_by_order_id($order_id);
 
             $this->load->view('templates/header');
             //$this->load->view('postage/success');

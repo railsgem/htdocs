@@ -50,9 +50,10 @@
                                         <th>product_name</th>
                                         <th>chemist_price</th>
                                         <th>source_type</th>
-                                        <th>quantity</th>
                                         <th>sell_price</th>
-                                        <th>stock list</th>
+                                        <th>quantity</th>
+                                        <th>despatch list</th>
+                                        <th>cost</th>
                                         <th style="display:none;">操作</th>
                                     </tr>
                                 </tr>
@@ -68,8 +69,8 @@
                                                 <td><?php echo $product_item['product_name']; ?></td>
                                                 <td><?php echo $product_item['chemist_price']; ?></td>
                                                 <td><?php echo $product_item['source_type']; ?></td>
-                                                <td><?php echo $product_item['quantity']; ?></td>
                                                 <td><?php echo $product_item['sell_price']; ?></td>
+                                                <td><?php echo $product_item['quantity']; ?></td>
                                                 <td style="width:50px;" >
 
                                                    <!--  <ul class="list-group"> -->
@@ -89,6 +90,12 @@
                                                     <?php endforeach ?>
                                                     <!-- </ul> -->
 
+                                                </td>
+                                                <td>
+                                                    <?php foreach ($despatch_cost as $despatch_cost_item): ?>
+                                                    <?php if( $product_item['os_product_id']== $despatch_cost_item['os_product_id']) { echo $despatch_cost_item['total_cost'];  }?>
+
+                                                    <?php endforeach ?>
                                                 </td>
                                                 <td style="display:none;">
                                                     <a style="display:none" href="/index.php/order/edit_cart/<?php echo $product_item['order_product_id']; ?>" class="btn btn-danger btn-xs" >View/Edit</a>
@@ -129,9 +136,9 @@
     </div>
     <!-- /.row -->
     
-    <div class="text-left">
+ <!--    <div class="text-left">
         <input class="btn btn-primary" type="submit" name="submit" value="Save" />
-    </div>
+    </div> -->
 
     </form>
 </div>
