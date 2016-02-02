@@ -189,7 +189,7 @@
                 message("Invalid Value!",0);
                 //$("#"+vSpanId).val(stock_despatch_num);
             }
-
+            parent.document.location.href = "/index.php/order/despatch/"+order_id;
         }
     }
 

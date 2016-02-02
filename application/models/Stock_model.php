@@ -154,7 +154,7 @@ class stock_model extends CI_Model {
 						FROM
 							os_stock_entry stk
 						LEFT JOIN os_product op ON stk.os_product_id = op.os_product_id
-						LEFT JOIN os_despatch od ON stk.stock_id = od.stock_id
+						inner JOIN os_despatch od ON stk.stock_id = od.stock_id
 						WHERE
 							stk.stock_present_num = 0
 					) skpro ON ordpro.os_product_id = skpro.os_product_id
