@@ -109,6 +109,8 @@
                                     <th>entry_time</th>
 
                                     <th>is_agent</th>
+                                    <th>agent_name_code</th>
+
                                     <th>操作</th>
                                 </tr>
                             </tr>
@@ -128,7 +130,9 @@
                                             <td><?php echo $consumer_item['consumer_postcode']; ?></td>
                                             <td><?php echo $consumer_item['entry_time']; ?></td>
 
-                                            <td><?php echo $consumer_item['is_agent']; ?></td>
+                                            <td><?php if($consumer_item['is_agent']==1) { echo "YES"; } else { echo "NO"; } ?></td>
+                                            <td><?php echo $consumer_item['agent_name_code']; ?></td>
+                                            
                                             <td>
                                                 <a href="/index.php/consumer/edit/<?php echo $consumer_item['consumer_id']; ?>" class="btn btn-danger btn-xs" >View/Edit</a>
                                                 

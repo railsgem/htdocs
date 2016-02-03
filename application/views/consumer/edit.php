@@ -61,7 +61,7 @@
                         <input class="form-control" type="input" name="consumer_phone" value="<?php echo $consumer['consumer_phone']; ?>">
                     </div>
                     <div class="form-group">
-                        <label for="consumer_postcode"><span class="red"> * </span>consumer_postcode:</label>
+                        <label for="consumer_postcode">consumer_postcode:</label>
                         <input class="form-control" type="input" name="consumer_postcode" value="<?php echo $consumer['consumer_postcode']; ?>">
                     </div>
                     <label for="is_agent"><span class="red"> * </span>is_agent:</label>
@@ -69,6 +69,10 @@
                       <option value ="1" <?php if ($consumer['is_agent'] === "1") { echo "selected"; } ?> >1</option>
                       <option value ="0" <?php if ($consumer['is_agent'] === "0") { echo "selected"; } ?>>0</option>
                     </select>
+                    <div class="form-group">
+                        <label for="agent_name_code">agent_name_code:</label>
+                        <input class="form-control" type="input" name="agent_name_code" value="<?php echo $consumer['agent_name_code']; ?>">
+                    </div>
                     </div>
                 </div> 
             </div> 

@@ -52,7 +52,7 @@
                             <input class="form-control" type="input" name="consumer_phone" value="<?php echo set_value('consumer_phone'); ?>">
                         </div>
                         <div class="form-group">
-                            <label for="consumer_postcode"><span class="red"> * </span>consumer_postcode:</label>
+                            <label for="consumer_postcode">consumer_postcode:</label>
                             <input class="form-control" type="input" name="consumer_postcode" value="<?php echo set_value('consumer_postcode'); ?>">
                         </div>
                         <label for="is_agent"><span class="red"> * </span>is_agent:</label>
@@ -60,6 +60,10 @@
                             <option value="1" <?php if ("1" === set_value('is_agent')) { echo "selected"; } ?>>1</option>
                             <option value="0" <?php if ("1" === set_value('is_agent')) { echo "selected"; } ?>>0</option>
                         </select>
+                        <div class="form-group">
+                            <label for="agent_name_code">agent_name_code:</label>
+                            <input class="form-control" type="input" name="agent_name_code" value="<?php echo set_value('agent_name_code'); ?>">
+                        </div>
                     </div>
                 </div> 
             </div> 

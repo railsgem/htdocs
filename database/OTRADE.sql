@@ -11,7 +11,7 @@
  Target Server Version : 50505
  File Encoding         : utf-8
 
- Date: 02/03/2016 21:32:01 PM
+ Date: 02/03/2016 22:28:07 PM
 */
 
 SET NAMES utf8;
@@ -176,7 +176,14 @@ CREATE TABLE `os_consumer` (
   `agent_name_code` varchar(255) DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`consumer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `os_consumer`
+-- ----------------------------
+BEGIN;
+INSERT INTO `os_consumer` VALUES ('10', '兰金娇', '352231198711091222', '福建省莆田市荔城区阔口小区1栋', '15505949709', '', '2016-02-03 21:46:19', '1', 'Ljj', '2016-02-03 22:26:01'), ('11', 'Ruby', '0000000000000000', '0000000000000000', '000000000000000', '', '2016-02-03 22:06:34', '1', 'Ruby', '2016-02-03 22:25:49'), ('12', 'Juno', '0000000000000000000', '000000000000000000', '000000000000000000', '', '2016-02-03 22:07:08', '1', 'Juno', '2016-02-03 22:25:41'), ('13', '兔子姐', '000', '000', '000', '', '2016-02-03 22:26:42', '1', 'Tzj', '2016-02-03 22:26:42');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `os_despatch`

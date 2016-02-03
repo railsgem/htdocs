@@ -82,7 +82,7 @@ class Consumer extends CI_Controller {
                     $data['update_success'] ='Save Successfully.';
 
                     $this->load->view('templates/header');
-                    $this->load->view('consumer/edit', $data);
+                    $this->load->view('consumer/success', $data);
                     $this->load->view('templates/footer');
                 }
             }

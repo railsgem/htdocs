@@ -30,7 +30,7 @@ class Consumer_model extends CI_Model {
 								,t.consumer_postcode
 								,t.entry_time
 								,t.is_agent 
-								,t.agent_name_code 
+								,t.agent_name_code
 						FROM os_consumer t 
 						WHERE 1=1 and consumer_id= ".$consumer_id." ";
 				$query = $this->db->query($myquery);	
@@ -68,6 +68,7 @@ class Consumer_model extends CI_Model {
 								,t.consumer_postcode
 								,t.entry_time
 								,t.is_agent 
+								,t.agent_name_code
 						FROM os_consumer t 
 						WHERE 1=1
 						';
@@ -113,6 +114,7 @@ class Consumer_model extends CI_Model {
 		        'consumer_phone' => $this->input->post('consumer_phone'),
 		        'consumer_postcode' => $this->input->post('consumer_postcode'),
 		        'is_agent' => $this->input->post('is_agent'),
+		        'agent_name_code' => $this->input->post('agent_name_code'),
 		        'entry_time' => $today,
 		        'update_time' => $today
 		    );
@@ -131,6 +133,7 @@ class Consumer_model extends CI_Model {
 			        'consumer_phone' => $this->input->post('consumer_phone'),
 			        'consumer_postcode' => $this->input->post('consumer_postcode'),
 			        'is_agent' => $this->input->post('is_agent'),
+		        	'agent_name_code' => $this->input->post('agent_name_code'),
 		        	'update_time' => $today
 			    );
 
