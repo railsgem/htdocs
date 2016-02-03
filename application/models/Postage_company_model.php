@@ -4,7 +4,6 @@ class Postage_company_model extends CI_Model {
         {
                 $this->load->database();
 				date_default_timezone_set('Australia/Sydney');
-				$today = date("Y-m-d H:i:s");
         }
 
 		public function get_postage_company($postage_company_id = FALSE)
@@ -72,6 +71,8 @@ class Postage_company_model extends CI_Model {
 		}
 		public function set_postage_company()
 		{
+			$today = date("Y-m-d H:i:s");
+
 		    $data = array(
 		        'postage_company_name' => $this->input->post('postage_company_name'),
 		        'postage_website' => $this->input->post('postage_website'),
@@ -83,6 +84,7 @@ class Postage_company_model extends CI_Model {
 
 		public function update_postage_company($postage_company_id = FALSE)
 		{
+			$today = date("Y-m-d H:i:s");
 			if ($postage_company_id !== FALSE)
 			{
 			    $data = array(

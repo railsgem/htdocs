@@ -117,11 +117,11 @@
                                         <?php echo form_open('postage_company/index/delete') ?>
                                             <td style='display:none'><?php echo $postage_company_item['postage_company_id']; ?></td>
                                             <td><?php echo $postage_company_item['postage_company_name']; ?></td>
-                                            <td><?php echo $postage_company_item['postage_website']; ?></td>
+                                            <td> <a target="_blank" href="http://<?php echo $postage_company_item['postage_website']; ?>" class="btn btn-link" ><?php echo $postage_company_item['postage_website']; ?></a></td>
                                             <td><?php echo $postage_company_item['entry_time']; ?></td>
                                             <td><?php echo $postage_company_item['update_time']; ?></td>
                                             <td>
-                                                <a href="/index.php/postage_company/edit/<?php echo $postage_company_item['postage_company_id']; ?>" class="btn btn-danger btn-xs" >View/Edit</a>
+                                                <a target="_blank" href="/index.php/postage_company/edit/<?php echo $postage_company_item['postage_company_id']; ?>" class="btn btn-danger btn-xs" >View/Edit</a>
                                                 
                                                 <input type="hidden" name="postage_company_id" value="<?php echo $postage_company_item['postage_company_id']; ?>">
                                                 <button style="display:none"type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_postage_company_<?php echo $postage_company_item['postage_company_id'];?>">Delete</button>

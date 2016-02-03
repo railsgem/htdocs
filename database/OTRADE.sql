@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost2
+ Source Server         : otrade
  Source Server Type    : MySQL
  Source Server Version : 50505
  Source Host           : localhost
- Source Database       : otrade
+ Source Database       : OTRADE
 
  Target Server Type    : MySQL
  Target Server Version : 50505
  File Encoding         : utf-8
 
- Date: 02/03/2016 10:05:06 AM
+ Date: 02/03/2016 21:32:01 PM
 */
 
 SET NAMES utf8;
@@ -329,7 +329,14 @@ CREATE TABLE `os_postage_company` (
   `entry_time` timestamp NULL DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`postage_company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `os_postage_company`
+-- ----------------------------
+BEGIN;
+INSERT INTO `os_postage_company` VALUES ('3', '蓝天快递', 'www.blueskyexpress.com.au', '2016-02-03 21:16:30', '2016-02-03 21:16:33'), ('4', '顺达快递', 'www.sdex.com.au', '2016-02-03 21:17:46', '2016-02-03 21:17:46'), ('5', '中环国际', 'www.zhonghuan.com.au', '2016-02-03 21:18:18', '2016-02-03 21:18:18'), ('6', 'PCA Express', 'www.pcaexpress.com.au', '2016-02-03 21:18:53', '2016-02-03 21:20:01');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `os_product`
