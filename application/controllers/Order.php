@@ -338,10 +338,11 @@ class Order extends CI_Controller {
         $address_detail = $this->input->post('address_detail');
         $phone = $this->input->post('phone');
         $recevier_nation_id = $this->input->post('recevier_nation_id');
+        $agent_id = $this->input->post('agent_id');
 
-        if ($recevier_name !== "" AND $address_detail !== ""  AND $phone !== ""  AND $recevier_nation_id !== "" ) 
+        if ($recevier_name !== "" AND $address_detail !== ""  AND $phone !== ""  AND $recevier_nation_id !== "" AND $agent_id !== "" ) 
         {
-            //$this->order_model->set_despatch_num($stock_id,$order_id,$os_product_id,$new_stocktake);
+            $this->order_model->save_new_address($agent_id, $recevier_name,$address_detail,$phone,$recevier_nation_id);
             echo "success";
         }
         else

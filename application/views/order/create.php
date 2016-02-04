@@ -352,6 +352,7 @@
         var address_detail=$("#address_detail").val();
         var phone=$("#phone").val();
         var recevier_nation_id=$("#recevier_nation_id").val();
+        var agent_id = $("#consumer_id").val();
 
         // appended new tr
         var newTrStr = '<tr>'+
@@ -368,8 +369,10 @@
             recevier_name : recevier_name,
             address_detail : address_detail,
             phone : phone,
-            recevier_nation_id : recevier_nation_id
+            recevier_nation_id : recevier_nation_id,
+            agent_id : agent_id
         };
+        console.log(data);
         $.ajax({
             type: 'POST',
             url: 'save_new_address',
