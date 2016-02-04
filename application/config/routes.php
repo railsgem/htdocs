@@ -107,6 +107,7 @@ $route['postage/edit'] = 'postage/edit';
 $route['postage/(:any)'] = 'postage/index';
 $route['postage'] = 'postage';
 
+$route['order/get_agent_address_list'] = 'order/get_agent_address_list';
 $route['order/save_new_address'] = 'order/save_new_address';
 $route['order/set_despatch_num'] = 'order/set_despatch_num';
 $route['order/despatch'] = 'order/despatch';

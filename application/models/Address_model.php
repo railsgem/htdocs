@@ -17,6 +17,30 @@ class Address_model extends CI_Model {
 		        return $query->row_array();
 		}
 
+		public function get_address_by_agent_id($agent_id = FALSE)
+		{
+	        if ($agent_id === FALSE)
+	        {
+	        	$myquery = 'SELECT
+								agd.agent_address_id,
+								agd.agent_id,
+								adr.address_id,
+								adr.address_detail,
+								adr.phone,
+								adr.recevier_name,
+								adr.recevier_nation_id,
+								adr.entry_time
+							FROM
+								os_agent_address agd
+							LEFT JOIN os_address adr ON agd.address_id = adr.address_id
+							WHERE
+								1 = 1  agd.agent_id = '.$agent_id.'
+					';
+				$query = $this->db->query($myquery);
+				return $query->result_array();
+	        }
+		}
+
 		public function get_address_list($offset = 1,$per_page = 14,$is_total = FALSE,$is_echart= FALSE)
 		{
 			$from_date = $this->input->get('from_date');
@@ -104,5 +128,23 @@ class Address_model extends CI_Model {
 		    }
 		}		
 
+		public function save_new_agent_address($agent_id = FALSE, $recevier_name = FALSE,$address_detail = FALSE,$phone = FALSE,$recevier_nation_id = FALSE)
+		{
+			$today = date("Y-m-d H:i:s");
+        	if ($recevier_name !== "" AND $address_detail !== ""  AND $phone !== ""  AND $recevier_nation_id !== "" ) 
+            {
+		        $entry_time = $today;
+		        $update_time = $today;
+
+				// update os_address
+				$myquery = " insert into os_address (address_detail, phone, recevier_name, recevier_nation_id, entry_time, update_time) values ( '".$address_detail."' , '".$phone."' , '".$recevier_name."' , '".$recevier_nation_id."' , '".$today."' , '".$today."' )";
+				$this->db->query($myquery);
+
+		    	$address_id = $this->db->insert_id();
+				// update os_despatch
+				$myquery = " insert into os_agent_address (agent_id, address_id, entry_time, update_time ) values ( '".$agent_id."' , '".$address_id."' , '".$today."' , '".$today."' )";
+				$this->db->query($myquery);
+            }
+		}
 
 }

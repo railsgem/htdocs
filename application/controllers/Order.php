@@ -342,7 +342,21 @@ class Order extends CI_Controller {
 
         if ($recevier_name !== "" AND $address_detail !== ""  AND $phone !== ""  AND $recevier_nation_id !== "" AND $agent_id !== "" ) 
         {
-            $this->order_model->save_new_address($agent_id, $recevier_name,$address_detail,$phone,$recevier_nation_id);
+            $this->address_model->save_new_agent_address($agent_id, $recevier_name,$address_detail,$phone,$recevier_nation_id);
+            echo "success";
+        }
+        else
+        {
+            echo "fail";
+        }
+    }  
+    public function get_agent_address_list()
+    {
+        $agent_id = $this->input->post('agent_id');
+
+        if ($agent_id !== "" ) 
+        {
+            $this->address_model->get_address_by_agent_id($agent_id);
             echo "success";
         }
         else

@@ -484,5 +484,31 @@
                 $("#order_code_auto").val(agent_name_code+"<?php echo date('Ymd_His');?>");
             }
         });
+
+        $.ajax({
+            type: 'POST',
+             url: 'get_agent_address_list',
+            data: data,
+            beforeSend: function(){
+
+            },
+            success: function(msg){
+                if(msg == "success") {
+                    message('save_new_address Success',1);
+                   // $("#agent_address_list_table").prepend(newTrStr);
+                } else {
+                    message('save_new_address fails',0);
+                }
+               /* var consumer_Obj = new Array();
+                consumer_Obj = JSON.parse(msg);//eval(msg);
+                console.log(consumer_Obj);
+                agent_name_code = consumer_Obj[0]['agent_name_code'];
+                console.log(consumer_Obj);
+                console.log(consumer_Obj[0]['agent_name_code']);
+                $("#order_code").val(agent_name_code+"<?php echo date('Ymd_His');?>");
+                $("#order_code_auto").val(agent_name_code+"<?php echo date('Ymd_His');?>");*/
+            }
+        });
+
     }
 </script>

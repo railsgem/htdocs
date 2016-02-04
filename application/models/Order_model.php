@@ -567,23 +567,6 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 				$this->db->query($myquery);
             }
 		}
-		public function save_new_address($agent_id = FALSE, $recevier_name = FALSE,$address_detail = FALSE,$phone = FALSE,$recevier_nation_id = FALSE)
-		{
-			$today = date("Y-m-d H:i:s");
-        	if ($recevier_name !== "" AND $address_detail !== ""  AND $phone !== ""  AND $recevier_nation_id !== "" ) 
-            {
-		        $entry_time = $today;
-		        $update_time = $today;
-
-				// update os_address
-				$myquery = " insert into os_address (address_detail, phone, recevier_name, recevier_nation_id, entry_time, update_time) values ( '".$address_detail."' , '".$phone."' , '".$recevier_name."' , '".$recevier_nation_id."' , '".$today."' , '".$today."' )";
-				$this->db->query($myquery);
-
-		    	$address_id = $this->db->insert_id();
-				// update os_despatch
-				$myquery = " insert into os_agent_address (agent_id, address_id, entry_time, update_time ) values ( '".$agent_id."' , '".$address_id."' , '".$today."' , '".$today."' )";
-				$this->db->query($myquery);
-            }
-		}
+		
 
 }
