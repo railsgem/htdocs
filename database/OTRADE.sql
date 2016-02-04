@@ -11,7 +11,7 @@
  Target Server Version : 50505
  File Encoding         : utf-8
 
- Date: 02/04/2016 16:19:27 PM
+ Date: 02/04/2016 17:33:46 PM
 */
 
 SET NAMES utf8;
@@ -84,7 +84,14 @@ CREATE TABLE `os_address` (
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`address_id`),
   KEY `address_id` (`address_id`,`address_detail`,`phone`,`recevier_name`,`entry_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `os_address`
+-- ----------------------------
+BEGIN;
+INSERT INTO `os_address` VALUES ('6', 'JJJ', 'JJJ', 'LJJ', 'JJ', '2016-02-04 17:17:07', '2016-02-04 17:17:07'), ('7', 'JJ', 'JJ', 'LJJ', 'JJ', '2016-02-04 17:18:23', '2016-02-04 17:18:23');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `os_agent_address`
@@ -103,7 +110,14 @@ CREATE TABLE `os_agent_address` (
   KEY `address_id` (`address_id`),
   CONSTRAINT `os_agent_address_ibfk_1` FOREIGN KEY (`agent_id`) REFERENCES `os_consumer` (`consumer_id`),
   CONSTRAINT `os_agent_agent_ibfk_2` FOREIGN KEY (`address_id`) REFERENCES `os_address` (`address_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `os_agent_address`
+-- ----------------------------
+BEGIN;
+INSERT INTO `os_agent_address` VALUES ('1', '10', '7', '2016-02-04 17:18:23', '2016-02-04 17:18:23');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `os_brand`
