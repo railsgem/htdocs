@@ -137,6 +137,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <b>order</b>
+                        <a target="_blank" style="float:right;" href="/index.php/consumer/create" class="btn btn-success btn-xs" >Add New Consumer</a>
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
@@ -163,6 +164,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <b>Receiver info(Address)</b>
+                        <a target="_blank" style="float:right;" href="/index.php/address/create" class="btn btn-success btn-xs" >Add address</a>
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
