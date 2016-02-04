@@ -27,6 +27,8 @@
     <?php echo form_open('consumer/create') ?>
 
         <div class="row">
+
+            
             <div class="col-lg-3">
 
                 <div class="panel panel-default">

@@ -133,11 +133,17 @@
     <?php echo form_open('order/create') ?>
 
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <b>order</b>
-                        <a target="_blank" style="float:right;" href="/index.php/consumer/create" class="btn btn-success btn-xs" >Add New Consumer</a>
+                        <div style="float:left;" class="col-lg-2">
+                            <b>order</b>
+                        </div>
+                        <div style="float:right;" class="col-lg-6 text-right">
+                            <a target="_blank" href="/index.php/consumer/create" class="btn btn-success btn-xs" >Add New Consumer</a>
+                            <span id="add_new_address" class="btn btn-primary btn-xs" />New Address</span>
+                        </div>
+                        <div style="clear:both;"></div>
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
@@ -156,15 +162,79 @@
                                 <?php endforeach ?>
                             </select>
                         </div>
+
+
+                        <table class="table table-bordered table-hover table-striped" >
+                            <thead>
+                                <tr>
+                                    <th style='display:none'>address_id</th>
+                                    <th>recevier_name</th>
+                                    <th>address_detail</th>
+                                    <th>phone</th>
+                                    <th>recevier_nation_id</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="agent_address_list_table">
+                                <tr id="add_new_address_tr">
+                                    <td style='display:none'></td>
+                                    <td><input id="recevier_name" class="form-control" type="input" name="recevier_name" value="<?php echo set_value('recevier_name'); ?>"></td>
+                                    <td><input id="address_detail" class="form-control" type="input" name="address_detail" value="<?php echo set_value('address_detail'); ?>"></td>
+                                    <td><input id="phone" class="form-control" type="input" name="phone" value="<?php echo set_value('phone'); ?>"></td>
+                                    <td><input id="recevier_nation_id" class="form-control" type="input" name="recevier_nation_id" value="<?php echo set_value('recevier_nation_id'); ?>"></td>
+                                    <td><span id="save_new_address" class="btn btn-primary" />save</span></td>
+                                </tr>
+                           <!--  <?php  foreach ($agent_address as $address_item): ?> -->
+                               <!--  <tr>
+                                    <?php echo form_open('order/delete_cart_product') ?>
+                                        <td style='display:none'><?php echo $address_item['address_id']; ?></td>
+                                        <td style='display:none'><?php echo $address_item['address_id']; ?></td>
+                                        <td><?php echo $address_item['recevier_name']; ?></td>
+                                        <td><?php echo $address_item['address_detail']; ?></td>
+                                        <td><?php echo $address_item['phone']; ?></td>
+                                        <td><?php echo $address_item['recevier_nation_id']; ?></td>
+                                        <td>
+                                            <a style="display:none" href="/index.php/order/edit_cart/<?php echo $address_item['address_id']; ?>" class="btn btn-danger btn-xs" >View/Edit</a>
+                                            
+                                            <input type="hidden" name="delete_product_id" value="<?php echo $address_item['address_id']; ?>">
+                                            <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_product_<?php echo $address_item['address_id'];?>">Delete</button>
+ -->
+                                            <!-- Modal -->
+                                            <!-- <div class="modal fade" id="delete_product_<?php echo $address_item['address_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                              <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">Delete product List Confirm</h4>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                    Are you sure you want to delete ?</em>--<?php echo $address_item['address_detail']; ?>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                                    <button type="button" class="btn btn-primary" onclick="delete_agent_address('<?php echo $address_item['address_id']; ?>')">Yes, Delete</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                        </td>
+
+                                    </form>
+                                </tr> --><!-- 
+                            <?php endforeach ?> -->
+                            </tbody>
+                        </table>
+
                     </div>
                 </div> 
             </div> 
             
-            <div class="col-lg-3">
+            <div style="display:none;" class="col-lg-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <b>Receiver info(Address)</b>
-                        <a target="_blank" style="float:right;" href="/index.php/address/create" class="btn btn-success btn-xs" >Add address</a>
+                        <button style="float:right;" id="add_new_address" class="btn btn-primary btn-xs" />Add New Address</button>
+                        <!-- <a target="_blank" style="float:right;" href="/index.php/address/create" class="btn btn-success btn-xs" >Add new address</a> -->
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
@@ -211,6 +281,15 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
+        $("#add_new_address_tr").hide();
+        $("#add_new_address").click(function(){
+            $("#add_new_address_tr").show();
+        });
+
+        $("#save_new_address").click(function(){
+            save_new_address();
+        });
+
         get_consumer_id();
         $("#consumer_id").change(function(){
             get_consumer_id();
@@ -263,7 +342,49 @@
         });
 
     });
+    //save new agent address
+    function save_new_address() {
+        console.log("save_new_address");
+        $("#add_new_address_tr").hide();
+       console.log($("#recevier_name").val());
 
+        var recevier_name= $("#recevier_name").val();
+        var address_detail=$("#address_detail").val();
+        var phone=$("#phone").val();
+        var recevier_nation_id=$("#recevier_nation_id").val();
+
+        // appended new tr
+        var newTrStr = '<tr>'+
+            '<td style="display:none"></td>'+
+            '<td>' + recevier_name + '</td>'+
+            '<td>' + address_detail + '</td>'+
+            '<td>' + phone + '</td>' +
+            '<td>' + recevier_nation_id + '</td>' +
+            '<td></td>'+
+        '</tr>';
+        $("#agent_address_list_table").prepend(newTrStr);
+
+        var data = {
+            recevier_name : recevier_name,
+            address_detail : address_detail,
+            phone : phone,
+            recevier_nation_id : recevier_nation_id
+        };
+        $.ajax({
+            type: 'POST',
+            url: 'save_new_address',
+            data: data,
+            beforeSend: function(data){
+                console.log("this save_new_address data will post---");
+                console.log(data);
+            },
+            success: function(msg){
+                console.log(msg);
+               // parent.document.location.href = "create";
+            }
+        });
+
+    }
     function delete_cart_product(order_product_id) {
 
         var data = {

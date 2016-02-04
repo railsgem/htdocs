@@ -164,6 +164,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		}
 		public function set_order()
 		{
+			$today = date("Y-m-d H:i:s");
 		    $data = array(
 		        'order_code' => $this->input->post('order_code'),
 		        'entry_time' => $today,
@@ -200,6 +201,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 
 		public function set_order_cart_session()
 		{
+			$today = date("Y-m-d H:i:s");
 		    $product_item = array(
 		        'os_product_id' => $this->input->post('os_product_id'),
 		        'product_name' => $this->input->post('product_name'),
@@ -235,6 +237,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 
 		public function add_product_to_cart()
 		{
+			$today = date("Y-m-d H:i:s");
 		    $product_item = array(
 		        'os_product_id' => $this->input->post('os_product_id'),
 		        'product_name' => $this->input->post('product_name'),
@@ -287,6 +290,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 
 		public function update_order($order_id = FALSE)
 		{
+			$today = date("Y-m-d H:i:s");
 			if ($order_id !== FALSE)
 			{
 			    $data = array(
@@ -328,6 +332,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 
 		public function add_order_product()
 		{
+			$today = date("Y-m-d H:i:s");
 		    $product_item = array(
 		        'os_product_id' => $this->input->post('os_product_id'),
 		        'product_name' => $this->input->post('product_name'),
@@ -362,6 +367,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		public function set_postage($order_id)
 		{
 
+			$today = date("Y-m-d H:i:s");
 		    $data = array(
 		        'postage_company_id' => $this->input->post('postage_company_id'),
 		        'postage_date' => $this->input->post('postage_date'),
@@ -543,6 +549,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		}
 		public function quick_update_stock_take($stock_id = FALSE,$order_id = FALSE,$os_product_id = FALSE,$stock_despatch_num = FALSE)
 		{
+			$today = date("Y-m-d H:i:s");
             if ($stock_id !== FALSE AND $order_id !==FALSE AND $stock_despatch_num !==FALSE ) 
             {
 		        $entry_time = $today;
