@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost2
+ Source Server         : otrade
  Source Server Type    : MySQL
  Source Server Version : 50505
  Source Host           : localhost
@@ -11,7 +11,7 @@
  Target Server Version : 50505
  File Encoding         : utf-8
 
- Date: 02/04/2016 17:33:46 PM
+ Date: 02/04/2016 23:42:53 PM
 */
 
 SET NAMES utf8;
@@ -84,13 +84,13 @@ CREATE TABLE `os_address` (
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`address_id`),
   KEY `address_id` (`address_id`,`address_detail`,`phone`,`recevier_name`,`entry_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `os_address`
 -- ----------------------------
 BEGIN;
-INSERT INTO `os_address` VALUES ('6', 'JJJ', 'JJJ', 'LJJ', 'JJ', '2016-02-04 17:17:07', '2016-02-04 17:17:07'), ('7', 'JJ', 'JJ', 'LJJ', 'JJ', '2016-02-04 17:18:23', '2016-02-04 17:18:23');
+INSERT INTO `os_address` VALUES ('6', 'JJJ', 'JJJ', 'LJJ', 'JJ', '2016-02-04 17:17:07', '2016-02-04 17:17:07'), ('7', 'JJ', 'JJ', 'LJJ', 'JJ', '2016-02-04 17:18:23', '2016-02-04 17:18:23'), ('8', 'xxx,...,xxxx', '9990099', 'ljj', '00000', '2016-02-04 23:25:57', '2016-02-04 23:25:57');
 COMMIT;
 
 -- ----------------------------
@@ -110,13 +110,13 @@ CREATE TABLE `os_agent_address` (
   KEY `address_id` (`address_id`),
   CONSTRAINT `os_agent_address_ibfk_1` FOREIGN KEY (`agent_id`) REFERENCES `os_consumer` (`consumer_id`),
   CONSTRAINT `os_agent_agent_ibfk_2` FOREIGN KEY (`address_id`) REFERENCES `os_address` (`address_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `os_agent_address`
 -- ----------------------------
 BEGIN;
-INSERT INTO `os_agent_address` VALUES ('1', '10', '7', '2016-02-04 17:18:23', '2016-02-04 17:18:23');
+INSERT INTO `os_agent_address` VALUES ('1', '10', '7', '2016-02-04 17:18:23', '2016-02-04 17:18:23'), ('2', '10', '8', '2016-02-04 23:25:57', '2016-02-04 23:25:57');
 COMMIT;
 
 -- ----------------------------
@@ -129,7 +129,7 @@ CREATE TABLE `os_brand` (
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `is_valid` int(11) DEFAULT '1' COMMENT '1:valid, 0 not valid',
   PRIMARY KEY (`brand_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `os_category`
@@ -141,7 +141,7 @@ CREATE TABLE `os_category` (
   `is_valid` int(11) DEFAULT '1',
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `os_chemist_product`
@@ -158,7 +158,7 @@ CREATE TABLE `os_chemist_product` (
   `update_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`rowid`),
   KEY `chemist_product_id` (`chemist_product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1801 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1797 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `os_chemist_product`
@@ -235,7 +235,7 @@ CREATE TABLE `os_despatch` (
   KEY `stock_id` (`stock_id`),
   CONSTRAINT `fk_disp_order_id` FOREIGN KEY (`order_id`) REFERENCES `os_order` (`order_id`),
   CONSTRAINT `fk_disp_stock_id` FOREIGN KEY (`stock_id`) REFERENCES `os_stock_entry` (`stock_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='商品出库';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='商品出库';
 
 -- ----------------------------
 --  Table structure for `os_order`
@@ -257,7 +257,7 @@ CREATE TABLE `os_order` (
 --  Records of `os_order`
 -- ----------------------------
 BEGIN;
-INSERT INTO `os_order` VALUES ('43', '', '1', '0', '0', null, null, '0'), ('44', '', '1', '0', '0', null, null, '0'), ('45', '', '1', '0', '0', null, null, '0'), ('46', 'Ljj20160204_154143', '1', '0', '0', '2016-02-04 15:42:46', '2016-02-04 15:42:46', '0');
+INSERT INTO `os_order` VALUES ('43', '', '1', '0', '0', null, null, '0'), ('44', '', '1', '0', '0', null, null, '0'), ('45', '', '1', '0', '0', null, null, '0'), ('46', 'Ljj20160204_154143', '1', '0', '0', '2016-02-04 15:42:46', '2016-02-04 19:13:42', '0');
 COMMIT;
 
 -- ----------------------------
@@ -273,7 +273,7 @@ CREATE TABLE `os_order_address` (
   PRIMARY KEY (`order_address_id`),
   KEY `order_id` (`order_id`),
   CONSTRAINT `fk_ordadd_order_id` FOREIGN KEY (`order_id`) REFERENCES `os_order` (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `os_order_agent`
@@ -291,7 +291,7 @@ CREATE TABLE `os_order_agent` (
   KEY `agent_id` (`agent_id`),
   CONSTRAINT `fk_ag_agent_id` FOREIGN KEY (`agent_id`) REFERENCES `os_consumer` (`consumer_id`),
   CONSTRAINT `fk_ag_order_id` FOREIGN KEY (`order_id`) REFERENCES `os_order` (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `os_order_postage`
@@ -308,7 +308,7 @@ CREATE TABLE `os_order_postage` (
   KEY `postage_id` (`postage_id`),
   CONSTRAINT `fk_ordpst_order_id` FOREIGN KEY (`order_id`) REFERENCES `os_order` (`order_id`),
   CONSTRAINT `fk_ordpst_postage_id` FOREIGN KEY (`postage_id`) REFERENCES `os_postage` (`postage_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `os_order_product`
@@ -327,7 +327,7 @@ CREATE TABLE `os_order_product` (
   KEY `os_product_id` (`os_product_id`),
   CONSTRAINT `fk_orderproduct_order_id` FOREIGN KEY (`order_id`) REFERENCES `os_order` (`order_id`),
   CONSTRAINT `fk_orderproduct_product_id` FOREIGN KEY (`os_product_id`) REFERENCES `os_product` (`os_product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `os_order_product_tmp`
@@ -363,7 +363,7 @@ CREATE TABLE `os_postage` (
   PRIMARY KEY (`postage_id`),
   KEY `postage_company_id` (`postage_company_id`),
   CONSTRAINT `fk_post_com_id` FOREIGN KEY (`postage_company_id`) REFERENCES `os_postage_company` (`postage_company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `os_postage_company`
@@ -404,7 +404,7 @@ CREATE TABLE `os_product` (
   PRIMARY KEY (`os_product_id`),
   KEY `chemist_product_id` (`chemist_product_id`),
   CONSTRAINT `fk_chemist_product_id` FOREIGN KEY (`chemist_product_id`) REFERENCES `os_chemist_product` (`chemist_product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1770 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1766 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `os_product`
@@ -435,7 +435,7 @@ CREATE TABLE `os_stock_entry` (
   `entry_time` timestamp NULL DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`stock_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='商品入库';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品入库';
 
 -- ----------------------------
 --  Table structure for `os_transaction`
@@ -450,7 +450,7 @@ CREATE TABLE `os_transaction` (
   PRIMARY KEY (`trans_id`),
   KEY `order_id` (`order_id`),
   KEY `stock_id` (`stock_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='商品出库';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品出库';
 
 -- ----------------------------
 --  Table structure for `ot_product`
@@ -539,7 +539,7 @@ CREATE TABLE `users` (
 --  Records of `users`
 -- ----------------------------
 BEGIN;
-INSERT INTO `users` VALUES ('1', '127.0.0.1', 'admin', '$2y$08$FQNBgZCRXKKHMjSMyGrCUOjwmjUzZuOYpO03jT333ChYvvUJE.t.6', '', 'admin@admin.com', '', null, null, 'oBdQNfA3ag.p.ndQVJv2zu', '1268889823', '1454563108', '1', 'Admin', 'istrator', 'ADMIN', '0', 'oneshop123'), ('2', '::1', 'y c', '$2y$08$wMkc3nAJHmM5yqaVoDmNKuPrU6AHMIirVY/Z//KGeuAM4.7X5gPj2', null, 'qq@qqq.com', null, null, null, null, '1453691691', null, '1', 'yaaa', 'c', 'aaaaa', '112121', null), ('3', '::1', 'q c', '$2y$08$jLx3D8/FtulyeTGhFDMpfuHfvTBdP5ThRul87p44JPLO6b6Xhk2f2', null, '1qq@qqq.com', null, null, null, null, '1453692598', null, '1', 'q', 'c', 'ccc', '112121', null), ('4', '::1', 'y2 c2', '$2y$08$JLWZdyNF2fgLST14yya/a.Pn6q8tumwagjfHj5bo5jhpFdAmok1PK', null, '1@asd.com', null, null, null, null, '1453692704', null, '1', 'y2', 'c2', 'ccc', '112121', null), ('5', '::1', 'a b', '$2y$08$VtcuYVzqra57UUqinx9h/eIL2em92.n7UqI7b55kpK2fo3q0u.rIG', null, 'd@d.com', null, null, null, null, '1453692942', null, '1', 'a', 'b', 'c', 'www', null), ('6', '::1', 'a a', '$2y$08$dn28ad4q2Ko93yAsfZhHm.iE6BQEUd31AHB3Oz9jDsysojORETT/6', null, 'a@aa.com', null, null, null, null, '1453697585', null, '1', 'a', 'a', 'a', '11111', null), ('7', '::1', 'c c', '$2y$08$cl/gGttm4PLy9gIh7NKDruzQssk9VfNQX4/hN73aLr/s.JztDhHwa', null, 'c@cc.com', null, null, null, null, '1453702875', null, '1', 'c', 'c', 'c', '1', null), ('8', '::1', 'cc-ccc', '$2y$08$3EP8.zI8ElQQ4ofnJjoSAe5zfBv6OkhQrGIxqwP8y/Qd6VCf97PJC', null, 'cccc@cc.com', null, null, null, null, '1453703337', null, '1', 'cc', 'ccc', 'cc', '1111', null), ('9', '::1', 'kitty', '$2y$08$M.4O0.CrYGKaFBB1g/rZNOlbtTdbijCwO5zYQ759ZcF.qlDx8atZq', null, 'hellokitty@hello.com', null, null, null, null, '1453703640', null, '1', 'hello', 'kitty', 'hellokitty', '1111111111', null), ('10', '::1', 'hellokitty', '$2y$08$Dr9NAWINuMCpgoyLUqen3eWzUsgflj/z833T.AvvCm5/TPIa452A2', null, 'kitty@hello.com', '4a87de6bbab07866264386d05d056a0f3383bbb9', null, null, null, '1453703717', '1453863201', '0', 'hello', 'kitty', 'hellokitty', '11111111112', null);
+INSERT INTO `users` VALUES ('1', '127.0.0.1', 'admin', '$2y$08$FQNBgZCRXKKHMjSMyGrCUOjwmjUzZuOYpO03jT333ChYvvUJE.t.6', '', 'admin@admin.com', '', null, null, 'oBdQNfA3ag.p.ndQVJv2zu', '1268889823', '1454588349', '1', 'Admin', 'istrator', 'ADMIN', '0', 'oneshop123'), ('2', '::1', 'y c', '$2y$08$wMkc3nAJHmM5yqaVoDmNKuPrU6AHMIirVY/Z//KGeuAM4.7X5gPj2', null, 'qq@qqq.com', null, null, null, null, '1453691691', null, '1', 'yaaa', 'c', 'aaaaa', '112121', null), ('3', '::1', 'q c', '$2y$08$jLx3D8/FtulyeTGhFDMpfuHfvTBdP5ThRul87p44JPLO6b6Xhk2f2', null, '1qq@qqq.com', null, null, null, null, '1453692598', null, '1', 'q', 'c', 'ccc', '112121', null), ('4', '::1', 'y2 c2', '$2y$08$JLWZdyNF2fgLST14yya/a.Pn6q8tumwagjfHj5bo5jhpFdAmok1PK', null, '1@asd.com', null, null, null, null, '1453692704', null, '1', 'y2', 'c2', 'ccc', '112121', null), ('5', '::1', 'a b', '$2y$08$VtcuYVzqra57UUqinx9h/eIL2em92.n7UqI7b55kpK2fo3q0u.rIG', null, 'd@d.com', null, null, null, null, '1453692942', null, '1', 'a', 'b', 'c', 'www', null), ('6', '::1', 'a a', '$2y$08$dn28ad4q2Ko93yAsfZhHm.iE6BQEUd31AHB3Oz9jDsysojORETT/6', null, 'a@aa.com', null, null, null, null, '1453697585', null, '1', 'a', 'a', 'a', '11111', null), ('7', '::1', 'c c', '$2y$08$cl/gGttm4PLy9gIh7NKDruzQssk9VfNQX4/hN73aLr/s.JztDhHwa', null, 'c@cc.com', null, null, null, null, '1453702875', null, '1', 'c', 'c', 'c', '1', null), ('8', '::1', 'cc-ccc', '$2y$08$3EP8.zI8ElQQ4ofnJjoSAe5zfBv6OkhQrGIxqwP8y/Qd6VCf97PJC', null, 'cccc@cc.com', null, null, null, null, '1453703337', null, '1', 'cc', 'ccc', 'cc', '1111', null), ('9', '::1', 'kitty', '$2y$08$M.4O0.CrYGKaFBB1g/rZNOlbtTdbijCwO5zYQ759ZcF.qlDx8atZq', null, 'hellokitty@hello.com', null, null, null, null, '1453703640', null, '1', 'hello', 'kitty', 'hellokitty', '1111111111', null), ('10', '::1', 'hellokitty', '$2y$08$Dr9NAWINuMCpgoyLUqen3eWzUsgflj/z833T.AvvCm5/TPIa452A2', null, 'kitty@hello.com', '4a87de6bbab07866264386d05d056a0f3383bbb9', null, null, null, '1453703717', '1453863201', '0', 'hello', 'kitty', 'hellokitty', '11111111112', null);
 COMMIT;
 
 -- ----------------------------

@@ -16,10 +16,19 @@ class Address_model extends CI_Model {
 		        $query = $this->db->get_where('os_address', array('address_id' => $address_id));
 		        return $query->row_array();
 		}
+		public function get_next_agent_address_id()
+		{
+			$myquery = "SELECT `auto_increment` FROM INFORMATION_SCHEMA.TABLES
+							WHERE table_name = 'OS_AGENT_ADDRESS'";
+
+			$query = $this->db->query($myquery);
+			return $query->result_array();
+
+		}
 
 		public function get_address_by_agent_id($agent_id = FALSE)
 		{
-	        if ($agent_id === FALSE)
+	        if ($agent_id !== FALSE)
 	        {
 	        	$myquery = 'SELECT
 								agd.agent_address_id,
@@ -34,7 +43,7 @@ class Address_model extends CI_Model {
 								os_agent_address agd
 							LEFT JOIN os_address adr ON agd.address_id = adr.address_id
 							WHERE
-								1 = 1  agd.agent_id = '.$agent_id.'
+								1 = 1 and agd.agent_id = '.$agent_id.'
 					';
 				$query = $this->db->query($myquery);
 				return $query->result_array();
@@ -144,6 +153,8 @@ class Address_model extends CI_Model {
 				// update os_despatch
 				$myquery = " insert into os_agent_address (agent_id, address_id, entry_time, update_time ) values ( '".$agent_id."' , '".$address_id."' , '".$today."' , '".$today."' )";
 				$this->db->query($myquery);
+		    	$agent_address_id = $this->db->insert_id();
+				return $agent_address_id;
             }
 		}
 

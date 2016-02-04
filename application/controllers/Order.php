@@ -341,9 +341,9 @@ class Order extends CI_Controller {
         $agent_id = $this->input->post('agent_id');
 
         if ($recevier_name !== "" AND $address_detail !== ""  AND $phone !== ""  AND $recevier_nation_id !== "" AND $agent_id !== "" ) 
-        {
-            $this->address_model->save_new_agent_address($agent_id, $recevier_name,$address_detail,$phone,$recevier_nation_id);
-            echo "success";
+        {   
+            $agent_address_id = $this->address_model->save_new_agent_address($agent_id, $recevier_name,$address_detail,$phone,$recevier_nation_id);
+            echo $agent_address_id;
         }
         else
         {
@@ -356,8 +356,8 @@ class Order extends CI_Controller {
 
         if ($agent_id !== "" ) 
         {
-            $this->address_model->get_address_by_agent_id($agent_id);
-            echo "success";
+            $address = $this->address_model->get_address_by_agent_id($agent_id);
+            echo json_encode($address);
         }
         else
         {

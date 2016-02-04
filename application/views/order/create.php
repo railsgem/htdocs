@@ -346,7 +346,6 @@
     function save_new_address() {
         console.log("save_new_address");
         $("#add_new_address_tr").hide();
-       console.log($("#recevier_name").val());
 
         var recevier_name= $("#recevier_name").val();
         var address_detail=$("#address_detail").val();
@@ -354,15 +353,6 @@
         var recevier_nation_id=$("#recevier_nation_id").val();
         var agent_id = $("#consumer_id").val();
 
-        // appended new tr
-        var newTrStr = '<tr>'+
-            '<td style="display:none"></td>'+
-            '<td>' + recevier_name + '</td>'+
-            '<td>' + address_detail + '</td>'+
-            '<td>' + phone + '</td>' +
-            '<td>' + recevier_nation_id + '</td>' +
-            '<td></td>'+
-        '</tr>';
         //$("#agent_address_list_table").prepend(newTrStr);
 
         var data = {
@@ -383,11 +373,21 @@
             },
             success: function(msg){
                 //console.log(msg);
-                if(msg == "success") {
-                    message('save_new_address Success',1);
-                    $("#agent_address_list_table").prepend(newTrStr);
-                } else {
+                if(msg == "fail") {
                     message('save_new_address fails',0);
+                } else {
+                    var agent_address_id = msg;
+                    // appended new tr
+                    var newTrStr = '<tr>'+
+                        '<td id="agent_address_id_'+ agent_address_id +'" style="display:none"></td>'+
+                        '<td id="recevier_name_'+ agent_address_id +'" >' + recevier_name + '</td>'+
+                        '<td id="address_detail_'+ agent_address_id +'" >' + address_detail + '</td>'+
+                        '<td id="phone_'+ agent_address_id +'" >' + phone + '</td>' +
+                        '<td id="recevier_nation_id_'+ agent_address_id +'" >' + recevier_nation_id + '</td>' +
+                        '<td ></td>'+
+                    '</tr>';
+                    $("#agent_address_list_table").prepend(newTrStr);
+                    message('save_new_address Success',1);
                 }
                // parent.document.location.href = "create";
             }
@@ -462,9 +462,11 @@
         $("#order_code").val(consumer_id);
         //$("#order_code").css("background-color","#FFFFCC");
 
+        var agent_id = $("#consumer_id").val();
 
         var data = {
-            consumer_id : consumer_id
+            consumer_id : consumer_id,
+            agent_id : agent_id
         };
         $.ajax({
             type: 'POST',
@@ -493,20 +495,42 @@
 
             },
             success: function(msg){
-                if(msg == "success") {
-                    message('save_new_address Success',1);
-                   // $("#agent_address_list_table").prepend(newTrStr);
+                if(msg !== "fails") {
+                    var addressObj = JSON.parse(msg);
+                    $("#agent_address_list_table").empty();
+                    var newTrStr =
+                                '<tr id="add_new_address_tr">' + 
+                                    '<td style="display:none"></td>' + 
+                                    '<td><input id="recevier_name" class="form-control" type="input" name="recevier_name" value="<?php echo set_value("recevier_name"); ?>"></td>' + 
+                                    '<td><input id="address_detail" class="form-control" type="input" name="address_detail" value="<?php echo set_value("address_detail"); ?>"></td>' + 
+                                    '<td><input id="phone" class="form-control" type="input" name="phone" value="<?php echo set_value("phone"); ?>"></td>' + 
+                                    '<td><input id="recevier_nation_id" class="form-control" type="input" name="recevier_nation_id" value="<?php echo set_value("recevier_nation_id"); ?>"></td>' + 
+                                    '<td><span id="save_new_address" class="btn btn-primary">save</span></td>' + 
+                                '</tr>'
+                                ;
+                        $("#agent_address_list_table").prepend(newTrStr);
+                        $("#add_new_address_tr").hide();
+                    for(var i = 0; i <= addressObj.length; i++){
+                        var agent_address_id = addressObj[i]['agent_address_id'];
+                        var recevier_name = addressObj[i]['recevier_name'];
+                        var address_detail= addressObj[i]['address_detail'];
+                        var phone = addressObj[i]['phone'];
+                        var recevier_nation_id = addressObj[i]['recevier_nation_id'];
+                        var agent_id = addressObj[i]['agent_id'];
+                         // appended new tr
+                        var newTrStr = '<tr>'+
+                            '<td id="agent_address_id_'+ agent_address_id +'" style="display:none">' + agent_address_id + '</td>'+
+                            '<td id="recevier_name_'+ agent_address_id +'" >' + recevier_name + '</td>'+
+                            '<td id="address_detail_'+ agent_address_id +'" >' + address_detail + '</td>'+
+                            '<td id="phone_'+ agent_address_id +'" >' + phone + '</td>' +
+                            '<td id="recevier_nation_id_'+ agent_address_id +'" >' + recevier_nation_id + '</td>' +
+                            '<td><span id="delete_agent_address" class="btn btn-danger">delete</span></td>'+
+                        '</tr>';
+                        $("#agent_address_list_table").prepend(newTrStr);
+                    }
                 } else {
-                    message('save_new_address fails',0);
+                    message('No Agent Address',0);
                 }
-               /* var consumer_Obj = new Array();
-                consumer_Obj = JSON.parse(msg);//eval(msg);
-                console.log(consumer_Obj);
-                agent_name_code = consumer_Obj[0]['agent_name_code'];
-                console.log(consumer_Obj);
-                console.log(consumer_Obj[0]['agent_name_code']);
-                $("#order_code").val(agent_name_code+"<?php echo date('Ymd_His');?>");
-                $("#order_code_auto").val(agent_name_code+"<?php echo date('Ymd_His');?>");*/
             }
         });
 
