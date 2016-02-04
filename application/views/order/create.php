@@ -362,7 +362,7 @@
             '<td>' + recevier_nation_id + '</td>' +
             '<td></td>'+
         '</tr>';
-        $("#agent_address_list_table").prepend(newTrStr);
+        //$("#agent_address_list_table").prepend(newTrStr);
 
         var data = {
             recevier_name : recevier_name,
@@ -379,7 +379,13 @@
                 console.log(data);
             },
             success: function(msg){
-                console.log(msg);
+                //console.log(msg);
+                if(msg == "success") {
+                    message('save_new_address Success',1);
+                    $("#agent_address_list_table").prepend(newTrStr);
+                } else {
+                    message('save_new_address fails',0);
+                }
                // parent.document.location.href = "create";
             }
         });
