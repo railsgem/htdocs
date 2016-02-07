@@ -184,44 +184,6 @@
                                     <td><input id="recevier_nation_id" class="form-control" type="input" name="recevier_nation_id" value="<?php echo set_value('recevier_nation_id'); ?>"></td>
                                     <td><span id="save_new_address" class="btn btn-primary" />save</span></td>
                                 </tr>
-                           <!--  <?php  foreach ($agent_address as $address_item): ?> -->
-                               <!--  <tr>
-                                    <?php echo form_open('order/delete_cart_product') ?>
-                                        <td style='display:none'><?php echo $address_item['address_id']; ?></td>
-                                        <td style='display:none'><?php echo $address_item['address_id']; ?></td>
-                                        <td><?php echo $address_item['recevier_name']; ?></td>
-                                        <td><?php echo $address_item['address_detail']; ?></td>
-                                        <td><?php echo $address_item['phone']; ?></td>
-                                        <td><?php echo $address_item['recevier_nation_id']; ?></td>
-                                        <td>
-                                            <a style="display:none" href="/index.php/order/edit_cart/<?php echo $address_item['address_id']; ?>" class="btn btn-danger btn-xs" >View/Edit</a>
-                                            
-                                            <input type="hidden" name="delete_product_id" value="<?php echo $address_item['address_id']; ?>">
-                                            <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_product_<?php echo $address_item['address_id'];?>">Delete</button>
- -->
-                                            <!-- Modal -->
-                                            <!-- <div class="modal fade" id="delete_product_<?php echo $address_item['address_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                              <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                  <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                    <h4 class="modal-title" id="myModalLabel">Delete product List Confirm</h4>
-                                                  </div>
-                                                  <div class="modal-body">
-                                                    Are you sure you want to delete ?</em>--<?php echo $address_item['address_detail']; ?>
-                                                  </div>
-                                                  <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                                    <button type="button" class="btn btn-primary" onclick="delete_agent_address('<?php echo $address_item['address_id']; ?>')">Yes, Delete</button>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                        </td>
-
-                                    </form>
-                                </tr> --><!-- 
-                            <?php endforeach ?> -->
                             </tbody>
                         </table>
 
@@ -293,12 +255,12 @@
         get_consumer_id();
         $("#consumer_id").change(function(){
             get_consumer_id();
-        });
+        });/*
         get_address_id();
         $("#recevier_name").change(function(){
             console.log("get_address_id");
             get_address_id();
-        });
+        });*/
         //find product
         $("#autocomp").autocomplete({
             source: "/index.php/stock/get_product_json",
@@ -394,7 +356,7 @@
         });
 
     }
-    function delete_cart_product(order_product_id) {
+   /* function delete_cart_product(order_product_id) {
 
         var data = {
             order_product_id : order_product_id
@@ -412,7 +374,7 @@
                 parent.document.location.href = "create";
             }
         });
-    }
+    }*//*
     function get_address_id(){
 
         var address_id = $("#recevier_name").val();
@@ -454,7 +416,7 @@
                 $("#recevier_nation_id").val(recevier_nation_id);
             }
         });
-    }
+    }*/
     function get_consumer_id(){
         var consumer_id = $("#consumer_id").val();
        
@@ -510,6 +472,10 @@
                                 ;
                         $("#agent_address_list_table").prepend(newTrStr);
                         $("#add_new_address_tr").hide();
+                        
+                    $("#save_new_address").click(function(){
+                        save_new_address();
+                    });
                     for(var i = 0; i <= addressObj.length; i++){
                         var agent_address_id = addressObj[i]['agent_address_id'];
                         var recevier_name = addressObj[i]['recevier_name'];
