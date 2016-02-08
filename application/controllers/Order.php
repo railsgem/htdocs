@@ -365,4 +365,18 @@ class Order extends CI_Controller {
         }
     }   
 
+    public function delete_agent_address($agent_address_id = FALSE)
+    {
+        $agent_address_id = $this->input->post('agent_address_id');
+        if ($agent_address_id !== "" ) 
+        {
+            $this->address_model->delete_agent_address($agent_address_id);
+            echo "success";
+        }
+        else
+        {
+            echo "fail";
+        }
+       
+    }
 }

@@ -137,6 +137,15 @@ class Address_model extends CI_Model {
 		    }
 		}		
 
+		public function delete_agent_address($agent_address_id = FALSE)
+		{
+			if ($agent_address_id !== FALSE)
+			{
+			    $this->db->where('agent_address_id', $agent_address_id);
+			    $this->db->delete('os_agent_address');
+		    }
+		}		
+
 		public function save_new_agent_address($agent_id = FALSE, $recevier_name = FALSE,$address_detail = FALSE,$phone = FALSE,$recevier_nation_id = FALSE)
 		{
 			$today = date("Y-m-d H:i:s");

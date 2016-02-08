@@ -340,13 +340,13 @@
                 } else {
                     var agent_address_id = msg;
                     // appended new tr
-                    var newTrStr = '<tr>'+
-                        '<td id="agent_address_id_'+ agent_address_id +'" style="display:none"></td>'+
+                    var newTrStr = '<tr id="agent_address_id_'+ agent_address_id +'">'+
+                        '<td id="agent_address_id_'+ agent_address_id +'" style="display:none">' + agent_address_id + '</td>'+
                         '<td id="recevier_name_'+ agent_address_id +'" >' + recevier_name + '</td>'+
                         '<td id="address_detail_'+ agent_address_id +'" >' + address_detail + '</td>'+
                         '<td id="phone_'+ agent_address_id +'" >' + phone + '</td>' +
                         '<td id="recevier_nation_id_'+ agent_address_id +'" >' + recevier_nation_id + '</td>' +
-                        '<td ></td>'+
+                        '<td><span id="delete_agent_address" onclick="delete_agent_address('+ agent_address_id +')" class="btn btn-danger">delete</span></td>'+
                     '</tr>';
                     $("#agent_address_list_table").prepend(newTrStr);
                     message('save_new_address Success',1);
@@ -356,7 +356,7 @@
         });
 
     }
-   /* function delete_cart_product(order_product_id) {
+    function delete_cart_product(order_product_id) {
 
         var data = {
             order_product_id : order_product_id
@@ -374,7 +374,8 @@
                 parent.document.location.href = "create";
             }
         });
-    }*//*
+    }
+    /*
     function get_address_id(){
 
         var address_id = $("#recevier_name").val();
@@ -472,7 +473,7 @@
                                 ;
                         $("#agent_address_list_table").prepend(newTrStr);
                         $("#add_new_address_tr").hide();
-                        
+
                     $("#save_new_address").click(function(){
                         save_new_address();
                     });
@@ -484,13 +485,13 @@
                         var recevier_nation_id = addressObj[i]['recevier_nation_id'];
                         var agent_id = addressObj[i]['agent_id'];
                          // appended new tr
-                        var newTrStr = '<tr>'+
+                        var newTrStr = '<tr id="agent_address_id_'+ agent_address_id +'">'+
                             '<td id="agent_address_id_'+ agent_address_id +'" style="display:none">' + agent_address_id + '</td>'+
                             '<td id="recevier_name_'+ agent_address_id +'" >' + recevier_name + '</td>'+
                             '<td id="address_detail_'+ agent_address_id +'" >' + address_detail + '</td>'+
                             '<td id="phone_'+ agent_address_id +'" >' + phone + '</td>' +
                             '<td id="recevier_nation_id_'+ agent_address_id +'" >' + recevier_nation_id + '</td>' +
-                            '<td><span id="delete_agent_address" class="btn btn-danger">delete</span></td>'+
+                            '<td><span id="delete_agent_address" onclick="delete_agent_address('+ agent_address_id +')" class="btn btn-danger">delete</span></td>'+
                         '</tr>';
                         $("#agent_address_list_table").prepend(newTrStr);
                     }
@@ -500,5 +501,27 @@
             }
         });
 
+    }
+    function delete_agent_address(agent_address_id){
+        var data = {
+            agent_address_id : agent_address_id
+        };
+        $.ajax({
+            type: 'POST',
+            url: 'delete_agent_address',
+            data: data,
+            beforeSend: function(data){
+                console.log("delete_agent_address data will post---");
+                console.log(data);
+            },
+            success: function(msg){
+                if(msg == "fail") {
+                    message('delete_agent_address fails',0);
+                } else {
+                    $("#agent_address_id_"+ agent_address_id).fadeOut("slow");
+                    message('delete_agent_address Success',1);
+                }
+            }
+        });
     }
 </script>
