@@ -342,7 +342,7 @@
                     var agent_address_id = msg;
                     // appended new tr
                     var newTrStr = '<tr id="agent_address_tr_'+ agent_address_id +'">'+
-                        '<td><input type="radio" name="select_agent_radios" onclick="select_agent_address('+agent_address_id+')" value="'+ agent_address_id +'" > 啊啊啊</td>' + 
+                        '<td><input type="radio" name="select_agent_address_id" onclick="select_agent_address('+agent_address_id+')" value="'+ agent_address_id +'" > 啊啊啊</td>' + 
                         '<td id="agent_address_id_'+ agent_address_id +'" style="display:none">' + agent_address_id + '</td>'+
                         '<td id="recevier_name_'+ agent_address_id +'" >' + recevier_name + '</td>'+
                         '<td id="address_detail_'+ agent_address_id +'" >' + address_detail + '</td>'+
@@ -466,7 +466,7 @@
                     var newTrStr =
                                 '<tr id="add_new_address_tr">' + 
                                     '<td style="display:none"></td>' + 
-                                    '<td><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" > 啊啊啊</td>' + 
+                                    '<td><input type="radio" name="select_agent_address_id" id="optionsRadios1" value="option1" > 啊啊啊</td>' + 
                                     '<td><input id="recevier_name" class="form-control" type="input" name="recevier_name" value="<?php echo set_value("recevier_name"); ?>"></td>' + 
                                     '<td><input id="address_detail" class="form-control" type="input" name="address_detail" value="<?php echo set_value("address_detail"); ?>"></td>' + 
                                     '<td><input id="phone" class="form-control" type="input" name="phone" value="<?php echo set_value("phone"); ?>"></td>' + 
@@ -489,7 +489,7 @@
                         var agent_id = addressObj[i]['agent_id'];
                          // appended new tr
                         var newTrStr = '<tr id="agent_address_tr_'+ agent_address_id +'">'+
-                            '<td><input type="radio" name="select_agent_radios" onclick="select_agent_address('+agent_address_id+')" value="'+ agent_address_id +'" > 啊啊啊</td>' + 
+                            '<td><input type="radio" name="select_agent_address_id" onclick="select_agent_address('+agent_address_id+')" value="'+ agent_address_id +'" > 啊啊啊</td>' + 
                             '<td id="agent_address_id_'+ agent_address_id +'" style="display:none">' + agent_address_id + '</td>'+
                             '<td id="recevier_name_'+ agent_address_id +'" >' + recevier_name + '</td>'+
                             '<td id="address_detail_'+ agent_address_id +'" >' + address_detail + '</td>'+

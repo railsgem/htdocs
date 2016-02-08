@@ -169,12 +169,24 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		public function set_order()
 		{
 			$today = date("Y-m-d H:i:s");
+			$select_agent_address_id = $this->input->post('select_agent_address_id');
+
+			$myquery = "select oa.address_id,
+							   oa.address_detail,
+							   oa.phone,
+							   oa.recevier_name,
+							   oa.recevier_nation_id
+						  from os_agent_address ag left join os_address oa on ag.address_id = oa.address_id
+						 where ag.agent_address_id =".$select_agent_address_id;
+			$query = $this->db->query($myquery);
+            $address = $query->row_array();
+
 		    $data = array(
 		        'order_code' => $this->input->post('order_code'),
-		        'address_detail' => $this->input->post('address_detail'),
-		        'phone' => $this->input->post('phone'),
-		        'recevier_name' => $this->input->post('recevier_name'),
-		        'recevier_nation_id' => $this->input->post('recevier_nation_id'),
+		        'address_detail' => $address['address_detail'],
+		        'phone' => $address['phone'],
+		        'recevier_name' => $address['recevier_name'],
+		        'recevier_nation_id' => $address['recevier_nation_id'],
 		        'entry_time' => $today,
 		        'update_time' => $today
 		    );
@@ -187,15 +199,15 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		    $quantity = $this->input->post('recevier_name');
 		    $sell_price = $this->input->post('recevier_name');
 
-			$myquery = "insert into os_order_agent (order_id, agent_id ,entry_time ,update_time) values (".$order_id.",".$agent_id.",".$today.",".$today." )";
+			$myquery = "insert into os_order_agent (order_id, agent_id ,entry_time ,update_time) values (".$order_id.",".$agent_id.",'".$today."','".$today."' )";
 			$query = $this->db->query($myquery);
 
 			/*$myquery = "insert into os_order_address (order_id, address_id,entry_time ,update_time) values (".$order_id.",".$address_id.",".$today.",".$today." )";
 			$query = $this->db->query($myquery);
 */
 			$myquery = "insert into os_order_product (order_id, os_product_id, quantity, sell_price,entry_time ,update_time)
-							 select ".$order_id.",  optmp.os_product_id, sum(optmp.quantity)quantity,  optmp.sell_price".",".$today.",".$today.
-							   " from os_order_product_tmp optmp
+							 select ".$order_id.",  optmp.os_product_id, sum(optmp.quantity)quantity,  optmp.sell_price".",'".$today."','".$today.
+							   "' from os_order_product_tmp optmp
 							  group by optmp.os_product_id, optmp.sell_price
 							   ";
 			$query = $this->db->query($myquery);
