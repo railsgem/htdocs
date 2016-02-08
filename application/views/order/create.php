@@ -168,6 +168,7 @@
                             <thead>
                                 <tr>
                                     <th style='display:none'>address_id</th>
+                                    <th>select</th>
                                     <th>recevier_name</th>
                                     <th>address_detail</th>
                                     <th>phone</th>
@@ -340,13 +341,14 @@
                 } else {
                     var agent_address_id = msg;
                     // appended new tr
-                    var newTrStr = '<tr id="agent_address_id_'+ agent_address_id +'">'+
+                    var newTrStr = '<tr id="agent_address_tr_'+ agent_address_id +'">'+
+                        '<td><input type="radio" name="select_agent_radios" onclick="select_agent_address('+agent_address_id+')" value="'+ agent_address_id +'" > 啊啊啊</td>' + 
                         '<td id="agent_address_id_'+ agent_address_id +'" style="display:none">' + agent_address_id + '</td>'+
                         '<td id="recevier_name_'+ agent_address_id +'" >' + recevier_name + '</td>'+
                         '<td id="address_detail_'+ agent_address_id +'" >' + address_detail + '</td>'+
                         '<td id="phone_'+ agent_address_id +'" >' + phone + '</td>' +
                         '<td id="recevier_nation_id_'+ agent_address_id +'" >' + recevier_nation_id + '</td>' +
-                        '<td><span id="delete_agent_address" onclick="delete_agent_address('+ agent_address_id +')" class="btn btn-danger">delete</span></td>'+
+                        '<td><span id="delete_agent_address" onclick="delete_agent_address('+ agent_address_id +')" class="btn btn-danger">delete</span>'+'</td>'+
                     '</tr>';
                     $("#agent_address_list_table").prepend(newTrStr);
                     message('save_new_address Success',1);
@@ -464,6 +466,7 @@
                     var newTrStr =
                                 '<tr id="add_new_address_tr">' + 
                                     '<td style="display:none"></td>' + 
+                                    '<td><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" > 啊啊啊</td>' + 
                                     '<td><input id="recevier_name" class="form-control" type="input" name="recevier_name" value="<?php echo set_value("recevier_name"); ?>"></td>' + 
                                     '<td><input id="address_detail" class="form-control" type="input" name="address_detail" value="<?php echo set_value("address_detail"); ?>"></td>' + 
                                     '<td><input id="phone" class="form-control" type="input" name="phone" value="<?php echo set_value("phone"); ?>"></td>' + 
@@ -485,13 +488,16 @@
                         var recevier_nation_id = addressObj[i]['recevier_nation_id'];
                         var agent_id = addressObj[i]['agent_id'];
                          // appended new tr
-                        var newTrStr = '<tr id="agent_address_id_'+ agent_address_id +'">'+
+                        var newTrStr = '<tr id="agent_address_tr_'+ agent_address_id +'">'+
+                            '<td><input type="radio" name="select_agent_radios" onclick="select_agent_address('+agent_address_id+')" value="'+ agent_address_id +'" > 啊啊啊</td>' + 
                             '<td id="agent_address_id_'+ agent_address_id +'" style="display:none">' + agent_address_id + '</td>'+
                             '<td id="recevier_name_'+ agent_address_id +'" >' + recevier_name + '</td>'+
                             '<td id="address_detail_'+ agent_address_id +'" >' + address_detail + '</td>'+
                             '<td id="phone_'+ agent_address_id +'" >' + phone + '</td>' +
                             '<td id="recevier_nation_id_'+ agent_address_id +'" >' + recevier_nation_id + '</td>' +
-                            '<td><span id="delete_agent_address" onclick="delete_agent_address('+ agent_address_id +')" class="btn btn-danger">delete</span></td>'+
+                            '<td><span id="delete_agent_address_'+ agent_address_id +'" onclick="delete_agent_address('+ agent_address_id +')" class="btn btn-danger btn-xs">delete</span>'+
+                                 '<span id="cancel_select_agent_address_'+ agent_address_id +'" style="display:none" onclick="cancel_select_agent_address('+ agent_address_id +')" class="btn btn-info btn-xs">cancel selected</span>'+
+                            '</td>'+
                         '</tr>';
                         $("#agent_address_list_table").prepend(newTrStr);
                     }
@@ -501,6 +507,50 @@
             }
         });
 
+    }
+    function select_agent_address(agent_address_id){
+        console.log("select_agent_address:" + agent_address_id);
+        // highlight the select address tr
+        $("#agent_address_tr_" + agent_address_id).addClass("success");
+
+        var consumer_id = $("#consumer_id").val();
+        $("#order_code").val(consumer_id);
+        var agent_id = $("#consumer_id").val();
+        var data = {
+            consumer_id : consumer_id,
+            agent_id : agent_id
+        };
+        $.ajax({
+            type: 'POST',
+            url: 'get_agent_address_list',
+            data: data,
+            beforeSend: function(){
+
+            },
+            success: function(msg){
+                if(msg !== "fails") {
+                    var addressObj = JSON.parse(msg);
+                    //$("#agent_address_list_table").empty();
+                    for(var i = 0; i <= addressObj.length; i++){
+                        var tb_agent_address_id = addressObj[i]['agent_address_id'];
+                        if (agent_address_id != tb_agent_address_id) {
+                            console.log("agent_address_id:" + agent_address_id + "-- tb_agent_address_id:" + tb_agent_address_id);
+                            
+                            //$("#agent_address_tr_" + tb_agent_address_id).addClass("info");
+                            $("#agent_address_tr_" + tb_agent_address_id).fadeOut("slow");
+                        } else {
+                            $("#delete_agent_address_" + tb_agent_address_id).fadeOut("slow");
+                            $("#cancel_select_agent_address_" + tb_agent_address_id).fadeIn("slow");
+                        }
+                    }
+                } else {
+                    message('No Agent Address',0);
+                }
+            }
+        });
+    }
+    function cancel_select_agent_address(agent_address_id){
+        get_consumer_id();
     }
     function delete_agent_address(agent_address_id){
         var data = {

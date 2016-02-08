@@ -11,7 +11,7 @@
  Target Server Version : 50505
  File Encoding         : utf-8
 
- Date: 02/08/2016 12:24:11 PM
+ Date: 02/08/2016 15:01:03 PM
 */
 
 SET NAMES utf8;
@@ -84,13 +84,13 @@ CREATE TABLE `os_address` (
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`address_id`),
   KEY `address_id` (`address_id`,`address_detail`,`phone`,`recevier_name`,`entry_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `os_address`
 -- ----------------------------
 BEGIN;
-INSERT INTO `os_address` VALUES ('6', 'JJJ', 'JJJ', 'LJJ', 'JJ', '2016-02-04 17:17:07', '2016-02-04 17:17:07'), ('7', 'JJ', 'JJ', 'LJJ', 'JJ', '2016-02-04 17:18:23', '2016-02-04 17:18:23'), ('8', 'xxx,...,xxxx', '9990099', 'ljj', '00000', '2016-02-04 23:25:57', '2016-02-04 23:25:57'), ('9', 'XXXX,XXXX,XXX,USA', '00000', 'ljj', '0000', '2016-02-08 10:51:14', '2016-02-08 10:51:14'), ('10', 'jjj', 'jjj', 'xjj', 'jjj', '2016-02-08 11:41:58', '2016-02-08 11:41:58'), ('11', 'jjj', 'jjj', 'adf', 'jjj', '2016-02-08 11:47:54', '2016-02-08 11:47:54'), ('12', 'jjj', '04780666', 'juno', '00000', '2016-02-08 12:23:15', '2016-02-08 12:23:15');
+INSERT INTO `os_address` VALUES ('6', 'JJJ', 'JJJ', 'LJJ', 'JJ', '2016-02-04 17:17:07', '2016-02-04 17:17:07'), ('7', 'JJ', 'JJ', 'LJJ', 'JJ', '2016-02-04 17:18:23', '2016-02-04 17:18:23'), ('8', 'xxx,...,xxxx', '9990099', 'ljj', '00000', '2016-02-04 23:25:57', '2016-02-04 23:25:57'), ('9', 'XXXX,XXXX,XXX,USA', '00000', 'ljj', '0000', '2016-02-08 10:51:14', '2016-02-08 10:51:14'), ('10', 'jjj', 'jjj', 'xjj', 'jjj', '2016-02-08 11:41:58', '2016-02-08 11:41:58'), ('11', 'jjj', 'jjj', 'adf', 'jjj', '2016-02-08 11:47:54', '2016-02-08 11:47:54'), ('12', 'jjj', '04780666', 'juno', '00000', '2016-02-08 12:23:15', '2016-02-08 12:23:15'), ('13', 'yyyy', '8888', 'ljj', '0000', '2016-02-08 12:29:43', '2016-02-08 12:29:43'), ('14', 'XXXX,XXXX,XXX,USA', '00', 'ljj', '99', '2016-02-08 12:51:42', '2016-02-08 12:51:42'), ('15', 'xxx', '00', 'xx', '00000', '2016-02-08 13:33:19', '2016-02-08 13:33:19'), ('16', 'bbb', 'jj', 'xx', '99', '2016-02-08 13:42:54', '2016-02-08 13:42:54'), ('17', 'aa', 'a', 'aaa', 'a', '2016-02-08 13:48:58', '2016-02-08 13:48:58');
 COMMIT;
 
 -- ----------------------------
@@ -110,13 +110,13 @@ CREATE TABLE `os_agent_address` (
   KEY `address_id` (`address_id`),
   CONSTRAINT `os_agent_address_ibfk_1` FOREIGN KEY (`agent_id`) REFERENCES `os_consumer` (`consumer_id`),
   CONSTRAINT `os_agent_agent_ibfk_2` FOREIGN KEY (`address_id`) REFERENCES `os_address` (`address_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `os_agent_address`
 -- ----------------------------
 BEGIN;
-INSERT INTO `os_agent_address` VALUES ('1', '10', '7', '2016-02-04 17:18:23', '2016-02-04 17:18:23'), ('2', '10', '8', '2016-02-04 23:25:57', '2016-02-04 23:25:57'), ('3', '10', '9', '2016-02-08 10:51:14', '2016-02-08 10:51:14');
+INSERT INTO `os_agent_address` VALUES ('8', '10', '14', '2016-02-08 12:51:42', '2016-02-08 12:51:42'), ('10', '10', '16', '2016-02-08 13:42:54', '2016-02-08 13:42:54'), ('11', '10', '17', '2016-02-08 13:48:58', '2016-02-08 13:48:58');
 COMMIT;
 
 -- ----------------------------
@@ -250,6 +250,10 @@ CREATE TABLE `os_order` (
   `entry_time` timestamp NULL DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `post_flag` int(11) DEFAULT '0',
+  `address_detail` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `recevier_name` varchar(255) DEFAULT NULL,
+  `recevier_nation_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
@@ -257,7 +261,7 @@ CREATE TABLE `os_order` (
 --  Records of `os_order`
 -- ----------------------------
 BEGIN;
-INSERT INTO `os_order` VALUES ('43', '', '1', '0', '0', null, null, '0'), ('44', '', '1', '0', '0', null, null, '0'), ('45', '', '1', '0', '0', null, null, '0'), ('46', 'Ljj20160204_154143', '1', '0', '0', '2016-02-04 15:42:46', '2016-02-04 19:13:42', '0');
+INSERT INTO `os_order` VALUES ('43', '', '1', '0', '0', null, null, '0', null, null, null, null), ('44', '', '1', '0', '0', null, null, '0', null, null, null, null), ('45', '', '1', '0', '0', null, null, '0', null, null, null, null), ('46', 'Ljj20160204_154143', '1', '0', '0', '2016-02-04 15:42:46', '2016-02-08 12:46:42', '0', 'xxx,x,,,x,,,', '9999', 'ljj', '090900000');
 COMMIT;
 
 -- ----------------------------
