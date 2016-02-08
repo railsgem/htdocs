@@ -147,7 +147,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <input style="display:none" id="order_code" class="form-control" type="input" name="order_code" value="<?php echo set_value('order_code'); ?>" >
+                            <input style="display:none;" id="order_code" class="form-control" type="input" name="order_code" value="<?php echo set_value('order_code'); ?>" >
                             <label for="order_code_auto"><span class="red"> * </span>order_code:</label>
                             <input disabled="disabled" id="order_code_auto" class="form-control" type="input" name="order_code_auto" value="<?php echo set_value('order_code_auto'); ?>" >
                         </div>
@@ -296,12 +296,20 @@
                 beforeSend: function(data){
                     console.log("this data will post---");
                     console.log(data);
+                    if( $("#os_product_id").val() == '') {
+                        message('product_name is null , please check!',0);
+                    } else if($("#quantity").val() == '') {
+                        message('quantity is null , please check!',0);
+                    } else if($("#sell_price").val() == '') {
+                        message('sell_price is null , please check!',0);
+                    }
                 },
                 success: function(msg){
                     console.log(msg);
+                    message('add_product_to_cart is success!',1);
+                    parent.document.location.href = "create";
                 }
             });
-            parent.document.location.href = "create";
         });
 
     });
@@ -424,7 +432,7 @@
         var consumer_id = $("#consumer_id").val();
        
         console.log(consumer_id);
-        $("#order_code").val(consumer_id);
+                //$("#order_code").val(agent_name_code+"<?php echo date('Ymd_His');?>");
         //$("#order_code").css("background-color","#FFFFCC");
 
         var agent_id = $("#consumer_id").val();
@@ -514,7 +522,7 @@
         $("#agent_address_tr_" + agent_address_id).addClass("success");
 
         var consumer_id = $("#consumer_id").val();
-        $("#order_code").val(consumer_id);
+        //$("#order_code").val(consumer_id);
         var agent_id = $("#consumer_id").val();
         var data = {
             consumer_id : consumer_id,

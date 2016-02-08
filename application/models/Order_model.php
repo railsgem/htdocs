@@ -193,11 +193,11 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		    $this->db->insert('os_order', $data);
 
 		    $order_id = $this->db->insert_id();
-		    $agent_id = $this->input->post('consumer_id');
+		    $agent_id = $this->input->post('consumer_id');/*
 		    $address_id = $this->input->post('recevier_name');
 		    $os_product_id = $this->input->post('recevier_name');
 		    $quantity = $this->input->post('recevier_name');
-		    $sell_price = $this->input->post('recevier_name');
+		    $sell_price = $this->input->post('recevier_name');*/
 
 			$myquery = "insert into os_order_agent (order_id, agent_id ,entry_time ,update_time) values (".$order_id.",".$agent_id.",'".$today."','".$today."' )";
 			$query = $this->db->query($myquery);
