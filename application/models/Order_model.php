@@ -9,45 +9,6 @@ class Order_model extends CI_Model {
 
 		public function get_order($order_id = FALSE)
 		{
-		        if ($order_id === FALSE)
-		        {
-					$myquery = 'SELECT
-								od_ag.order_id,
-								od_ag.order_code,
-								od_ag.active,
-								od_ag.post_flag,
-								od_ag.entry_time,
-								od_ag.update_time,
-								od_ag.agent_id,
-								ocs.consumer_name agent_name,
-								od_ag.address_id,
-								oad.address_detail,
-								oad.phone,
-								oad.recevier_name,
-								oad.recevier_nation_id
-							FROM
-								(
-									SELECT
-										op.order_id,
-										op.order_code,
-										op.active,
-										op.post_flag,
-										op.entry_time,
-										op.update_time,
-										oag.agent_id,
-										odr_ad.order_address_id,
-										odr_ad.address_id
-									FROM
-										os_order op
-									LEFT JOIN os_order_agent oag ON op.order_id = oag.order_id
-									LEFT JOIN os_order_address odr_ad ON op.order_id = odr_ad.order_id
-								) od_ag
-							LEFT JOIN os_consumer ocs ON od_ag.agent_id = ocs.consumer_id
-							LEFT JOIN os_address oad ON od_ag.address_id = oad.address_id
-							WHERE
-								1 = 1 
-						';
-		        }
 				$myquery = 'SELECT
 								od_ag.order_id,
 								od_ag.order_code,
@@ -61,6 +22,7 @@ class Order_model extends CI_Model {
 								od_ag.address_detail,
 								od_ag.phone,
 								od_ag.recevier_name,
+								od_ag.remark,
 								od_ag.recevier_nation_id
 							FROM
 								(
@@ -75,6 +37,7 @@ class Order_model extends CI_Model {
 										op.phone,
 										op.recevier_name,
 										op.recevier_nation_id,
+										op.remark,
 										oag.agent_id,
 										odr_ad.order_address_id,
 										odr_ad.address_id
@@ -109,6 +72,7 @@ class Order_model extends CI_Model {
 								od_ag.phone,
 								od_ag.recevier_name,
 								od_ag.recevier_nation_id,
+								od_ag.remark,
 								odr_pdt.product_list
 							FROM
 								(
@@ -123,6 +87,7 @@ class Order_model extends CI_Model {
 										op.phone,
 										op.recevier_name,
 										op.recevier_nation_id,
+										op.remark,
 										oag.agent_id,
 										odr_ad.order_address_id,
 										odr_ad.address_id
@@ -191,6 +156,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		        'phone' => $address['phone'],
 		        'recevier_name' => $address['recevier_name'],
 		        'recevier_nation_id' => $address['recevier_nation_id'],
+				'remark' => $this->input->post('remark'),
 		        'entry_time' => $today,
 		        'update_time' => $today
 		    );
@@ -334,6 +300,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 			        'phone' => $address['phone'],
 			        'recevier_name' => $address['recevier_name'],
 			        'recevier_nation_id' => $address['recevier_nation_id'],
+					'remark' => $this->input->post('remark'),
 			        'update_time' => $today
 			    );
 			    $this->db->where('order_id', $order_id);

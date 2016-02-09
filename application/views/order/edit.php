@@ -125,6 +125,10 @@
                             <label for="agent_name"><span class="red"> * </span>agent_name:</label>
                             <input disabled id="agent_name" class="form-control" type="input" name="agent_name" value="<?php echo $order['agent_name']; ?>">
                         </div>
+                        <div class="form-group">
+                            <label for="remark">remark:</label>
+                            <textarea type="input" name="remark" class="form-control" rows="3"><?php echo $order['remark']; ?></textarea>
+                        </div>
                     </div>
                 </div> 
             </div> 

@@ -100,17 +100,18 @@
 
                             <tr>
                                 <th style='display:none'>order_id</th>
-                                    <th>order_id</th>
+                                    <th style='display:none' >order_id</th>
                                     <th>order_code</th>
                                     <th style='display:none'>agent_id</th>
-                                    <th>agent_name</th>
+                                    <th style='display:none'>agent_name</th>
                                     <th style='display:none'>address_id</th>
                                     <th>address_detail</th>
-                                    <th>phone</th>
-                                    <th>recevier_name</th>
-                                    <th>recevier_nation_id</th>
+                                    <th style='display:none'>phone</th>
+                                    <th style='display:none'>recevier_name</th>
+                                    <th style='display:none'>recevier_nation_id</th>
                                     <th>product_list</th>
-                                    <th>entry_time</th>
+                                    <th>remark</th>
+                                    <th style='display:none'>entry_time</th>
                                     <th style="display:none" >update_time</th>
                                     <th>status</th>
                                     <th>action</th>
@@ -127,17 +128,18 @@
                                         ?>>
                                         <?php echo form_open('order/index/delete') ?>
                                             <td style='display:none'><?php echo $order_item['order_id']; ?></td>
-                                            <td><?php echo $order_item['order_id']; ?></td>
+                                            <td style='display:none'><?php echo $order_item['order_id']; ?></td>
                                             <td><?php echo $order_item['order_code']; ?></td>
                                             <td style='display:none'><?php echo $order_item['agent_id']; ?></td>
-                                            <td><?php echo $order_item['agent_name']; ?></td>
+                                            <td style='display:none'><?php echo $order_item['agent_name']; ?></td>
                                             <td style='display:none'><?php echo $order_item['address_id']; ?></td>
-                                            <td><?php echo $order_item['address_detail']; ?></td>
-                                            <td><?php echo $order_item['phone']; ?></td>
-                                            <td><?php echo $order_item['recevier_name']; ?></td>
-                                            <td><?php echo $order_item['recevier_nation_id']; ?></td>
+                                            <td><?php echo " Address: ".$order_item['address_detail']."</br>Phone:   ".$order_item['phone']."</br>Name: ".$order_item['recevier_name']."</br>ID: ".$order_item['recevier_nation_id']; ?></td>
+                                            <td style='display:none'><?php echo $order_item['phone']; ?></td>
+                                            <td style='display:none'><?php echo $order_item['recevier_name']; ?></td>
+                                            <td style='display:none'><?php echo $order_item['recevier_nation_id']; ?></td>
                                             <td><?php echo $order_item['product_list']; ?></td>
-                                            <td><?php echo $order_item['entry_time']; ?></td>
+                                            <td><?php echo $order_item['remark']; ?></td>
+                                            <td style='display:none'><?php echo $order_item['entry_time']; ?></td>
                                             <td style="display:none" ><?php echo $order_item['update_time']; ?></td>
                                             <td>
                                                 <?php echo ($order_item['active']) ? anchor("order/deactivate/".$order_item['order_id'], "active") : anchor("order/activate/". $order_item['order_id'], "inactive");?></br>
