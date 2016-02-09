@@ -217,7 +217,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		    	$this->session->set_userdata('product', $data);
 		    }
 			$myquery = "insert into os_order_product_tmp ( os_product_id, quantity, sell_price,entry_time ,update_time) 
-						values (".$product_item['os_product_id'].",".$product_item['quantity'].",".$product_item['sell_price'].",".$today.",".$today."  )";
+						values (".$product_item['os_product_id'].",".$product_item['quantity'].",".$product_item['sell_price'].",'".$today."','".$today."'  )";
 			$query = $this->db->query($myquery);
 			//print_r($this->session->product);
 			print_r(json_encode($product_item));
@@ -352,7 +352,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		        'update_time' => $today
 		    );
 			$myquery = "insert into os_order_product ( order_id, os_product_id, quantity, sell_price ,entry_time ,update_time) 
-						values (".$product_item['order_id'].",".$product_item['os_product_id'].",".$product_item['quantity'].",".$product_item['sell_price'].",".$today.",".$today."  )";
+						values (".$product_item['order_id'].",".$product_item['os_product_id'].",".$product_item['quantity'].",".$product_item['sell_price'].",'".$today."','".$today."'  )";
 			$query = $this->db->query($myquery);
 
  			return $query;
@@ -388,7 +388,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
  			$this->db->insert('os_postage', $data);
 		    $postage_id = $this->db->insert_id();
 
-			$myquery = "insert into os_order_postage (order_id, postage_id ,entry_time ,update_time) values (".$order_id .",".$postage_id.",".$today.",".$today."  )";
+			$myquery = "insert into os_order_postage (order_id, postage_id ,entry_time ,update_time) values (".$order_id .",".$postage_id.",'".$today."','".$today."'  )";
 			$query = $this->db->query($myquery);
 			$myquery = "update os_order set post_flag = 1 where order_id= ".$order_id ;
 			$query = $this->db->query($myquery);
@@ -437,6 +437,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 
 		public function set_despatch_num($stock_id = FALSE,$order_id = FALSE,$os_product_id = FALSE,$despatch_num = FALSE)
 		{
+			$today = date("Y-m-d H:i:s");
             if ($stock_id !== FALSE AND $order_id !==FALSE AND $despatch_num !==FALSE ) 
             {
 				
@@ -516,7 +517,8 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 
             	} else {
 					// update os_despatch
-					$myquery = " insert into os_despatch (stock_id, order_id, despatch_num, os_product_id, entry_time, update_time ) values ( ".$stock_id." , ".$order_id." , ".$despatch_num." , ".$os_product_id.",".$today.",".$today." )";
+					$myquery = " insert into os_despatch (stock_id, order_id, despatch_num, os_product_id, entry_time, update_time ) 
+								values ( ".$stock_id." , ".$order_id." , ".$despatch_num." , ".$os_product_id.",'".$today."','".$today."' )";
 					$this->db->query($myquery);
 
 					// update os_stock_entry
@@ -566,11 +568,11 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 								
 				$this->db->query($myquery);
 				// update os_transaction
-				$myquery = " insert into os_transaction (stock_id, order_id, entry_time, update_time) values ( ".$stock_id." , ".$order_id.",".$today.",".$today." )";
+				$myquery = " insert into os_transaction (stock_id, order_id, entry_time, update_time) values ( ".$stock_id." , ".$order_id.",'".$today."','".$today."' )";
 				$this->db->query($myquery);
 
 				// update os_despatch
-				$myquery = " insert into os_despatch (stock_id, order_id, despatch_num, os_product_id, entry_time, update_time) values ( ".$stock_id." , ".$order_id." , ".$stock_despatch_num." , ".$os_product_id.",".$today.",".$today." )";
+				$myquery = " insert into os_despatch (stock_id, order_id, despatch_num, os_product_id, entry_time, update_time) values ( ".$stock_id." , ".$order_id." , ".$stock_despatch_num." , ".$os_product_id.",'".$today."','".$today."' )";
 				$this->db->query($myquery);
             }
 		}
