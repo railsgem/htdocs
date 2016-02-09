@@ -23,48 +23,87 @@ class Stock extends CI_Controller {
 
             $this->form_validation->set_rules('stock_id', 'Stock ID', 'required|integer');
 
-            //delete stock
-            $delete_stock_id = $this->input->get('delete_stock_id');
-            if ($delete_stock_id !='')
-            {
-                $this->stock_model->delete_stock($delete_stock_id);
-                $data['update_success'] ='Delete Successfully.';
-            }
-
-            $config['uri_segment'] = 3;
-            $config['base_url'] = '/index.php/stock/index/';
-            $config['total_rows'] = $this->stock_model->get_stock_list(NULL,NULL,TRUE);
-            $config['per_page'] = 7; 
-
-            $this->pagination->initialize($config); 
-
-            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-            $data['stock'] = $this->stock_model->get_stock_list($page,$config["per_page"],FALSE);
-            $data["page_section"] = $this->pagination->create_links();
-            $data['total'] = $this->stock_model->get_stock_list(NULL,NULL,TRUE);
-
-            $this->load->view('templates/header');
-            $this->load->view('stock/index', $data);
-            $this->load->view('templates/footer'); 
-/*
             if ($this->form_validation->run() === FALSE)
             {
                 $data['update_success'] ='';
-                $data['title'] ='Stock list';
-                $data['stock'] = $this->stock_model->get_stock();
+                $config['uri_segment'] = 3;
+                $config['base_url'] = '/index.php/stock/index/';
+                $config['total_rows'] = $this->stock_model->get_stock_list(NULL,NULL,TRUE);
+                $config['per_page'] = 5; 
+
+                $this->pagination->initialize($config); 
+
+                $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+                //$data['record'] = $this->stock_model->get_record_list($page,$config["per_page"],FALSE);
+                $data["page_section"] = $this->pagination->create_links();
+
+                $data['total'] = $this->stock_model->get_stock_list(NULL,NULL,TRUE);
+                $data['stock'] = $this->stock_model->get_stock_list($page,$config["per_page"],FALSE);
+
                 $this->load->view('templates/header');
                 $this->load->view('stock/index', $data);
                 $this->load->view('templates/footer');          
             }
             else
             {
-                $Stock_id = $this->input->post('stock_id');
+                $stock_id = $this->input->post('stock_id');
+                $this->stock_model->delete_stock($stock_id);
+
+                $config['uri_segment'] = 3;
+                $config['base_url'] = '/index.php/stock/index/';
+                $config['total_rows'] = $this->stock_model->get_stock_list(NULL,NULL,TRUE);
+                $config['per_page'] = 5; 
+
+                $this->pagination->initialize($config); 
+
+                $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+                //$data['record'] = $this->stock_model->get_record_list($page,$config["per_page"],FALSE);
+                $data["page_section"] = $this->pagination->create_links();
+
+                $data['total'] = $this->stock_model->get_stock_list(NULL,NULL,TRUE);
+                $data['stock'] = $this->stock_model->get_stock_list($page,$config["per_page"],FALSE);
+                $data['update_success'] ='Delete Successfully.';
+                $this->load->view('templates/header');
+                $this->load->view('stock/index', $data);
+                $this->load->view('templates/footer'); 
+            }
+
+            /*if ($this->form_validation->run() === FALSE)
+            {
+                $config['total_rows'] = $this->stock_model->get_stock_list(NULL,NULL,TRUE);
+                $this->pagination->initialize($config); 
+
+                $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+                $data['stock'] = $this->stock_model->get_stock_list($page,$config["per_page"],FALSE);
+                $data["page_section"] = $this->pagination->create_links();
+                $data['total'] = $this->stock_model->get_stock_list(NULL,NULL,TRUE);
+
+                $data['update_success'] ='';
+                $data['title'] ='Stock list';
+               // $data['stock'] = $this->stock_model->get_stock();
+                $this->load->view('templates/header');
+                $this->load->view('stock/index', $data);
+                $this->load->view('templates/footer');          
+            }
+            else
+            {
+                $stock_id = $this->input->post('stock_id');
 
                 $data['title'] ='Stock list';
                 $this->stock_model->delete_stock($stock_id);
 
-                $data['stock'] = $this->stock_model->get_stock();
+               // $data['stock'] = $this->stock_model->get_stock();
                 $data['update_success'] ='Delete Successfully.';
+                $config['total_rows'] = $this->stock_model->get_stock_list(NULL,NULL,TRUE);
+                $this->pagination->initialize($config); 
+
+                $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+                $data['stock'] = $this->stock_model->get_stock_list($page,$config["per_page"],FALSE);
+
+print_r($stock_id);
+exit;
+                $data["page_section"] = $this->pagination->create_links();
+                $data['total'] = $this->stock_model->get_stock_list(NULL,NULL,TRUE);
                 $this->load->view('templates/header');
                 $this->load->view('stock/index', $data);
                 $this->load->view('templates/footer');

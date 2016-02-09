@@ -40,16 +40,14 @@
     <?php  } ?>
 
         <div class="row" style="margin-bottom:10px;">
-
-                <div class="col-lg-4">
-                    <span style="color:#337ab7">Total: <?php echo $total; ?> Results</span> 
+            <div class="col-lg-4">
+                <span style="color:#337ab7">Total: <?php echo $total; ?> Results</span> 
+            </div>
+            <div class="col-lg-8 text-right">
+                <div class="page_section" style="float:right; ">
+                <?php echo $page_section; ?>
                 </div>
-                <div class="col-lg-8 text-right">
-                    <div class="page_section" style="float:right; ">
-                    <?php echo $page_section; ?>
-                    </div>
-                </div>
-
+            </div>
         </div>
 
         <div class="row">
@@ -72,7 +70,7 @@
                     </tr>
                     <?php foreach ($stock as $stock_item): ?>
                             <tr>
-                                <?php echo form_open('stock/index/delete') ?>
+                                <?php echo form_open('stock/delete') ?>
                                     <td><?php echo $stock_item['stock_id']; ?></td>
                                     <td style="display:none" ><?php echo $stock_item['os_product_id']; ?></td>
                                     <td><?php echo $stock_item['product_name']; ?></td>
@@ -90,8 +88,7 @@
                                         <a href="/index.php/stock/edit/<?php echo $stock_item['stock_id']; ?>" class="btn btn-warning btn-xs" >Edit</a>
                                         
                                         <input type="hidden" name="stock_id" value="<?php echo $stock_item['stock_id']; ?>">
-                                        <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_stock_<?php echo $stock_item['stock_id'];?>">Delete</button>
-
+                                        <?php if($stock_item['stock_despatch_num']==0){ echo '<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_stock_'.$stock_item['stock_id'].'">Delete</button>'; } ?>
                                         <!-- Modal -->
                                         <div class="modal fade" id="delete_stock_<?php echo $stock_item['stock_id'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                           <div class="modal-dialog">
@@ -101,7 +98,7 @@
                                                 <h4 class="modal-title" id="myModalLabel">Delete stock Confirm</h4>
                                               </div>
                                               <div class="modal-body">
-                                                Are you sure you want to delete - <em>"<?php echo $stock_item['product_name'];?>" ?</em>
+                                                Are you sure you want to delete - <em>"<?php echo $stock_item['product_name'];?>" ?</em> - <em>"<?php echo "stock_present_num: ".$stock_item['stock_present_num'];?>" ?</em>
                                               </div>
                                               <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
