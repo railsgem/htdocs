@@ -134,7 +134,7 @@
                         <b>Receiver info(Address)</b>
                     </div>
                     <div class="panel-body">
-                        <div  style="display:none" class="form-group">
+                        <div   class="form-group">
                             <label for="address_id"><span class="red"> * </span>address_id:</label>
                             <input style="display:none" id="post_address_id" class="form-control" type="input" name="post_address_id" value="<?php echo $order['address_id']; set_value('address_id'); ?>">
                             <input disabled id="address_id" class="form-control" type="input" name="address_id" value="<?php echo $order['address_id'];set_value('address_id'); ?>">
@@ -165,7 +165,7 @@
                             <label for="recevier_nation_id"><span class="red"> * </span>recevier_nation_id:</label>
                             <input disabled id="recevier_nation_id" class="form-control" type="input" name="recevier_nation_id" value="<?php echo $order['recevier_nation_id']; set_value('recevier_nation_id'); ?>">
                         </div>
-                        <a id="edit_agent_address" target="_blank" href="" class="btn btn-danger btn-xs" >Edit Address</a>
+                        <a id="edit_agent_address" target="_blank" href="/index.php/address/edit/<?php echo $order['address_id'];?>" class="btn btn-danger btn-xs" >Edit Address</a>
                     </div>
                 </div> 
             </div> 
