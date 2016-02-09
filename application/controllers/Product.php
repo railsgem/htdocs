@@ -48,5 +48,33 @@ class Product extends CI_Controller {
         $this->load->view('templates/footer'); 
     }
 
+    public function create()
+    {
+        $this->load->helper('form');
+        $this->load->helper('security');
+        $this->load->library('form_validation');
+
+
+        $this->form_validation->set_rules('product_name', 'product_name', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('chemist_price', 'cost price', 'trim|required|xss_clean');
+        
+        if ($this->form_validation->run() === FALSE)
+        {
+            $this->load->view('templates/header');
+            $this->load->view('product/create');
+            $this->load->view('templates/footer');
+        }
+        else
+        {
+
+            $this->product_model->set_product();
+
+            $this->load->view('templates/header');
+            $this->load->view('product/success');
+            $this->load->view('templates/footer');
+        }
+    }
+
+
 
 }

@@ -10,18 +10,48 @@ class stock_model extends CI_Model {
 
 	public function get_stock($stock_id = FALSE)
 	{
-		$myquery = "select op.product_name,stk.* from os_stock_entry stk left join os_product op on stk.os_product_id = op.os_product_id ";
-
-		$query = $this->db->query($myquery);
-        return $query->result_array();
-
         if ($stock_id === FALSE)
-        {
-			$query = $this->db->get('os_stock_entry');
-			return $query->result_array();
-        }
-        $query = $this->db->get_where('os_stock_entry', array('stock_id' => $stock_id));
-        return $query->row_array();
+	    {
+			$myquery = "select op.product_name,
+								stk.stock_id,
+								stk.os_product_id,
+								stk.real_cost,
+								stk.stock_entry_num,
+								stk.stock_despatch_num,
+								stk.stock_present_num,
+								stk.buy_shop,
+								stk.buyer,
+								stk.purchase_time,
+								stk.entry_time,
+								stk.update_time
+
+							from os_stock_entry stk 
+						left join os_product op on stk.os_product_id = op.os_product_id 
+						order by stk.stock_id desc ";
+
+			$query = $this->db->query($myquery);
+	        return $query->result_array();
+		} else {
+			$myquery = "select op.product_name,
+								stk.stock_id,
+								stk.os_product_id,
+								stk.real_cost,
+								stk.stock_entry_num,
+								stk.stock_despatch_num,
+								stk.stock_present_num,
+								stk.buy_shop,
+								stk.buyer,
+								stk.purchase_time,
+								stk.entry_time,
+								stk.update_time
+
+							from os_stock_entry stk 
+						left join os_product op on stk.os_product_id = op.os_product_id 
+						where stk.stock_id =".$stock_id."
+						order by stk.stock_id desc ";
+			$query = $this->db->query($myquery);
+			return $query->row_array();
+		}
 
 	}
 
@@ -248,6 +278,7 @@ class stock_model extends CI_Model {
 
 	public function set_stock()
 	{
+		$today = date("Y-m-d H:i:s");
 	    $data = array(
 	        'os_product_id' => $this->input->post('os_product_id'),
 	        'real_cost' => $this->input->post('real_cost'),
@@ -255,6 +286,7 @@ class stock_model extends CI_Model {
 		    'stock_present_num' => $this->input->post('stock_entry_num'),
 	        'buy_shop' => $this->input->post('buy_shop'),
 	        'buyer' => $this->input->post('buyer'),
+		    'entry_time' => $today,
 	        'purchase_time' => $this->input->post('purchase_time')
 	    );
 	    return $this->db->insert('os_stock_entry', $data);
@@ -262,16 +294,17 @@ class stock_model extends CI_Model {
 
 	public function update_stock($stock_id = FALSE)
 	{
+		$today = date("Y-m-d H:i:s");
 		if ($stock_id !== FALSE)
 		{
 		    $data = array(
-		        'os_product_id' => $this->input->post('os_product_id'),
+		        //'os_product_id' => $this->input->post('os_product_id'),
 		        'real_cost' => $this->input->post('real_cost'),
-		        'stock_entry_num' => $this->input->post('stock_entry_num'),
-		        'stock_present_num' => $this->input->post('stock_present_num'),
+		        //'stock_entry_num' => $this->input->post('stock_entry_num'),
+		        //'stock_present_num' => $this->input->post('stock_present_num'),
 		        'buy_shop' => $this->input->post('buy_shop'),
 		        'buyer' => $this->input->post('buyer'),
-		        'purchase_time' => $this->input->post('purchase_time'),
+		        //'purchase_time' => $this->input->post('purchase_time'),
 		        'update_time' => $today
 		    );
 		    $this->db->where('stock_id', $stock_id);

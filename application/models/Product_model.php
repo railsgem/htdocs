@@ -3,6 +3,7 @@ class Product_model extends CI_Model {
         public function __construct()
         {
                 $this->load->database();
+				date_default_timezone_set('Australia/Sydney');
         }
 
 		public function get_product($product_id = FALSE)
@@ -83,7 +84,7 @@ class Product_model extends CI_Model {
 			else
 			{
 
-				$myquery = $myquery.' order by pro.product_name asc limit '.$offset.', '.$per_page;
+				$myquery = $myquery.' order by pro.entry_time desc limit '.$offset.', '.$per_page;
 				//echo $myquery;
 				$query = $this->db->query($myquery);
 				// $data=$this->db->from('os_product as pro')
@@ -170,4 +171,20 @@ class Product_model extends CI_Model {
 
 		}
 
+		public function set_product()
+		{	
+			$today = date("Y-m-d H:i:s");
+		    $data = array(
+		        //'chemist_product_id' => '999999999',
+		        'product_name' => $this->input->post('product_name'),
+		        'small_img_src' => $this->input->post('small_img_src'),
+		        'big_img_src' => $this->input->post('big_img_src'),
+		        'chemist_price' => $this->input->post('chemist_price'),
+		        'source_type' => 'manmade',
+		        'remark' => $this->input->post('remark'),
+		        'entry_time' => $today,
+		        'update_time' => $today
+		    );
+ 			return $this->db->insert('os_product', $data);
+		}
 }

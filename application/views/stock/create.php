@@ -29,7 +29,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label for="os_product_id"><span class="red"> * </span>os_product_id:</label>
+                    <label for="os_product_id"><span class="red"> * </span>os_product_name:</label>
                     <input id="os_product_id" class="form-control" type="hidden" name="os_product_id" value="<?php echo set_value('os_product_id'); ?>">
                     <input class="form-control" type="text" id="autocomp" />
                 </div>

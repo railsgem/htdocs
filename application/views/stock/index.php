@@ -62,7 +62,7 @@
                         <th>purchase time</th>
                         <th>entry time</th>
                         <th>Update time</th>
-                        <th style="display:none">Operation</th>
+                        <th>Operation</th>
                     </tr>
                     <?php foreach ($stock as $stock_item): ?>
                             <tr>
@@ -77,12 +77,12 @@
                                     <td><?php echo $stock_item['purchase_time']; ?></td>
                                     <td><?php echo $stock_item['entry_time']; ?></td>
                                     <td><?php echo $stock_item['update_time']; ?></td>
-                                    <td style="display:none">
-                                        <a target="_blank" href="/index.php/product?short_name=&barcode=&stock_id=<?php echo $stock_item['stock_id']; ?>&category_id=0&stock=0" class="btn btn-success btn-xs" >Product List</a>
+                                    <td >
+                                        <a style="display:none" target="_blank" href="/index.php/product?short_name=&barcode=&stock_id=<?php echo $stock_item['stock_id']; ?>&category_id=0&stock=0" class="btn btn-success btn-xs" >Product List</a>
                                         <a href="/index.php/stock/edit/<?php echo $stock_item['stock_id']; ?>" class="btn btn-danger btn-xs" >View/Edit</a>
                                         
                                         <input type="hidden" name="stock_id" value="<?php echo $stock_item['stock_id']; ?>">
-                                        <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_stock_<?php echo $stock_item['stock_id'];?>">Delete</button>
+                                        <button style="display:none" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_stock_<?php echo $stock_item['stock_id'];?>">Delete</button>
 
                                         <!-- Modal -->
                                         <div class="modal fade" id="delete_stock_<?php echo $stock_item['stock_id'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
