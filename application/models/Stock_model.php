@@ -8,6 +8,40 @@ class stock_model extends CI_Model {
 		$today = date("Y-m-d H:i:s");
     }
 
+	public function get_stock_list($offset = 1,$per_page = 14,$is_total = FALSE)
+	{
+		$myquery = "select op.product_name,
+								stk.stock_id,
+								stk.os_product_id,
+								stk.real_cost,
+								stk.stock_entry_num,
+								stk.stock_despatch_num,
+								stk.stock_present_num,
+								stk.buy_shop,
+								stk.buyer,
+								stk.purchase_time,
+								stk.entry_time,
+								stk.update_time
+
+							from os_stock_entry stk 
+						left join os_product op on stk.os_product_id = op.os_product_id WHERE 1=1 ";
+
+		if ($is_total == TRUE)
+		{
+			//echo $myquery;
+			$myquery = $myquery.' order by entry_time asc ';
+			$query = $this->db->query($myquery);
+			return $query->num_rows();
+		}
+		else
+		{
+			//echo $myquery;
+			$myquery = $myquery.' order by entry_time desc limit '.$offset.', '.$per_page;
+			$query = $this->db->query($myquery);
+            return $query->result_array();
+        }
+
+	}
 	public function get_stock($stock_id = FALSE)
 	{
         if ($stock_id === FALSE)

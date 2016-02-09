@@ -16,10 +16,37 @@ class Stock extends CI_Controller {
         public function index()
         {
             $this->load->helper('form');
+            $this->load->helper('security');
             $this->load->library('form_validation');
-
+            $this->load->library('pagination');
+            $data['update_success'] ='';
 
             $this->form_validation->set_rules('stock_id', 'Stock ID', 'required|integer');
+
+            //delete stock
+            $delete_stock_id = $this->input->get('delete_stock_id');
+            if ($delete_stock_id !='')
+            {
+                $this->stock_model->delete_stock($delete_stock_id);
+                $data['update_success'] ='Delete Successfully.';
+            }
+
+            $config['uri_segment'] = 3;
+            $config['base_url'] = '/index.php/stock/index/';
+            $config['total_rows'] = $this->stock_model->get_stock_list(NULL,NULL,TRUE);
+            $config['per_page'] = 7; 
+
+            $this->pagination->initialize($config); 
+
+            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+            $data['stock'] = $this->stock_model->get_stock_list($page,$config["per_page"],FALSE);
+            $data["page_section"] = $this->pagination->create_links();
+            $data['total'] = $this->stock_model->get_stock_list(NULL,NULL,TRUE);
+
+            $this->load->view('templates/header');
+            $this->load->view('stock/index', $data);
+            $this->load->view('templates/footer'); 
+/*
             if ($this->form_validation->run() === FALSE)
             {
                 $data['update_success'] ='';
@@ -41,7 +68,7 @@ class Stock extends CI_Controller {
                 $this->load->view('templates/header');
                 $this->load->view('stock/index', $data);
                 $this->load->view('templates/footer');
-            }        
+            }        */
         
         }
 
