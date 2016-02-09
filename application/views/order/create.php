@@ -187,7 +187,10 @@
                                 </tr>
                             </tbody>
                         </table>
-
+                        <div class="form-group">
+                            <label for="remark">remark:</label>
+                            <textarea type="input" name="remark" class="form-control" rows="3" value="<?php echo set_value('remark'); ?>"></textarea>
+                        </div>
                     </div>
                 </div> 
             </div> 
@@ -389,7 +392,7 @@
             }
         });
     }
-    /*
+    
     function get_address_id(){
 
         var address_id = $("#recevier_name").val();
@@ -431,7 +434,7 @@
                 $("#recevier_nation_id").val(recevier_nation_id);
             }
         });
-    }*/
+    }
     function get_consumer_id(){
         var consumer_id = $("#consumer_id").val();
        
