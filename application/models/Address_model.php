@@ -112,6 +112,7 @@ class Address_model extends CI_Model {
 
 		public function update_address($address_id = FALSE)
 		{
+			$today = date("Y-m-d H:i:s");
 			if ($address_id !== FALSE)
 			{
 			    $data = array(
@@ -163,7 +164,10 @@ class Address_model extends CI_Model {
 				$myquery = " insert into os_agent_address (agent_id, address_id, entry_time, update_time ) values ( '".$agent_id."' , '".$address_id."' , '".$today."' , '".$today."' )";
 				$this->db->query($myquery);
 		    	$agent_address_id = $this->db->insert_id();
-				return $agent_address_id;
+
+		    	$myquery = "select * from os_agent_address t where t.agent_address_id =".$agent_address_id;
+				$query = $this->db->query($myquery);
+				return $query->row_array();
             }
 		}
 

@@ -344,8 +344,8 @@ class Order extends CI_Controller {
 
         if ($recevier_name !== "" AND $address_detail !== ""  AND $phone !== ""  AND $recevier_nation_id !== "" AND $agent_id !== "" ) 
         {   
-            $agent_address_id = $this->address_model->save_new_agent_address($agent_id, $recevier_name,$address_detail,$phone,$recevier_nation_id);
-            echo $agent_address_id;
+            $agent_address = $this->address_model->save_new_agent_address($agent_id, $recevier_name,$address_detail,$phone,$recevier_nation_id);
+            echo json_encode($agent_address);
         }
         else
         {

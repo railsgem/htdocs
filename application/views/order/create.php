@@ -347,16 +347,20 @@
                 if(msg == "fail") {
                     message('save_new_address fails',0);
                 } else {
-                    var agent_address_id = msg;
+                    var addressObj = JSON.parse(msg);
+                    var agent_address_id = addressObj['agent_address_id'];
+                    var address_id = addressObj['address_id'];
                     // appended new tr
                     var newTrStr = '<tr id="agent_address_tr_'+ agent_address_id +'">'+
-                        '<td><input type="radio" name="select_agent_address_id" onclick="select_agent_address('+agent_address_id+')" value="'+ agent_address_id +'" > 啊啊啊</td>' + 
+                        '<td><input type="radio" name="select_agent_address_id" onclick="select_agent_address('+agent_address_id+')" value="'+ agent_address_id +'" > 选我选我</td>' + 
                         '<td id="agent_address_id_'+ agent_address_id +'" style="display:none">' + agent_address_id + '</td>'+
                         '<td id="recevier_name_'+ agent_address_id +'" >' + recevier_name + '</td>'+
                         '<td id="address_detail_'+ agent_address_id +'" >' + address_detail + '</td>'+
                         '<td id="phone_'+ agent_address_id +'" >' + phone + '</td>' +
                         '<td id="recevier_nation_id_'+ agent_address_id +'" >' + recevier_nation_id + '</td>' +
-                        '<td><span id="delete_agent_address" onclick="delete_agent_address('+ agent_address_id +')" class="btn btn-danger">delete</span>'+'</td>'+
+                        '<td><span id="delete_agent_address" onclick="delete_agent_address('+ agent_address_id +')" class="btn btn-danger btn-xs">delete</span>'+
+                        '<a target="_blank" href="/index.php/address/edit/' + address_id + '" class="btn btn-danger btn-xs" >Edit</a>' +
+                        '</td>'+
                     '</tr>';
                     $("#agent_address_list_table").prepend(newTrStr);
                     message('save_new_address Success',1);
@@ -474,7 +478,7 @@
                     var newTrStr =
                                 '<tr id="add_new_address_tr">' + 
                                     '<td style="display:none"></td>' + 
-                                    '<td><input type="radio" name="select_agent_address_id" id="optionsRadios1" value="option1" > 啊啊啊</td>' + 
+                                    '<td><input type="radio" name="select_agent_address_id" id="optionsRadios1" value="option1" > 选我选我</td>' + 
                                     '<td><input id="recevier_name" class="form-control" type="input" name="recevier_name" value="<?php echo set_value("recevier_name"); ?>"></td>' + 
                                     '<td><input id="address_detail" class="form-control" type="input" name="address_detail" value="<?php echo set_value("address_detail"); ?>"></td>' + 
                                     '<td><input id="phone" class="form-control" type="input" name="phone" value="<?php echo set_value("phone"); ?>"></td>' + 
@@ -490,6 +494,7 @@
                     });
                     for(var i = 0; i <= addressObj.length; i++){
                         var agent_address_id = addressObj[i]['agent_address_id'];
+                        var address_id = addressObj[i]['address_id'];
                         var recevier_name = addressObj[i]['recevier_name'];
                         var address_detail= addressObj[i]['address_detail'];
                         var phone = addressObj[i]['phone'];
@@ -497,13 +502,14 @@
                         var agent_id = addressObj[i]['agent_id'];
                          // appended new tr
                         var newTrStr = '<tr id="agent_address_tr_'+ agent_address_id +'">'+
-                            '<td><input type="radio" name="select_agent_address_id" onclick="select_agent_address('+agent_address_id+')" value="'+ agent_address_id +'" > 啊啊啊</td>' + 
+                            '<td><input type="radio" name="select_agent_address_id" onclick="select_agent_address('+agent_address_id+')" value="'+ agent_address_id +'" > 选我选我</td>' + 
                             '<td id="agent_address_id_'+ agent_address_id +'" style="display:none">' + agent_address_id + '</td>'+
                             '<td id="recevier_name_'+ agent_address_id +'" >' + recevier_name + '</td>'+
                             '<td id="address_detail_'+ agent_address_id +'" >' + address_detail + '</td>'+
                             '<td id="phone_'+ agent_address_id +'" >' + phone + '</td>' +
                             '<td id="recevier_nation_id_'+ agent_address_id +'" >' + recevier_nation_id + '</td>' +
                             '<td><span id="delete_agent_address_'+ agent_address_id +'" onclick="delete_agent_address('+ agent_address_id +')" class="btn btn-danger btn-xs">delete</span>'+
+                            '<a target="_blank" href="/index.php/address/edit/' + address_id + '" class="btn btn-danger btn-xs" >Edit</a>' +
                                  '<span id="cancel_select_agent_address_'+ agent_address_id +'" style="display:none" onclick="cancel_select_agent_address('+ agent_address_id +')" class="btn btn-info btn-xs">cancel selected</span>'+
                             '</td>'+
                         '</tr>';

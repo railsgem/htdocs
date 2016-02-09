@@ -165,6 +165,7 @@
                             <label for="recevier_nation_id"><span class="red"> * </span>recevier_nation_id:</label>
                             <input disabled id="recevier_nation_id" class="form-control" type="input" name="recevier_nation_id" value="<?php echo $order['recevier_nation_id']; set_value('recevier_nation_id'); ?>">
                         </div>
+                        <a id="edit_agent_address" target="_blank" href="" class="btn btn-danger btn-xs" >Edit Address</a>
                     </div>
                 </div> 
             </div> 
@@ -230,6 +231,8 @@
                 $("#address_detail").val(address_detail);
                 $("#phone").val(phone);
                 $("#post_address_id").val(address_id);
+                var edit_address_href = '/index.php/address/edit/' + address_id;
+                $("#edit_agent_address").attr("href",edit_address_href);
                 //$("#recevier_name").val(recevier_name);
                 $("#recevier_nation_id").val(recevier_nation_id);
             }
