@@ -58,10 +58,10 @@ class Order_model extends CI_Model {
 								od_ag.agent_id,
 								ocs.consumer_name agent_name,
 								od_ag.address_id,
-								oad.address_detail,
-								oad.phone,
-								oad.recevier_name,
-								oad.recevier_nation_id
+								od_ag.address_detail,
+								od_ag.phone,
+								od_ag.recevier_name,
+								od_ag.recevier_nation_id
 							FROM
 								(
 									SELECT
@@ -71,6 +71,10 @@ class Order_model extends CI_Model {
 										op.post_flag,
 										op.entry_time,
 										op.update_time,
+										op.address_detail,
+										op.phone,
+										op.recevier_name,
+										op.recevier_nation_id,
 										oag.agent_id,
 										odr_ad.order_address_id,
 										odr_ad.address_id
@@ -313,12 +317,28 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 			$today = date("Y-m-d H:i:s");
 			if ($order_id !== FALSE)
 			{
+				$select_agent_address_id = $this->input->post('post_address_id');
+
+				$myquery = "select oa.address_id,
+								   oa.address_detail,
+								   oa.phone,
+								   oa.recevier_name,
+								   oa.recevier_nation_id
+							  from os_agent_address ag left join os_address oa on ag.address_id = oa.address_id
+							 where ag.address_id =".$select_agent_address_id;
+				$query = $this->db->query($myquery);
+	            $address = $query->row_array();
+
 			    $data = array(
-			        'address_id' => $this->input->post('post_address_id'),
-		        	'update_time' => $today
+			        'address_detail' => $address['address_detail'],
+			        'phone' => $address['phone'],
+			        'recevier_name' => $address['recevier_name'],
+			        'recevier_nation_id' => $address['recevier_nation_id'],
+			        'update_time' => $today
 			    );
 			    $this->db->where('order_id', $order_id);
-			    $this->db->update('os_order_address', $data);
+			    $this->db->update('os_order', $data);
+
 		    }
 		}
 

@@ -71,7 +71,9 @@ class Order extends CI_Controller {
             {
                 $data['update_success'] ='';
                 $data['order'] = $this->order_model->get_order($order_id);
-                $data['address'] = $this->address_model->get_address();
+                $agent_id = $data['order']['agent_id'];
+                //$data['address'] = $this->address_model->get_address();
+                $data['address'] = $this->address_model->get_address_by_agent_id($agent_id);
                 $data['product'] = $this->order_model->order_product_list($order_id);
 
                 $this->load->view('templates/header');

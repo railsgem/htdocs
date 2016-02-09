@@ -128,16 +128,13 @@
                     </div>
                 </div> 
             </div> 
-
-
-            
             <div class="col-lg-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <b>Receiver info(Address)</b>
                     </div>
                     <div class="panel-body">
-                        <div class="form-group">
+                        <div  style="display:none" class="form-group">
                             <label for="address_id"><span class="red"> * </span>address_id:</label>
                             <input style="display:none" id="post_address_id" class="form-control" type="input" name="post_address_id" value="<?php echo $order['address_id']; set_value('address_id'); ?>">
                             <input disabled id="address_id" class="form-control" type="input" name="address_id" value="<?php echo $order['address_id'];set_value('address_id'); ?>">

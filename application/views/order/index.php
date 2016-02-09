@@ -93,6 +93,7 @@
 
             </div>
             <div class="row">
+                <div class="table-responsive">  
                 <div class="col-lg-12">
                     <table class="table table-bordered table-hover table-striped" >
                         <thead>
@@ -178,6 +179,7 @@
                         </tbody>
                     </table>
 
+                </div>
                 </div>
             </div>
 

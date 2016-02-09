@@ -576,7 +576,7 @@
                 if(msg == "fail") {
                     message('delete_agent_address fails',0);
                 } else {
-                    $("#agent_address_id_"+ agent_address_id).fadeOut("slow");
+                    $("#agent_address_tr_"+ agent_address_id).fadeOut("slow");
                     message('delete_agent_address Success',1);
                 }
             }
