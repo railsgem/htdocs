@@ -13,6 +13,7 @@ class Product_model extends CI_Model {
 	        	$query = $this->db->get_where('os_product', array('os_product_id' => $product_id));
 	        	return $query->row_array();
 	        }
+	        $this->db->order_by("product_name", "asc"); 
 	        $query = $this->db->get('os_product');
 			return $query->result_array();
 

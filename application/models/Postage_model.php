@@ -63,6 +63,7 @@ class Postage_model extends CI_Model {
 		}
 		public function set_postage()
 		{
+			$today = date("Y-m-d H:i:s");
 		    $data = array(
 		        'postage_company_id' => $this->input->post('postage_company_id'),
 		        'postage_date' => $this->input->post('postage_date'),
@@ -75,6 +76,7 @@ class Postage_model extends CI_Model {
 
 		public function update_postage($postage_id = FALSE)
 		{
+				$today = date("Y-m-d H:i:s");
 			if ($postage_id !== FALSE)
 			{
 			    $data = array(
