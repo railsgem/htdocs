@@ -67,48 +67,6 @@ class Stock extends CI_Controller {
                 $this->load->view('stock/index', $data);
                 $this->load->view('templates/footer'); 
             }
-
-            /*if ($this->form_validation->run() === FALSE)
-            {
-                $config['total_rows'] = $this->stock_model->get_stock_list(NULL,NULL,TRUE);
-                $this->pagination->initialize($config); 
-
-                $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-                $data['stock'] = $this->stock_model->get_stock_list($page,$config["per_page"],FALSE);
-                $data["page_section"] = $this->pagination->create_links();
-                $data['total'] = $this->stock_model->get_stock_list(NULL,NULL,TRUE);
-
-                $data['update_success'] ='';
-                $data['title'] ='Stock list';
-               // $data['stock'] = $this->stock_model->get_stock();
-                $this->load->view('templates/header');
-                $this->load->view('stock/index', $data);
-                $this->load->view('templates/footer');          
-            }
-            else
-            {
-                $stock_id = $this->input->post('stock_id');
-
-                $data['title'] ='Stock list';
-                $this->stock_model->delete_stock($stock_id);
-
-               // $data['stock'] = $this->stock_model->get_stock();
-                $data['update_success'] ='Delete Successfully.';
-                $config['total_rows'] = $this->stock_model->get_stock_list(NULL,NULL,TRUE);
-                $this->pagination->initialize($config); 
-
-                $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-                $data['stock'] = $this->stock_model->get_stock_list($page,$config["per_page"],FALSE);
-
-print_r($stock_id);
-exit;
-                $data["page_section"] = $this->pagination->create_links();
-                $data['total'] = $this->stock_model->get_stock_list(NULL,NULL,TRUE);
-                $this->load->view('templates/header');
-                $this->load->view('stock/index', $data);
-                $this->load->view('templates/footer');
-            }        */
-        
         }
 
         public function edit($stock_id = FALSE)
@@ -171,9 +129,6 @@ exit;
 
                 $data['title'] ='Stock list';
                 $data['stock'] = $this->stock_model->get_Stock();
-                /*$this->load->view('templates/header');
-                $this->load->view('stock/index',$data);
-                $this->load->view('templates/footer');*/
                 redirect('stock/index');
             }
         }
@@ -183,7 +138,36 @@ exit;
         {
             $data['product_json'] = $this->product_model->get_product_by_name();
             print_r(json_encode($data['product_json']));
-            //$this->load->view('stock/product_json',$data);
         }
+
+        public function order_list()
+        {
+            $this->load->helper('form');
+            $this->load->helper('security');
+            $this->load->library('form_validation');
+            $this->load->library('pagination');
+            $data['update_success'] ='';
+
+            $this->form_validation->set_rules('stock_id', 'Stock ID', 'required|integer');
+
+            $config['uri_segment'] = 3;
+            $config['base_url'] = '/index.php/stock/order_list/';
+            $config['total_rows'] = $this->stock_model->get_order_list(NULL,NULL,TRUE);
+            $config['per_page'] = 5; 
+
+            $this->pagination->initialize($config); 
+
+            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+            //$data['record'] = $this->stock_model->get_record_list($page,$config["per_page"],FALSE);
+            $data["page_section"] = $this->pagination->create_links();
+
+            $data['total'] = $this->stock_model->get_order_list(NULL,NULL,TRUE);
+            $data['order'] = $this->stock_model->get_order_list($page,$config["per_page"],FALSE);
+            $this->load->view('templates/header');
+            $this->load->view('stock/order_list', $data);
+            $this->load->view('templates/footer');       
+        }
+
+
 
 }

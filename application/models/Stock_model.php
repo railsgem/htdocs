@@ -40,8 +40,108 @@ class stock_model extends CI_Model {
 			$query = $this->db->query($myquery);
             return $query->result_array();
         }
-
 	}
+
+	public function get_order_list($offset = 1,$per_page = 14,$is_total = FALSE)
+	{
+	    $stock_id = $this->input->get('stock_id');
+		$myquery = "select 
+					t1.stock_id,
+					t1.despatch_id,
+					t1.despatch_num,
+					t1.entry_time despatch_time,
+				    t1.os_product_id,
+					t3.product_name,
+					t2.order_id,
+					t2.order_code,
+					t2.active,
+					t2.post_flag,
+					t2.entry_time,
+					t2.update_time,
+					t2.agent_id,
+					t2.agent_name,
+					t2.address_id,
+					t2.address_detail,
+					t2.phone,
+					t2.recevier_name,
+					t2.recevier_nation_id,
+					t2.remark,
+					t2.product_list
+			from 
+			(SELECT
+				sto.stock_id,
+				dep.despatch_id,
+				dep.despatch_num,
+				dep.entry_time,
+				dep.order_id,
+				dep.os_product_id
+			FROM
+				os_stock_entry sto
+			LEFT JOIN os_despatch dep ON sto.stock_id = dep.stock_id
+			) t1 left join 
+			(  SELECT
+					od_ag.order_id,
+					od_ag.order_code,
+					od_ag.active,
+					od_ag.post_flag,
+					od_ag.entry_time,
+					od_ag.update_time,
+					od_ag.agent_id,
+					ocs.consumer_name agent_name,
+					od_ag.address_id,
+					od_ag.address_detail,
+					od_ag.phone,
+					od_ag.recevier_name,
+					od_ag.recevier_nation_id,
+					od_ag.remark,
+					odr_pdt.product_list
+				FROM
+					(
+						SELECT
+							op.order_id,
+							op.order_code,
+							op.active,
+							op.post_flag,
+							op.entry_time,
+							op.update_time,
+							op.address_detail,
+							op.phone,
+							op.recevier_name,
+							op.recevier_nation_id,
+							op.remark,
+							oag.agent_id,
+							odr_ad.order_address_id,
+							odr_ad.address_id
+						FROM
+							os_order op
+						LEFT JOIN os_order_agent oag ON op.order_id = oag.order_id
+						LEFT JOIN os_order_address odr_ad ON op.order_id = odr_ad.order_id
+					) od_ag
+				LEFT JOIN os_consumer ocs ON od_ag.agent_id = ocs.consumer_id
+				LEFT JOIN os_address oad ON od_ag.address_id = oad.address_id
+				LEFT JOIN (select orp.order_id,REPLACE(group_concat(op.product_name,' * ',orp.quantity ),',','</br></br>')   product_list from os_order_product orp left join os_product op
+			on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag.order_id = odr_pdt.order_id
+				WHERE
+					1 = 1) t2 on t1.order_id = t2.order_id
+			left join os_product t3 on t1.os_product_id = t3.os_product_id WHERE 1=1 and t1.stock_id=".$stock_id." and t1.despatch_id is not null ";
+
+		if ($is_total == TRUE)
+		{
+			//echo $myquery;
+			$myquery = $myquery.' order by t1.entry_time asc ';
+			$query = $this->db->query($myquery);
+			return $query->num_rows();
+		}
+		else
+		{
+			//echo $myquery;
+			$myquery = $myquery.' order by t1.entry_time desc limit '.$offset.', '.$per_page;
+			$query = $this->db->query($myquery);
+            return $query->result_array();
+        }
+	}
+
+	
 	public function get_stock($stock_id = FALSE)
 	{
         if ($stock_id === FALSE)

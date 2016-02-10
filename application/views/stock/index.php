@@ -84,11 +84,16 @@
                                     <td><?php echo $stock_item['entry_time']; ?></td>
                                     <td><?php echo $stock_item['update_time']; ?></td>
                                     <td >
-                                        <a style="display:none" target="_blank" href="/index.php/product?short_name=&barcode=&stock_id=<?php echo $stock_item['stock_id']; ?>&category_id=0&stock=0" class="btn btn-success btn-xs" >Product List</a>
                                         <a href="/index.php/stock/edit/<?php echo $stock_item['stock_id']; ?>" class="btn btn-warning btn-xs" >Edit</a>
                                         
                                         <input type="hidden" name="stock_id" value="<?php echo $stock_item['stock_id']; ?>">
-                                        <?php if($stock_item['stock_despatch_num']==0){ echo '<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_stock_'.$stock_item['stock_id'].'">Delete</button>'; } ?>
+                                        <?php if($stock_item['stock_despatch_num']==0){
+                                                 echo '<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_stock_'.$stock_item['stock_id'].'">Delete</button>'; 
+                                             } else {
+                                                echo '<a target="_blank" href="/index.php/stock/order_list?stock_id='.$stock_item['stock_id'].'" class="btn btn-success btn-xs" >Order List</a>';
+                                             }
+
+                                         ?>
                                         <!-- Modal -->
                                         <div class="modal fade" id="delete_stock_<?php echo $stock_item['stock_id'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                           <div class="modal-dialog">
@@ -130,4 +135,3 @@
 
         </div>
 </div>
-

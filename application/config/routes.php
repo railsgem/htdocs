@@ -67,6 +67,7 @@ $route['product/history'] = 'product/history';
 $route['product/(:any)'] = 'product/index';
 $route['product'] = 'product';
 
+$route['stock/order_list'] = 'stock/order_list';
 $route['stock/get_product_json'] = 'stock/get_product_json';
 $route['stock/create'] = 'stock/create';
 $route['stock/edit'] = 'fetch/edit';
