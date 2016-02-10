@@ -67,6 +67,7 @@
                         <th>purchase time</th>
                         <th>entry time</th>
                         <th>Update time</th>
+                        <th>expire_date</th>
                         <th>Operation</th>
                     </tr>
                     <?php foreach ($stock as $stock_item): ?>
@@ -84,6 +85,7 @@
                                     <td><?php echo $stock_item['purchase_time']; ?></td>
                                     <td><?php echo $stock_item['entry_time']; ?></td>
                                     <td><?php echo $stock_item['update_time']; ?></td>
+                                    <td><?php echo $stock_item['expire_date']; ?></td>
                                     <td >
                                         <a href="/index.php/stock/edit/<?php echo $stock_item['stock_id']; ?>" class="btn btn-warning btn-xs" >Edit</a>
                                         

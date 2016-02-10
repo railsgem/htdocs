@@ -21,7 +21,8 @@ class stock_model extends CI_Model {
 								stk.buyer,
 								stk.purchase_time,
 								stk.entry_time,
-								stk.update_time
+								stk.update_time,
+								stk.expire_date
 
 							from os_stock_entry stk 
 						left join os_product op on stk.os_product_id = op.os_product_id WHERE 1=1 ";
@@ -50,6 +51,7 @@ class stock_model extends CI_Model {
 					t1.despatch_id,
 					t1.despatch_num,
 					t1.entry_time despatch_time,
+					t1.expire_date,
 				    t1.os_product_id,
 					t3.product_name,
 					t2.order_id,
@@ -74,7 +76,8 @@ class stock_model extends CI_Model {
 				dep.despatch_num,
 				dep.entry_time,
 				dep.order_id,
-				dep.os_product_id
+				dep.os_product_id,
+				dep.expire_date
 			FROM
 				os_stock_entry sto
 			LEFT JOIN os_despatch dep ON sto.stock_id = dep.stock_id
@@ -157,7 +160,8 @@ class stock_model extends CI_Model {
 								stk.buyer,
 								stk.purchase_time,
 								stk.entry_time,
-								stk.update_time
+								stk.update_time,
+								stk.expire_date
 
 							from os_stock_entry stk 
 						left join os_product op on stk.os_product_id = op.os_product_id 
@@ -177,7 +181,8 @@ class stock_model extends CI_Model {
 								stk.buyer,
 								stk.purchase_time,
 								stk.entry_time,
-								stk.update_time
+								stk.update_time,
+								stk.expire_date
 
 							from os_stock_entry stk 
 						left join os_product op on stk.os_product_id = op.os_product_id 
@@ -206,7 +211,8 @@ class stock_model extends CI_Model {
 							skpro.buyer,
 							skpro.purchase_time,
 							skpro.entry_time,
-							skpro.update_time
+							skpro.update_time,
+							skpro.expire_date
 					FROM
 						os_order_product ordpro
 					LEFT JOIN (
@@ -222,7 +228,8 @@ class stock_model extends CI_Model {
 							stk.buyer,
 							stk.purchase_time,
 							stk.entry_time,
-							stk.update_time
+							stk.update_time,
+							stk.expire_date
 						FROM
 							os_stock_entry stk
 						LEFT JOIN os_product op ON stk.os_product_id = op.os_product_id
@@ -260,7 +267,8 @@ class stock_model extends CI_Model {
 							skpro.buyer,
 							skpro.purchase_time,
 							skpro.entry_time,
-							skpro.update_time
+							skpro.update_time,
+							skpro.expire_date
 					FROM
 						os_order_product ordpro
 					inner JOIN (
@@ -276,7 +284,8 @@ class stock_model extends CI_Model {
 							stk.buyer,
 							stk.purchase_time,
 							stk.entry_time,
-							stk.update_time
+							stk.update_time,
+							stk.expire_date
 						FROM
 							os_stock_entry stk
 						LEFT JOIN os_product op ON stk.os_product_id = op.os_product_id
@@ -300,7 +309,8 @@ class stock_model extends CI_Model {
 							skpro.buyer,
 							skpro.purchase_time,
 							skpro.entry_time,
-							skpro.update_time
+							skpro.update_time,
+							skpro.expire_date
 					FROM
 						os_order_product ordpro
 					inner JOIN (
@@ -316,7 +326,8 @@ class stock_model extends CI_Model {
 							stk.buyer,
 							stk.purchase_time,
 							stk.entry_time,
-							stk.update_time
+							stk.update_time,
+							stk.expire_date
 						FROM
 							os_stock_entry stk
 						LEFT JOIN os_product op ON stk.os_product_id = op.os_product_id
@@ -394,7 +405,8 @@ class stock_model extends CI_Model {
 							stk.buyer,
 							stk.purchase_time,
 							stk.entry_time,
-							stk.update_time
+							stk.update_time,
+							stk.expire_date
 						FROM
 							os_stock_entry stk
 						LEFT JOIN os_product op ON stk.os_product_id = op.os_product_id
@@ -421,7 +433,8 @@ class stock_model extends CI_Model {
 	        'buy_shop' => $this->input->post('buy_shop'),
 	        'buyer' => $this->input->post('buyer'),
 		    'entry_time' => $today,
-	        'purchase_time' => $this->input->post('purchase_time')
+	        'purchase_time' => $this->input->post('purchase_time'),
+	        'expire_date' => $this->input->post('expire_date')
 	    );
 	    return $this->db->insert('os_stock_entry', $data);
 	}
@@ -438,6 +451,7 @@ class stock_model extends CI_Model {
 		        //'stock_present_num' => $this->input->post('stock_present_num'),
 		        'buy_shop' => $this->input->post('buy_shop'),
 		        'buyer' => $this->input->post('buyer'),
+	        	'expire_date' => $this->input->post('expire_date'),
 		        //'purchase_time' => $this->input->post('purchase_time'),
 		        'update_time' => $today
 		    );

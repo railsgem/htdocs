@@ -63,6 +63,13 @@
                     ?>
                     <input id="purchase_time" type="text" class="form-control dp" type="input" name="purchase_time" value="<?php echo set_value('purchase_time',$today); ?>">
                 </div>
+                <div class="form-group" >
+                    <label for="expire_date"><span class="red"> * </span>expire_date:</label>
+                    <?php
+                        $today = date("Y-m-d");   
+                    ?>
+                    <input id="expire_date" type="text" class="form-control dp" type="input" name="expire_date" value="<?php echo set_value('expire_date',$today); ?>">
+                </div>
             </div>
 
         </div>

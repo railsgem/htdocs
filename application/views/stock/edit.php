@@ -86,6 +86,10 @@
                             <label for="purchase_time"><span class="red"> * </span>purchase_time:</label>
                             <input class="form-control dp" type="input" name="purchase_time" value="<?php echo $stock['purchase_time']; ?>">
                         </div>
+                        <div class="form-group">
+                            <label for="expire_date"><span class="red"> * </span>expire_date:</label>
+                            <input class="form-control dp" type="input" name="expire_date" value="<?php echo $stock['expire_date']; ?>">
+                        </div>
                     </div>
                 </div> 
             </div> 
