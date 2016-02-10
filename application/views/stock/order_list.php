@@ -52,6 +52,7 @@
 
         <div class="row">
             <div class="col-lg-12">
+                <div class="table-responsive">
                 <table class="table table-bordered table-hover table-striped" >
                     <tr>
                         <th>order_code</th>
@@ -77,6 +78,7 @@
                     <?php endforeach ?>
                 </table>
 
+                </div>
             </div>
         </div>
 

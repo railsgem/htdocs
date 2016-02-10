@@ -65,6 +65,7 @@
                     <b>Cart (Product List)</b>
                 </div>
                 <div class="panel-body">
+                    <div class="table-responsive">
                         <table class="table table-bordered table-hover table-striped" >
                             <thead>
                                 <tr>
@@ -121,6 +122,7 @@
                                 <?php endforeach ?>
                             </tbody>
                         </table>
+                    </div>
                 </div>
 
             </div> 
@@ -164,6 +166,7 @@
                         </div>
 
 
+                    <div class="table-responsive">
                         <table class="table table-bordered table-hover table-striped" >
                             <thead>
                                 <tr>
@@ -191,6 +194,7 @@
                             <label for="remark">remark:</label>
                             <textarea type="input" name="remark" class="form-control" rows="3" value="<?php echo set_value('remark'); ?>"></textarea>
                         </div>
+                    </div>
                     </div>
                 </div> 
             </div> 
