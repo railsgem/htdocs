@@ -53,7 +53,6 @@ class Order_model extends CI_Model {
 				$query = $this->db->query($myquery);
 				return $query->row_array();
 		}
-
 		public function get_order_list($offset = 1,$per_page = 14,$is_total = FALSE,$is_echart= FALSE)
 		{
 			$from_date = $this->input->get('from_date');

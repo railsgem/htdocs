@@ -50,6 +50,13 @@ class Order extends CI_Controller {
         $data['total'] = $this->order_model->get_order_list(NULL,NULL,TRUE,FALSE);
         $data['order_echart'] = $this->order_model->get_order_list(NULL,NULL,FALSE,TRUE);
 
+        foreach ($data['order'] as $order_item) {
+            $order_id = $order_item['order_id'];
+            $data['product_'.$order_id] = $this->order_model->order_product_list($order_id);
+            $data['product_count_'.$order_id] = count($data['product_'.$order_id]);
+        }
+        
+
         $this->load->view('templates/header');
         $this->load->view('order/index', $data);
         $this->load->view('templates/footer'); 
