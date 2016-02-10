@@ -140,6 +140,19 @@ class Stock extends CI_Controller {
             print_r(json_encode($data['product_json']));
         }
 
+        public function get_product_json_by_id()
+        {
+            $product_id = $this->input->post('os_product_id');
+            $data['product_json'] = $this->product_model->get_product($product_id);
+            print_r(json_encode($data['product_json']));
+        }
+
+        public function select()
+        {
+            $this->load->view('templates/header');
+            $this->load->view('stock/select');
+            $this->load->view('templates/footer');       
+        }
         public function order_list()
         {
             $this->load->helper('form');

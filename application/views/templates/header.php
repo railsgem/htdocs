@@ -35,6 +35,8 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="/bootstrap/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" href="/bootstrap/js/plugins/chosen_v1.5.0/chosen.css">
+    <script src="/bootstrap/js/plugins/chosen_v1.5.0/chosen.jquery.js"></script>
     <!-- Morris Charts JavaScript 
     <script src="/bootstrap/js/plugins/morris/raphael.min.js"></script>
     <script src="/bootstrap/js/plugins/morris/morris.min.js"></script>
