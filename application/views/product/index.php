@@ -12,12 +12,12 @@
                 </div> 
                 <div style="float:right;">
                     <a href="/index.php/product/create" class="btn btn-success " >Add a Product</a>
-                    <a href="/index.php/product/import_product" class="btn btn-success " >Batch Import Product</a>
-                    <a href="/index.php/product/import_record" class="btn btn-success " >Update Stock</a>
-                    <a href="/index.php/product/download_kounta_file" class="btn btn-success " >Download Kounta Stock File</a>
-                    <a href="/index.php/product/download_products" class="btn btn-success " >Export All Product</a>
+                    <a style="display:none;" href="/index.php/product/import_product" class="btn btn-success " >Batch Import Product</a>
+                    <a style="display:none;" href="/index.php/product/import_record" class="btn btn-success " >Update Stock</a>
+                    <a style="display:none;" href="/index.php/product/download_kounta_file" class="btn btn-success " >Download Kounta Stock File</a>
+                    <a style="display:none;" href="/index.php/product/download_products" class="btn btn-success " >Export All Product</a>
                     <a style="display:none;" href="/index.php/product/import_purchase" class="btn btn-success " >Import Purchase Order</a>
-                    <a href="/index.php/product/report" class="btn btn-success " >Transaction Report</a>
+                    <a style="display:none;" href="/index.php/product/report" class="btn btn-success " >Transaction Report</a>
                     <a style="display:none;" href="/index.php/product/history" class="btn btn-success " >Operation History</a>
                     
                 </div>
@@ -109,7 +109,7 @@
             <input type="hidden" name="batch_delete_product_id" id="batch_delete_product_id" value="">
         </form>
 
-        <?php echo form_open('product' , array('target'=>'_blank')) ?>
+        <?php  ?>
 
             <div class="row" style="margin-bottom:10px;">
 
@@ -131,12 +131,13 @@
                         <table class="table table-bordered table-hover table-striped" >
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox" name="tickall" id="tickall" value="ON"> All</th>
+                                    <th style="display:none;" ><input type="checkbox" name="tickall" id="tickall" value="ON"> All</th>
                                     <th>Chemist Product ID</th>
                                     <th>Product Name</th>
                                     <th>Chemist Price</th>
                                     <th>Chemist img(click to big img)</th>
                                     <th>Source</th>
+                                    <th>operation</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -145,22 +146,53 @@
                                 <?php $indexID = $indexID+1;?>
 
                                 <tr>
-                                    <td>
-                                        <input type="checkbox" name="print_<?php echo $indexID?>" class="tick" value="ON">
-                                        <input type="hidden" name="temp_product_id"  value="<?php echo $product_item['os_product_id']; ?>">
-                                    </td>
-                                    <td><?php echo $product_item['chemist_product_id']; ?></td>
-                                    <td><?php echo $product_item['product_name']; ?></td>
-                                    <td><?php echo $product_item['chemist_price']; ?></td>
-                                    <div class="col-xs-1 col-md-1">
-                                    <td class="col-xs-1 col-md-1">
-                                        <a  target="_blank" href="<?php echo $product_item['big_img_src']; ?>" class="thumbnail">
-                                          <img src="<?php echo $product_item['small_img_src']; ?>" alt="<?php echo $product_item['small_img_src']; ?>">
-                                        </a>
-                                    </td>
-                                    </div>
-                                    <td><?php echo $product_item['source_type']; ?></td>
-                                    </td>
+                                    <?php echo form_open('product/delete') ?>
+                                        <input type="hidden" name="os_product_id"  value="<?php echo $product_item['os_product_id']; ?>">
+                                        <td style="display:none;" >
+                                            <input type="checkbox" name="print_<?php echo $indexID?>" class="tick" value="ON">
+                                            <input type="hidden" name="temp_product_id"  value="<?php echo $product_item['os_product_id']; ?>">
+                                        </td>
+                                        <td><?php echo $product_item['chemist_product_id']; ?></td>
+                                        <td><?php echo $product_item['product_name']; ?></td>
+                                        <td><?php echo $product_item['chemist_price']; ?></td>
+                                        <div class="col-xs-1 col-md-1">
+                                        <td class="col-xs-1 col-md-1">
+                                            <a  target="_blank" href="<?php echo $product_item['big_img_src']; ?>" class="thumbnail">
+                                              <img src="<?php echo $product_item['small_img_src']; ?>" alt="<?php echo $product_item['small_img_src']; ?>">
+                                            </a>
+                                        </td>
+                                        </div>
+                                        <td><?php echo $product_item['source_type']; ?></td>
+                                        <td>
+                                            <?php if($product_item['chemist_product_id']==0){
+                                                     echo '<a href="/index.php/product/edit/'.$product_item['os_product_id'].'" class="btn btn-warning btn-xs" >Edit</a>';
+                                                     echo '<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_product_'.$product_item['os_product_id'].'">Delete</button>'; 
+                                                 } else {
+                                                    //echo '<a target="_blank" href="/index.php/stock/order_list?stock_id='.$product_item['os_product_id'].'" class="btn btn-success btn-xs" >Order List</a>';
+                                                 }
+
+                                             ?>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="delete_product_<?php echo $product_item['os_product_id'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                              <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">Delete product Confirm</h4>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                    Are you sure you want to delete - <em>"<?php echo $product_item['product_name'];?>" ?</em>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                                    <button type="submit" class="btn btn-primary">Yes, Delete</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                        </td>
+                                    </form>
                                 </tr>
                             <?php endforeach ?>
                             </tbody>

@@ -187,4 +187,32 @@ class Product_model extends CI_Model {
 		    );
  			return $this->db->insert('os_product', $data);
 		}
+
+		public function update_product($os_product_id = FALSE)
+		{
+			$today = date("Y-m-d H:i:s");
+			if ($os_product_id !== FALSE)
+			{
+			    $data = array(
+		        'product_name' => $this->input->post('product_name'),
+		        'small_img_src' => $this->input->post('small_img_src'),
+		        'big_img_src' => $this->input->post('big_img_src'),
+		        'chemist_price' => $this->input->post('chemist_price'),
+		        'remark' => $this->input->post('remark'),
+		        'update_time' => $today
+			    );
+
+			    $this->db->where('os_product_id', $os_product_id);
+			    $this->db->update('os_product', $data);
+		    }
+		}
+
+		public function delete_product($product_id = FALSE)
+		{
+			if ($product_id !== FALSE)
+			{
+			    $this->db->where('os_product_id', $product_id);
+			    $this->db->delete('os_product');
+		    }
+		}		
 }
