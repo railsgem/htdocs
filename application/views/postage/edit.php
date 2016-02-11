@@ -66,11 +66,11 @@
                         </div>
                         <div class="form-group">
                             <label for="postage_fee"><span class="red"> * </span>postage_fee:</label>
-                            <input class="form-control" type="input" name="postage_fee" value="<?php echo set_value('postage_fee'); ?>">
+                            <input class="form-control" type="input" name="postage_fee" value="<?php echo $postage['postage_fee']; ?>">
                         </div>
                         <div class="form-group">
                             <label for="postage_weight">postage_weight:</label>
-                            <input class="form-control" type="input" name="postage_weight" value="<?php echo set_value('postage_weight'); ?>">
+                            <input class="form-control" type="input" name="postage_weight" value="<?php echo $postage['postage_weight']; ?>">
                         </div>
                         <div class="form-group">
                         <label for="postage_free"><span class="red"> * </span>postage_free:</label>

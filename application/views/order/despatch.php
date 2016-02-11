@@ -64,6 +64,8 @@
                             <tbody id="product_order_list_table">
                                 
            
+    <?php $global_sell_price = 0; $global_cost=0; $global_profit=0; $global_post_fee=0; ?>
+
                             <?php  foreach ($product as $product_item): ?>
                                         <tr>
                                             <?php echo form_open('order/delete_order_product') ?>
@@ -98,6 +100,7 @@
                                                     <?php foreach ($despatch_cost as $despatch_cost_item): ?>
                                                     <?php if( $product_item['os_product_id']== $despatch_cost_item['os_product_id']) 
                                                             { echo " $ ".$despatch_cost_item['total_cost']." </br>￥ ".$despatch_cost_item['total_cost']*5; 
+                                                                    $global_cost = $global_cost + $despatch_cost_item['total_cost'];
                                                             } ?>
                                                     <?php endforeach ?>
                                                 </td>
@@ -113,6 +116,7 @@
                                                                 $$cost = $despatch_cost_item['total_cost'];
                                                                 $$profit = $$sell_price - $$cost;
                                                                 echo " $ ".$$sell_price." </br>￥ ".$$sell_price * 5 ; 
+                                                                $global_sell_price = $global_sell_price + $$sell_price;
                                                             }?>
                                                     <?php endforeach ?>
                                                 </td>
@@ -128,6 +132,7 @@
                                                                 $$cost = $despatch_cost_item['total_cost'];
                                                                 $$profit = $$sell_price - $$cost;
                                                                 echo " $ ".$$profit." </br>￥ ".$$profit * 5 ; 
+                                                                $global_profit = $global_profit + $$profit;
                                                             }?>
                                                     <?php endforeach ?>
                                                 </td>
@@ -160,6 +165,101 @@
                                             </form>
                                         </tr>
                                 <?php endforeach ?>
+                            </tbody>
+                        </table>
+
+
+                        <table class="table table-bordered table-hover table-striped" >
+                            <thead>
+
+                                <tr>
+                                    <th style='display:none'>postage id</th>
+                                        <th style="display:none" >postage_company_id</th>
+                                        <th>postage_date</th>
+                                        <th>postage_code</th>
+                                        <th>postage_company_name</th>
+                                        <th>postage_website</th>
+                                        <th>postage_fee</th>
+                                        <th>postage_fee free or not?</th>
+                                        <th>postage_weight</th>
+                                        <th>remark</th>
+                                        <th style="display:none" >entry_time</th>
+                                        <th style="display:none" >update_time</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                            <span style="display:none" id="postage_json_list" > <?php echo $postage_json=json_encode($postage_echart);  ?> </span>
+                                
+                                <?php foreach ($postage as $postage_item): ?>
+                                        <tr>
+                                            <?php echo form_open('postage/index/delete') ?>
+                                                <td style='display:none'><?php echo $postage_item['postage_id']; ?></td>
+                                                <td style="display:none" ><?php echo $postage_item['postage_company_id']; ?></td>
+                                                <td><?php echo $postage_item['postage_date']; ?></td>
+                                                <td><?php echo $postage_item['postage_code']; ?></td>
+                                                <td><?php echo $postage_item['postage_company_name']; ?></td>
+                                                <td><?php echo $postage_item['postage_website']; ?></td>
+                                                <td><?php echo "$ ".$postage_item['postage_fee']."</br> ￥".$postage_item['postage_fee']*5; 
+
+                                                                
+
+                                                ?></td>
+                                                <td><?php if($postage_item['postage_free']==1)
+                                                          {   echo "包邮"; 
+                                                                $global_post_fee = $global_post_fee + $postage_item['postage_fee'];
+                                                                $global_profit = $global_profit - $postage_item['postage_fee'];} 
+                                                          else { echo "不包邮"; 
+
+                                                                } ?></td>
+                                                <td><?php echo $postage_item['postage_weight']; ?></td>
+                                                <td><?php echo $postage_item['remark']; ?></td>
+                                                <td style="display:none" ><?php echo $postage_item['entry_time']; ?></td>
+                                                <td style="display:none" ><?php echo $postage_item['update_time']; ?></td>
+                                                <td>
+                                                    <a href="/index.php/postage/edit/<?php echo $postage_item['postage_id']; ?>" class="btn btn-danger btn-xs" >View/Edit</a>
+                                                    
+                                                    <input type="hidden" name="postage_id" value="<?php echo $postage_item['postage_id']; ?>">
+                                                    <button style="display:none"type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_postage_<?php echo $postage_item['postage_id'];?>">Delete</button>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="delete_postage_<?php echo $postage_item['postage_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                      <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                          <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title" id="myModalLabel">Delete Distribution List Confirm</h4>
+                                                          </div>
+                                                          <div class="modal-body">
+                                                            Are you sure you want to delete ?</em>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                                            <button type="button" class="btn btn-primary" onclick="delete_postage('<?php echo $postage_item['postage_id']; ?>')">Yes, Delete</button>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                </td>
+
+                                            </form>
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                        <tr>
+                                <?php endforeach ?>
+                                        <tr class="success">
+                                            <th><?php echo "global_sell_price :"; ?></th>
+                                            <td><?php echo "$ ".$global_sell_price." |￥".$global_sell_price*5; ?></td>
+                                            <th><?php echo "global_cost :"; ?></th>
+                                            <td><?php echo "$ ".$global_cost." |￥".$global_cost*5; ?></td>
+                                            <th><?php echo "global_post_fee :"; ?></th>
+                                            <td><?php echo "$ ".$global_post_fee." |￥".$global_post_fee*5; ?></td>
+                                            <th><?php echo "global_profit :"; ?></th>
+                                            <td><?php echo "$ ".$global_profit." |￥".$global_profit*5; ?></td>
+                                        </tr>
                             </tbody>
                         </table>
                 </div>
