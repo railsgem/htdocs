@@ -44,6 +44,7 @@
                                         <th>postage_company_name</th>
                                         <th>postage_website</th>
                                         <th>postage_fee</th>
+                                        <th>postage_fee free or not?</th>
                                         <th>postage_weight</th>
                                         <th>remark</th>
                                         <th style="display:none" >entry_time</th>
@@ -66,6 +67,7 @@
                                                 <td><?php echo $postage_item['postage_company_name']; ?></td>
                                                 <td><?php echo $postage_item['postage_website']; ?></td>
                                                 <td><?php echo $postage_item['postage_fee']; ?></td>
+                                                <td><?php if($postage_item['postage_free']==1){echo "包邮"; } else { echo "不包邮"; } ?></td>
                                                 <td><?php echo $postage_item['postage_weight']; ?></td>
                                                 <td><?php echo $postage_item['remark']; ?></td>
                                                 <td style="display:none" ><?php echo $postage_item['entry_time']; ?></td>
@@ -148,6 +150,13 @@
                             <input class="form-control" type="input" name="postage_weight" value="<?php echo set_value('postage_weight'); ?>">
                         </div>
                         <div class="form-group">
+                        <label for="postage_free"><span class="red"> * </span>postage_free:</label>
+                            <select class="form-control" name="postage_free">
+                                <option value="1" <?php if ("1" === set_value('postage_free')) { echo "selected"; } ?>>包邮</option>
+                                <option value="0" <?php if ("0" === set_value('postage_free')) { echo "selected"; } ?>>不包邮</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="remark">remark:</label>
                             <input class="form-control" type="input" name="remark" value="<?php echo set_value('remark'); ?>">
                         </div>
@@ -163,9 +172,4 @@
 
 
 
-                        <label for="post_flag"><span class="red"> * </span>post_flag:</label>
-                        <select class="form-control" name="post_flag">
-                            <option value="1" <?php if ("1" === set_value('post_flag')) { echo "selected"; } ?>>发货</option>
-                            <option value="0" <?php if ("1" === set_value('post_flag')) { echo "selected"; } ?>>未发货</option>
-                        </select>
 </div>

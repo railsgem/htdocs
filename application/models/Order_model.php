@@ -380,6 +380,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		        'postage_code' => $this->input->post('postage_code'),
 		        'postage_fee' => $this->input->post('postage_fee'),
 		        'postage_weight' => $this->input->post('postage_weight'),
+		        'postage_free' => $this->input->post('postage_free'),
 		        'remark' => $this->input->post('remark'),
 		        'entry_time' => $today,
 		        'update_time' => $today
@@ -399,7 +400,7 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 			if ($order_id !== FALSE)
 			{
 				$myquery = 'select op.postage_id,op.postage_company_id,op.postage_date,op.postage_code,
-								   op.postage_fee,op.postage_weight,op.remark,
+								   op.postage_fee,op.postage_free,op.postage_weight,op.remark,
 								   op.entry_time,op.update_time,
 								   opc.postage_company_name,opc.postage_website
 							 from os_postage op left join os_postage_company opc 

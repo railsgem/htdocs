@@ -48,12 +48,15 @@
                                 <tr>
                                     <th style='display:none'>os_product_id</th>
                                         <th>product_name</th>
-                                        <th>chemist_price</th>
-                                        <th>source_type</th>
+                                        <th style='display:none'>chemist_price</th>
+                                        <th style='display:none'>source_type</th>
                                         <th>sell_price</th>
                                         <th>quantity</th>
                                         <th>despatch list</th>
                                         <th>cost</th>
+                                        <th>sell total price</th>
+                                        <th>profit
+                                        </br>(no incld postage )</th>
                                         <th style="display:none;">操作</th>
                                     </tr>
                                 </tr>
@@ -67,9 +70,9 @@
                                                 <td style='display:none'><?php echo $product_item['os_product_id']; ?></td>
                                                 <td style='display:none'><?php echo $product_item['os_product_id']; ?></td>
                                                 <td><?php echo $product_item['product_name']; ?></td>
-                                                <td><?php echo $product_item['chemist_price']; ?></td>
-                                                <td><?php echo $product_item['source_type']; ?></td>
-                                                <td><?php echo $product_item['sell_price']; ?></td>
+                                                <td style='display:none'><?php echo $product_item['chemist_price']; ?></td>
+                                                <td style='display:none'><?php echo $product_item['source_type']; ?></td>
+                                                <td><?php echo "$ ".$product_item['sell_price']." / ￥ ".$product_item['sell_price']*5; ?></td>
                                                 <td><?php echo $product_item['quantity']; ?></td>
                                                 <td style="width:50px;" >
 
@@ -93,8 +96,39 @@
                                                 </td>
                                                 <td>
                                                     <?php foreach ($despatch_cost as $despatch_cost_item): ?>
-                                                    <?php if( $product_item['os_product_id']== $despatch_cost_item['os_product_id']) { echo $despatch_cost_item['total_cost'];  }?>
+                                                    <?php if( $product_item['os_product_id']== $despatch_cost_item['os_product_id']) 
+                                                            { echo " $ ".$despatch_cost_item['total_cost']." </br>￥ ".$despatch_cost_item['total_cost']*5; 
+                                                            } ?>
+                                                    <?php endforeach ?>
+                                                </td>
+                                                <td>
+                                                    <?php foreach ($despatch_cost as $despatch_cost_item): ?>
+                                                    <?php if( $product_item['os_product_id']== $despatch_cost_item['os_product_id']) 
+                                                            {   //echo " $ ".$despatch_cost_item['total_cost']." </br>￥ ".$despatch_cost_item['total_cost']*5; 
+                                                                $sell_price = "sell_price_".$product_item['os_product_id'];  
+                                                                $cost = "cost_".$product_item['os_product_id'];  
+                                                                $profit = "profit_".$product_item['os_product_id'];
 
+                                                                $$sell_price = $product_item['sell_price']*$product_item['quantity'];
+                                                                $$cost = $despatch_cost_item['total_cost'];
+                                                                $$profit = $$sell_price - $$cost;
+                                                                echo " $ ".$$sell_price." </br>￥ ".$$sell_price * 5 ; 
+                                                            }?>
+                                                    <?php endforeach ?>
+                                                </td>
+                                                <td>
+                                                    <?php foreach ($despatch_cost as $despatch_cost_item): ?>
+                                                    <?php if( $product_item['os_product_id']== $despatch_cost_item['os_product_id']) 
+                                                            {   //echo " $ ".$despatch_cost_item['total_cost']." </br>￥ ".$despatch_cost_item['total_cost']*5; 
+                                                                $sell_price = "sell_price_".$product_item['os_product_id'];  
+                                                                $cost = "cost_".$product_item['os_product_id'];  
+                                                                $profit = "profit_".$product_item['os_product_id'];
+
+                                                                $$sell_price = $product_item['sell_price']*$product_item['quantity'];
+                                                                $$cost = $despatch_cost_item['total_cost'];
+                                                                $$profit = $$sell_price - $$cost;
+                                                                echo " $ ".$$profit." </br>￥ ".$$profit * 5 ; 
+                                                            }?>
                                                     <?php endforeach ?>
                                                 </td>
                                                 <td style="display:none;">

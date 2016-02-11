@@ -22,8 +22,8 @@ class Postage_model extends CI_Model {
 		{
 			$from_date = $this->input->get('from_date');
 			$to_date = $this->input->get('to_date');
-			$myquery = 'select op.postage_id,op.postage_company_id,op.postage_date,op.postage_code,
-							   op.entry_time,op.update_time,
+			$myquery = 'select op.postage_id,op.postage_company_id,op.postage_date,op.postage_code,op.postage_fee,
+							   op.entry_time,op.update_time,op.postage_free,
 							   opc.postage_company_name,opc.postage_website
 						 from os_postage op left join os_postage_company opc 
 						on op.postage_company_id = opc.postage_company_id
@@ -68,6 +68,8 @@ class Postage_model extends CI_Model {
 		        'postage_company_id' => $this->input->post('postage_company_id'),
 		        'postage_date' => $this->input->post('postage_date'),
 		        'postage_code' => $this->input->post('postage_code'),
+		        'postage_fee' => $this->input->post('postage_fee'),
+		        'postage_free' => $this->input->post('postage_free'),
 		        'entry_time' => $today,
 		        'update_time' => $today
 		    );
@@ -84,6 +86,7 @@ class Postage_model extends CI_Model {
 			        'postage_date' => $this->input->post('postage_date'),
 			        'postage_code' => $this->input->post('postage_code'),
 			        'postage_fee' => $this->input->post('postage_fee'),
+			        'postage_free' => $this->input->post('postage_free'),
 			        'postage_weight' => $this->input->post('postage_weight'),
 			        'remark' => $this->input->post('remark'),
 		        	'update_time' => $today

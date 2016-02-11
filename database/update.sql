@@ -1,0 +1,1 @@
+ALTER TABLE `os_postage` ADD COLUMN `postage_free` int DEFAULT '1' COMMENT '1: free , 0 not free' AFTER `update_time`;

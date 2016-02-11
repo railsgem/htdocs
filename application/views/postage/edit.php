@@ -73,6 +73,13 @@
                             <input class="form-control" type="input" name="postage_weight" value="<?php echo set_value('postage_weight'); ?>">
                         </div>
                         <div class="form-group">
+                        <label for="postage_free"><span class="red"> * </span>postage_free:</label>
+                            <select class="form-control" name="postage_free">
+                                <option value="1" <?php if ("1" === set_value('postage_free')) { echo "selected"; } ?>>包邮</option>
+                                <option value="0" <?php if ("0" === set_value('postage_free')) { echo "selected"; } ?>>不包邮</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="remark">remark:</label>
                             <input class="form-control" type="input" name="remark" value="<?php echo set_value('remark'); ?>">
                         </div>

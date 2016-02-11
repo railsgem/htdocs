@@ -102,6 +102,8 @@
                                     <th>postage_company_id</th>
                                     <th>postage_date</th>
                                     <th>postage_code</th>
+                                    <th>postage_fee</th>
+                                    <th>postage_free</th>
                                     <th>postage_company_name</th>
                                     <th>postage_website</th>
 
@@ -122,6 +124,8 @@
                                             <td><?php echo $postage_item['postage_company_id']; ?></td>
                                             <td><?php echo $postage_item['postage_date']; ?></td>
                                             <td><?php echo $postage_item['postage_code']; ?></td>
+                                            <td><?php echo $postage_item['postage_fee']; ?></td>
+                                            <td><?php if($postage_item['postage_free']==1){echo "包邮"; } else { echo "不包邮"; } ?></td>
                                             <td><?php echo $postage_item['postage_company_name']; ?></td>
                                             <td><?php echo $postage_item['postage_website']; ?></td>
                                             <td><?php echo $postage_item['entry_time']; ?></td>
