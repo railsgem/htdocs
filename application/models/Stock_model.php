@@ -77,7 +77,7 @@ class stock_model extends CI_Model {
 				dep.entry_time,
 				dep.order_id,
 				dep.os_product_id,
-				dep.expire_date
+				sto.expire_date
 			FROM
 				os_stock_entry sto
 			LEFT JOIN os_despatch dep ON sto.stock_id = dep.stock_id
@@ -385,37 +385,43 @@ class stock_model extends CI_Model {
 	}
 
 	public function get_despatch_cost_by_order_id($order_id = FALSE)
-	{
-		$myquery = "SELECT  
-							skpro.os_product_id,
-							sum(ifnull(skpro.real_cost,0) * ifnull(skpro.despatch_num,0)) total_cost
-					FROM
-						os_order_product ordpro
-					inner JOIN (
-						SELECT
-							op.product_name,
-							stk.stock_id,
-							stk.os_product_id,
-							stk.real_cost,
-							od.despatch_num,
-							stk.stock_entry_num,
-							stk.stock_despatch_num,
-							stk.stock_present_num,
-							stk.buy_shop,
-							stk.buyer,
-							stk.purchase_time,
-							stk.entry_time,
-							stk.update_time,
-							stk.expire_date
+	{/*SELECT
+	t1.order_product_id,
+	t1.order_id,
+	t1.os_product_id,
+	m2.product_name,
+	t1.quantity,
+	t1.sell_price,
+	t1.quantity * t1.sell_price total_sell_price,
+	m1.despatch_num,
+	m1.real_cost,
+	m1.total_real_cost,
+	m1.buyer
+FROM
+	os_order_product t1 left join 
+	(SELECT
+		t2.*, t3.real_cost,
+		t3.buyer,
+		t2.despatch_num * t3.real_cost total_real_cost
+	FROM
+		os_despatch t2
+	LEFT JOIN os_stock_entry t3 ON t2.stock_id = t3.stock_id
+	WHERE
+		t2.order_id = 52) m1 on t1.os_product_id = m1.os_product_id
+	left join os_product m2 on t1.os_product_id = m2.os_product_id
+WHERE
+	t1.order_id = 52;*/
+		$myquery = "SELECT t2.order_id,
+							t2.os_product_id, 
+							sum(t2.despatch_num * t3.real_cost) total_cost
 						FROM
-							os_stock_entry stk
-						LEFT JOIN os_product op ON stk.os_product_id = op.os_product_id
-						LEFT JOIN os_despatch od ON stk.stock_id = od.stock_id
-					) skpro ON ordpro.os_product_id = skpro.os_product_id
-					where ordpro.order_id =".$order_id."
-					group by skpro.os_product_id
+							os_despatch t2
+						LEFT JOIN os_stock_entry t3 ON t2.stock_id = t3.stock_id
+						WHERE
+							t2.order_id = ".$order_id."
+					group by t2.order_id,
+							t2.os_product_id 
 					";
-
 		$query = $this->db->query($myquery);
         return $query->result_array();
 

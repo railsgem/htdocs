@@ -290,8 +290,6 @@ class Order extends CI_Controller {
             $data['despatch'] = $this->stock_model->get_despatch_by_order_id($order_id);
             $data['despatch_cost'] = $this->stock_model->get_despatch_cost_by_order_id($order_id);
 
-           /* print_r($data['stock']);
-            exit;*/
             //$data['postage'] = $this->order_model->get_order_postage_list($order_id);
             $this->load->view('templates/header');
             $this->load->view('order/despatch',$data);
