@@ -54,14 +54,32 @@ class Address_model extends CI_Model {
 		{
 			$from_date = $this->input->get('from_date');
 			$to_date = $this->input->get('to_date');
-			$myquery = 'SELECT  t.address_id
-								,t.address_detail
-								,t.phone
-								,t.recevier_name
-								,t.recevier_nation_id
-								,t.entry_time
-								,t.update_time
-						FROM os_address t 
+			$myquery = 'SELECT
+								a.address_id,
+								a.address_detail,
+								a.phone,
+								a.recevier_name,
+								a.recevier_nation_id,
+								a.entry_time,
+								a.update_time,
+								a.agent_id,
+								b.consumer_name agent_name
+							FROM
+								(
+									SELECT
+										t1.address_id,
+										t1.address_detail,
+										t1.phone,
+										t1.recevier_name,
+										t1.recevier_nation_id,
+										t1.update_time,
+										t1.entry_time,
+										t2.agent_id
+									FROM
+										os_address t1
+									LEFT JOIN os_agent_address t2 ON t1.address_id = t2.address_id
+								) a
+							LEFT JOIN os_consumer b ON a.agent_id = b.consumer_id
 						WHERE 1=1
 						';
 			if ($from_date != '')
@@ -76,21 +94,21 @@ class Address_model extends CI_Model {
 			if ($is_echart == TRUE)
 			{
 				//echo $myquery;
-				$myquery = $myquery.' order by entry_time asc ';
+				$myquery = $myquery.' order by agent_id asc ';
 				$query = $this->db->query($myquery);
 				return $query->result_array();
 			}
 			if ($is_total == TRUE)
 			{
 				//echo $myquery;
-				$myquery = $myquery.' order by entry_time asc ';
+				$myquery = $myquery.' order by agent_id asc ';
 				$query = $this->db->query($myquery);
 				return $query->num_rows();
 			}
 			else
 			{
 				//echo $myquery;
-				$myquery = $myquery.' order by entry_time desc limit '.$offset.', '.$per_page;
+				$myquery = $myquery.' order by agent_id desc limit '.$offset.', '.$per_page;
 				$query = $this->db->query($myquery);
 	            return $query->result_array();
             }

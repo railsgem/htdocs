@@ -99,6 +99,7 @@
 
                             <tr>
                                 <th style='display:none'>address id</th>
+                                    <th>agent_name</th>
                                     <th>address_detail</th>
                                     <th>phone</th>
 
@@ -119,6 +120,7 @@
                                     <tr>
                                         <?php echo form_open('address/index/delete') ?>
                                             <td style='display:none'><?php echo $address_item['address_id']; ?></td>
+                                            <td><?php echo $address_item['agent_name']; ?></td>
                                             <td><?php echo $address_item['address_detail']; ?></td>
                                             <td><?php echo $address_item['phone']; ?></td>
                                             <td><?php echo $address_item['recevier_name']; ?></td>
