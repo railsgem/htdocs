@@ -165,7 +165,8 @@ class Order extends CI_Controller {
                     
         
         $data['order_id'] = $order_id;
-        $data['product'] = $this->order_model->order_product_list($order_id);
+        $data['product'] = $this->product_model->get_product();
+        $data['order_product'] = $this->order_model->order_product_list($order_id);
         $data['consumer'] = $this->consumer_model->get_agent();
         $data['address'] = $this->address_model->get_address();
         $data['cart_product'] = $this->order_model->get_cart_product();

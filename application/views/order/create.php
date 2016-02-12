@@ -28,44 +28,49 @@
 
 
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <b>Product</b>
-                    <button style="float:right;" id="add_product_to_cart" class="btn btn-primary btn-xs" />Add to Cart</button>
                 </div>
                 <div class="panel-body">
-                    <div class="form-group">
-                        <label for="os_product_id"><span class="red"> * </span>product_name:</label>
-                        <input id="os_product_id" class="form-control" type="hidden" name="os_product_id" value="<?php echo set_value('os_product_id'); ?>">
-                        <input class="form-control" type="text" id="autocomp" />
+                    <div class="form-group col-lg-7">
+                        <label for="os_product_id"><span class="red"> * </span>os_product_name:</label>
+                        <select id="os_product_id" name="os_product_id" data-placeholder="Choose a Product..." class="chosen-select" tabindex="3">
+                            <?php foreach ($product as $product_item): ?>
+                                <option value="<?php echo $product_item['os_product_id'] ?>" <?php if ($product_item['os_product_id'] === set_value('os_product_id')) { echo "selected"; } ?>><?php echo $product_item['product_name'] ?></option>
+                            <?php endforeach ?>
+                        </select>
+
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-lg-5">
+                        <button id="add_product_to_cart" class="btn btn-primary" />Add to Cart</button>
+                    </div>
+                    <div class="form-group col-lg-3">
                         <label for="chemist_price"><span class="red"> * </span>chemist_price:</label>
                         <input disabled id="chemist_price" class="form-control" type="input" name="chemist_price" value="<?php echo set_value('real_cost'); ?>">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-lg-3">
                         <label for="buy_shop"><span class="red"> * </span>source_type:</label>
                         <input disabled id="source_type" class="form-control" type="input" name="buy_shop" value="<?php echo set_value('buy_shop'); ?>">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-lg-3">
                         <label for="quantity"><span class="red"> * </span>quantity:</label>
                         <input id="quantity" class="form-control" type="input" name="quantity" value="<?php echo set_value('quantity'); ?>">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-lg-3">
                         <label for="sell_price"><span class="red"> * </span>sell_price:</label>
                         <input id="sell_price" class="form-control" type="input" name="sell_price" value="<?php echo set_value('sell_price'); ?>">
                     </div>
                 </div>
             </div> 
         </div> 
-        <div class="col-lg-9">
+        <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <b>Cart (Product List)</b>
                 </div>
                 <div class="panel-body">
-                    <div class="table-responsive">
                         <table class="table table-bordered table-hover table-striped" >
                             <thead>
                                 <tr>
@@ -81,9 +86,10 @@
                             </thead>
                             <tbody id="product_order_list_table">
                                 
+           
                             <?php  foreach ($cart_product as $product_item): ?>
                                         <tr>
-                                            <?php echo form_open('order/delete_cart_product') ?>
+                                            <?php echo form_open('order/delete_order_product') ?>
                                                 <td style='display:none'><?php echo $product_item['os_product_id']; ?></td>
                                                 <td style='display:none'><?php echo $product_item['os_product_id']; ?></td>
                                                 <td><?php echo $product_item['product_name']; ?></td>
@@ -110,7 +116,7 @@
                                                           </div>
                                                           <div class="modal-footer">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                                            <button type="button" class="btn btn-primary" onclick="delete_cart_product('<?php echo $product_item['order_product_id']; ?>')">Yes, Delete</button>
+                                                            <button type="button" class="btn btn-primary" onclick="delete_cart_product('<?php echo $product_item['order_product_id']."','".$product_item['order_id']; ?>')">Yes, Delete</button>
                                                           </div>
                                                         </div>
                                                       </div>
@@ -122,7 +128,6 @@
                                 <?php endforeach ?>
                             </tbody>
                         </table>
-                    </div>
                 </div>
 
             </div> 
@@ -132,6 +137,7 @@
 
     </div>
     <!-- /.row -->
+
     <?php echo form_open('order/create') ?>
 
         <div class="row">
@@ -250,7 +256,57 @@
 
 <script type="text/javascript">
 
+    var config = {
+        '.chosen-select' : {}
+    }
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+
     $(document).ready(function(){
+        
+        $("#os_product_id").change(function(){
+            console.log($("#os_product_id").val());
+            //get product_item data
+            var data = {
+                os_product_id : $("#os_product_id").val()
+            };
+            //post product_item to session
+            $.ajax({
+                type: 'POST',
+                url: '/index.php/stock/get_product_json_by_id',
+                data: data,
+                beforeSend: function(data){
+                    console.log("this data will post---");
+                    console.log(data);
+                },
+                success: function(product_json){
+                    //console.log(product_json);
+                    var productObj;
+                    productObj = JSON.parse(product_json);
+
+                    //console.log("productObj:"+JSON.parse(product_json));
+
+                    var chemist_price;
+                    var phone;
+                    var recevier_name;
+                    var recevier_nation_id;
+                    var remark;
+
+
+                    chemist_price = productObj['chemist_price'];
+                    small_img_src = productObj['small_img_src'];
+                    big_img_src = productObj['big_img_src'];
+                    source_type = productObj['source_type'];
+                    remark = productObj['remark'];
+                    $("#chemist_price").val(chemist_price);
+                    $("#source_type").val(source_type);
+
+                    message('get product success!',1);
+                }
+            });
+        });
+
         $("#add_new_address_tr").hide();
         $("#add_new_address").click(function(){
             $("#add_new_address_tr").show();
