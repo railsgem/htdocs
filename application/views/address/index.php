@@ -11,7 +11,7 @@
                     address List
                 </div> 
                 <div style="float:right;">
-                    <a href="/index.php/address/create" class="btn btn-success" >Add address</a>
+                    <a style="display:none;" href="/index.php/address/create" class="btn btn-success" >Add address</a>
                 </div>
                 <div style="clear:both;"></div> 
 

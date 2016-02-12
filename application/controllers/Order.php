@@ -392,6 +392,46 @@ class Order extends CI_Controller {
         {
             echo "fail";
         }
-       
     }
+
+    public function edit_agent_address($order_id= FALSE , $address_id = FALSE)
+    {
+        
+        if ($address_id !== FALSE and $order_id !== FALSE)
+        {
+            $this->load->helper('form');
+            $this->load->helper('security');
+            $this->load->library('form_validation');
+
+            //$this->form_validation->set_rules('address_rep_date', 'address Name', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('address_detail', 'address_name', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('phone', 'address_nation_id', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('recevier_name', 'address_address', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('recevier_nation_id', 'recevier_nation_id', 'trim|required|xss_clean');
+
+            if ($this->form_validation->run() === FALSE)
+            {
+                $data['update_success'] ='';
+                $data['order_id'] = $order_id;
+                $data['address'] = $this->address_model->get_address($address_id);
+                $this->load->view('templates/header');
+                $this->load->view('order/edit_agent_address',$data);
+                $this->load->view('templates/footer');
+            }
+            else
+            {
+                $this->address_model->update_address($address_id, $order_id);
+
+                $data['order_id'] = $order_id;
+                $data['address'] = $this->address_model->get_address($address_id);
+
+                $data['update_success'] ='Save Successfully.';
+
+                $this->load->view('templates/header');
+                $this->load->view('order/edit_address_success', $data);
+                $this->load->view('templates/footer');
+            }
+        }
+    }
+    
 }

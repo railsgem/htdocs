@@ -128,7 +128,7 @@ class Address_model extends CI_Model {
  			return $this->db->insert('os_address', $data);
 		}
 
-		public function update_address($address_id = FALSE)
+		public function update_address($address_id = FALSE, $order_id = FALSE)
 		{
 			$today = date("Y-m-d H:i:s");
 			if ($address_id !== FALSE)
@@ -144,6 +144,8 @@ class Address_model extends CI_Model {
 			    $this->db->where('address_id', $address_id);
 			    $this->db->update('os_address', $data);
 		    }
+		    
+
 		}
 
 
