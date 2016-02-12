@@ -326,6 +326,23 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 			    $this->db->delete('os_order_product_tmp');
 		    }
 		}		
+		public function edit_order_product($order_product_id = FALSE)
+		{
+			$today = date("Y-m-d H:i:s");
+			$order_product_id = $this->input->post('order_product_id');
+
+			if ($order_product_id !== FALSE)
+			{
+			    $data = array(
+					'quantity' => $this->input->post('quantity'),
+					'sell_price' => $this->input->post('sell_price'),
+			        'update_time' => $today
+			    );
+			    
+			    $this->db->where('order_product_id', $order_product_id);
+			    $this->db->update('os_order_product', $data);
+		    }
+		}		
 		public function delete_order_product($order_product_id = FALSE)
 		{
 			$order_product_id = $this->input->post('order_product_id');

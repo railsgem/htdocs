@@ -41,7 +41,6 @@
                                 <option value="<?php echo $product_item['os_product_id'] ?>" <?php if ($product_item['os_product_id'] === set_value('os_product_id')) { echo "selected"; } ?>><?php echo $product_item['product_name'] ?></option>
                             <?php endforeach ?>
                         </select>
-
                     </div>
                     <div class="form-group col-lg-5">
                         <button id="add_product_to_cart" class="btn btn-primary" />Add to Cart</button>
@@ -71,6 +70,7 @@
                     <b>Cart (Product List)</b>
                 </div>
                 <div class="panel-body">
+                    <div class="table-responsive">
                         <table class="table table-bordered table-hover table-striped" >
                             <thead>
                                 <tr>
@@ -116,7 +116,7 @@
                                                           </div>
                                                           <div class="modal-footer">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                                            <button type="button" class="btn btn-primary" onclick="delete_cart_product('<?php echo $product_item['order_product_id']."','".$product_item['order_id']; ?>')">Yes, Delete</button>
+                                                            <button type="button" class="btn btn-primary" onclick="delete_cart_product('<?php echo $product_item['order_product_id']; ?>')">Yes, Delete</button>
                                                           </div>
                                                         </div>
                                                       </div>
@@ -128,16 +128,13 @@
                                 <?php endforeach ?>
                             </tbody>
                         </table>
+                    </div>
                 </div>
 
             </div> 
         </div> 
-
-
-
     </div>
     <!-- /.row -->
-
     <?php echo form_open('order/create') ?>
 
         <div class="row">
@@ -171,36 +168,35 @@
                             </select>
                         </div>
 
-
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped" >
-                            <thead>
-                                <tr>
-                                    <th style='display:none'>address_id</th>
-                                    <th>select</th>
-                                    <th>recevier_name</th>
-                                    <th>address_detail</th>
-                                    <th>phone</th>
-                                    <th>recevier_nation_id</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody id="agent_address_list_table">
-                                <tr id="add_new_address_tr">
-                                    <td style='display:none'></td>
-                                    <td><input id="recevier_name" class="form-control" type="input" name="recevier_name" value="<?php echo set_value('recevier_name'); ?>"></td>
-                                    <td><input id="address_detail" class="form-control" type="input" name="address_detail" value="<?php echo set_value('address_detail'); ?>"></td>
-                                    <td><input id="phone" class="form-control" type="input" name="phone" value="<?php echo set_value('phone'); ?>"></td>
-                                    <td><input id="recevier_nation_id" class="form-control" type="input" name="recevier_nation_id" value="<?php echo set_value('recevier_nation_id'); ?>"></td>
-                                    <td><span id="save_new_address" class="btn btn-primary" />save</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="form-group">
-                            <label for="remark">remark:</label>
-                            <textarea type="input" name="remark" class="form-control" rows="3" value="<?php echo set_value('remark'); ?>"></textarea>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped" >
+                                <thead>
+                                    <tr>
+                                        <th style='display:none'>address_id</th>
+                                        <th>select</th>
+                                        <th>recevier_name</th>
+                                        <th>address_detail</th>
+                                        <th>phone</th>
+                                        <th>recevier_nation_id</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="agent_address_list_table">
+                                    <tr id="add_new_address_tr">
+                                        <td style='display:none'></td>
+                                        <td><input id="recevier_name" class="form-control" type="input" name="recevier_name" value="<?php echo set_value('recevier_name'); ?>"></td>
+                                        <td><input id="address_detail" class="form-control" type="input" name="address_detail" value="<?php echo set_value('address_detail'); ?>"></td>
+                                        <td><input id="phone" class="form-control" type="input" name="phone" value="<?php echo set_value('phone'); ?>"></td>
+                                        <td><input id="recevier_nation_id" class="form-control" type="input" name="recevier_nation_id" value="<?php echo set_value('recevier_nation_id'); ?>"></td>
+                                        <td><span id="save_new_address" class="btn btn-primary" />save</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="form-group">
+                                <label for="remark">remark:</label>
+                                <textarea type="input" name="remark" class="form-control" rows="3" value="<?php echo set_value('remark'); ?>"></textarea>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div> 
             </div> 
@@ -264,7 +260,7 @@
     }
 
     $(document).ready(function(){
-        
+
         $("#os_product_id").change(function(){
             console.log($("#os_product_id").val());
             //get product_item data

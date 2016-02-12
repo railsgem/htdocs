@@ -145,6 +145,11 @@ class Order extends CI_Controller {
         $this->order_model->delete_cart_product();
        
     }
+    public function edit_order_product()
+    {
+        $this->order_model->edit_order_product();
+       
+    }
     public function delete_order_product()
     {
         $this->order_model->delete_order_product();

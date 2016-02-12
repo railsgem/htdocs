@@ -89,7 +89,6 @@
            
                             <?php  foreach ($order_product as $product_item): ?>
                                         <tr>
-                                            <?php echo form_open('order/delete_order_product') ?>
                                                 <td style='display:none'><?php echo $product_item['os_product_id']; ?></td>
                                                 <td style='display:none'><?php echo $product_item['os_product_id']; ?></td>
                                                 <td><?php echo $product_item['product_name']; ?></td>
@@ -100,6 +99,7 @@
                                                 <td>
                                                     <a style="display:none" href="/index.php/order/edit_cart/<?php echo $product_item['order_product_id']; ?>" class="btn btn-danger btn-xs" >View/Edit</a>
                                                     
+                                            <?php echo form_open('order/delete_order_product') ?>
                                                     <input type="hidden" name="delete_product_id" value="<?php echo $product_item['os_product_id']; ?>">
                                                     <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete_product_<?php echo $product_item['os_product_id'];?>">Delete</button>
 
@@ -121,9 +121,64 @@
                                                         </div>
                                                       </div>
                                                     </div>
-                                                </td>
-
                                             </form>
+
+
+                                            <?php echo form_open('order/edit_order_product') ?>
+                                                    <input type="hidden" name="edit_product_id" value="<?php echo $product_item['os_product_id']; ?>">
+                                                    <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#edit_product_<?php echo $product_item['os_product_id'];?>">Edit</button>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="edit_product_<?php echo $product_item['os_product_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                      <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                          <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title" id="myModalLabel">Edit product List Confirm</h4>
+                                                          </div>
+                                                          <div class="modal-body">
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group">
+                                                                    <label for="os_product_id"><span class="red"> * </span>os_product_name:</label>
+                                                                   <input disabled id="m_os_product_id" class="form-control" type="input" name="m_os_product_id" value="<?php echo $product_item['product_name']; ?>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                <div class="form-group">
+                                                                    <label for="chemist_price"><span class="red"> * </span>chemist_price:</label>
+                                                                    <input disabled id="m_chemist_price" class="form-control" type="input" name="m_chemist_price" value="<?php echo $product_item['chemist_price'];?>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                <div class="form-group">
+                                                                    <label for="buy_shop"><span class="red"> * </span>source_type:</label>
+                                                                    <input disabled id="m_source_type" class="form-control" type="input" name="m_buy_shop" value="<?php echo $product_item['source_type'];set_value('buy_shop'); ?>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                <div class="form-group">
+                                                                    <label for="quantity"><span class="red"> * </span>quantity:</label>
+                                                                    <input id="m_quantity" class="form-control" type="input" name="m_quantity" value="<?php echo $product_item['quantity']; ?>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                <div class="form-group">
+                                                                    <label for="sell_price"><span class="red"> * </span>sell_price:</label>
+                                                                    <input id="m_sell_price" class="form-control" type="input" name="m_sell_price" value="<?php echo $product_item['sell_price']; ?>">
+                                                                </div>
+                                                            </div>
+                                                            <div style="clear:both;"></div>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                                            <span type="button" class="btn btn-primary" onclick="edit_cart_product('<?php echo $product_item['order_product_id']."','".$product_item['order_id']; ?>')">Yes, SAVE</span>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                            </form>
+
+                                                </td>
                                         </tr>
                                 <?php endforeach ?>
                             </tbody>
@@ -132,9 +187,6 @@
 
             </div> 
         </div> 
-
-
-
     </div>
     <!-- /.row -->
 </div>
@@ -192,10 +244,6 @@
             });
         });
 
-        get_consumer_id();
-        $("#consumer_id").change(function(){
-            get_consumer_id();
-        });
         get_address_id();
         $("#recevier_name").change(function(){
             console.log("get_address_id");
@@ -266,6 +314,28 @@
             }
         });
     }
+    function edit_cart_product(edit_order_product_id,order_id) {
+
+        var data = {
+            order_product_id : edit_order_product_id,
+            quantity : $("#m_quantity").val(),
+            sell_price : $("#m_sell_price").val()
+        };
+        console.log(data);
+        $.ajax({
+            type: 'POST',
+            url: '/index.php/order/edit_order_product',
+            data: data,
+            beforeSend: function(data){
+                console.log("this data will post---");
+                console.log(data);
+            },
+            success: function(msg){
+                console.log(msg);
+                parent.document.location.href = "/index.php/order/order_product_list/"+order_id;
+            }
+        });
+    }
     function get_address_id(){
 
         var address_id = $("#recevier_name").val();
@@ -305,36 +375,6 @@
                 $("#phone").val(phone);
                 //$("#recevier_name").val(recevier_name);
                 $("#recevier_nation_id").val(recevier_nation_id);
-            }
-        });
-    }
-    function get_consumer_id(){
-        var consumer_id = $("#consumer_id").val();
-       
-        console.log(consumer_id);
-        $("#order_code").val(consumer_id);
-        //$("#order_code").css("background-color","#FFFFCC");
-
-
-        var data = {
-            consumer_id : consumer_id
-        };
-        $.ajax({
-            type: 'POST',
-            url: '/index.php/consumer/get_consumer_json',
-            data: data,
-            beforeSend: function(){
-
-            },
-            success: function(msg){
-                var consumer_Obj = new Array();
-                consumer_Obj = JSON.parse(msg);//eval(msg);
-                console.log(consumer_Obj);
-                agent_name_code = consumer_Obj[0]['agent_name_code'];
-                console.log(consumer_Obj);
-                console.log(consumer_Obj[0]['agent_name_code']);
-                $("#order_code").val(agent_name_code+"<?php echo date('Ymd_His');?>");
-                $("#order_code_auto").val(agent_name_code+"<?php echo date('Ymd_His');?>");
             }
         });
     }

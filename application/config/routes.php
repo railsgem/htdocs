@@ -116,6 +116,7 @@ $route['order/despatch'] = 'order/despatch';
 $route['order/postage'] = 'order/postage';
 $route['order/deactivate_user'] = 'order/deactivate_user';
 $route['order/add_order_product'] = 'order/add_order_product';
+$route['order/edit_order_product'] = 'order/edit_order_product';
 $route['order/delete_order_product'] = 'order/delete_order_product';
 $route['order/delete_cart_product'] = 'order/delete_cart_product';
 $route['order/add_product_to_cart'] = 'order/add_product_to_cart';
