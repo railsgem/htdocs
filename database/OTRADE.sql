@@ -11,7 +11,7 @@
  Target Server Version : 50505
  File Encoding         : utf-8
 
- Date: 02/12/2016 16:44:46 PM
+ Date: 02/12/2016 17:23:34 PM
 */
 
 SET NAMES utf8;
@@ -90,7 +90,7 @@ CREATE TABLE `os_address` (
 --  Records of `os_address`
 -- ----------------------------
 BEGIN;
-INSERT INTO `os_address` VALUES ('18', '云南省玉溪试市澄江县澄波路7号财保公司', '18287724188', 'juno', '532124198608301724', '2016-02-09 08:23:56', '2016-02-12 16:44:25');
+INSERT INTO `os_address` VALUES ('18', '云南省玉溪试市澄江县澄波路7号财保公司', '18287724188', 'juno', '532124198608301724', '2016-02-09 08:23:56', '2016-02-12 16:51:08');
 COMMIT;
 
 -- ----------------------------
@@ -245,6 +245,33 @@ INSERT INTO `os_despatch` VALUES ('1', '51', '1', '3', '2016-02-09 22:03:32', '2
 COMMIT;
 
 -- ----------------------------
+--  Table structure for `os_file`
+-- ----------------------------
+DROP TABLE IF EXISTS `os_file`;
+CREATE TABLE `os_file` (
+  `file_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_code` varchar(255) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `file_name` varchar(255) DEFAULT NULL,
+  `file_type` varchar(255) DEFAULT NULL,
+  `file_path` varchar(255) DEFAULT NULL,
+  `full_path` varchar(255) DEFAULT NULL,
+  `raw_name` varchar(255) DEFAULT NULL,
+  `orig_name` varchar(255) DEFAULT NULL,
+  `client_name` varchar(255) DEFAULT NULL,
+  `file_ext` varchar(255) DEFAULT NULL,
+  `file_size` double DEFAULT NULL,
+  `is_image` int(11) DEFAULT NULL,
+  `image_width` double DEFAULT NULL,
+  `image_height` double DEFAULT NULL,
+  `image_type` varchar(255) DEFAULT NULL,
+  `image_size_str` varchar(255) DEFAULT NULL,
+  `os_file_desp` varchar(255) DEFAULT NULL,
+  `os_file_desp_id` int(11) DEFAULT '0' COMMENT '0: others, 1: id front, 2: id back , 3: receipts, 4: postage, 5: product pics',
+  PRIMARY KEY (`file_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 --  Table structure for `os_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `os_order`;
@@ -269,7 +296,7 @@ CREATE TABLE `os_order` (
 --  Records of `os_order`
 -- ----------------------------
 BEGIN;
-INSERT INTO `os_order` VALUES ('51', 'wd_20160209_191342', '1', '0', '0', '2016-02-09 19:13:52', '2016-02-09 19:16:45', '0', '云南省玉溪试市澄江县澄波路7号财保公司', '18287724188', '刘艳', '532124198608301724', 'Juno: 罐底标记考拉'), ('52', 'wd_20160210_194516', '1', '0', '0', '2016-02-10 19:45:32', '2016-02-12 16:44:25', '1', '云南省玉溪试市澄江县澄波路7号财保公司', '18287724188', 'juno', '532124198608301724', '');
+INSERT INTO `os_order` VALUES ('51', 'wd_20160209_191342', '1', '0', '0', '2016-02-09 19:13:52', '2016-02-09 19:16:45', '0', '云南省玉溪试市澄江县澄波路7号财保公司', '18287724188', '刘艳', '532124198608301724', 'Juno: 罐底标记考拉'), ('52', 'wd_20160210_194516', '1', '0', '0', '2016-02-10 19:45:32', '2016-02-12 16:51:23', '1', '云南省玉溪试市澄江县澄波路7号财保公司', '18287724188', 'juno', '532124198608301724', '');
 COMMIT;
 
 -- ----------------------------

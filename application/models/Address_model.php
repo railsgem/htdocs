@@ -134,18 +134,16 @@ class Address_model extends CI_Model {
 			if ($address_id !== FALSE)
 			{
 			    $data = array(
-		        'address_detail' => $this->input->post('address_detail'),
-		        'phone' => $this->input->post('phone'),
-		        'recevier_name' => $this->input->post('recevier_name'),
-		        'recevier_nation_id' => $this->input->post('recevier_nation_id'),
-		        'update_time' => $today
+			        'address_detail' => $this->input->post('address_detail'),
+			        'phone' => $this->input->post('phone'),
+			        'recevier_name' => $this->input->post('recevier_name'),
+			        'recevier_nation_id' => $this->input->post('recevier_nation_id'),
+			        'update_time' => $today
 			    );
 
 			    $this->db->where('address_id', $address_id);
 			    $this->db->update('os_address', $data);
 		    }
-		    
-
 		}
 
 
