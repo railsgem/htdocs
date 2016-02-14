@@ -10,6 +10,19 @@ class stock_model extends CI_Model {
 
 	public function get_stock_list($offset = 1,$per_page = 14,$is_total = FALSE)
 	{
+		$product_name = $this->input->get('product_name');
+		$product_name = str_replace('\'','\'\'',$product_name);
+		$is_despatched = $this->input->get('is_despatched');
+		$is_out_of_stock = $this->input->get('is_out_of_stock');
+		$buyer = $this->input->get('buyer');
+		$buyer = str_replace('\'','\'\'',$buyer);
+		$buy_shop = $this->input->get('buy_shop');
+		$buy_shop = str_replace('\'','\'\'',$buy_shop);
+		$expire_date_from = $this->input->get('expire_date_from');
+		$expire_date_to = $this->input->get('expire_date_to');
+		$purchase_time_from = $this->input->get('purchase_time_from');
+		$purchase_time_to = $this->input->get('purchase_time_to');
+
 		$myquery = "select op.product_name,
 								stk.stock_id,
 								stk.os_product_id,
@@ -27,17 +40,67 @@ class stock_model extends CI_Model {
 							from os_stock_entry stk 
 						left join os_product op on stk.os_product_id = op.os_product_id WHERE 1=1 ";
 
+		if ($product_name != '')
+		{
+			$myquery = $myquery.' and op.product_name like \'%'.$product_name.'%\'';
+		}
+		if ($buyer != '')
+		{
+			$myquery = $myquery.' and stk.buyer like \'%'.$buyer.'%\'';
+		}
+		if ($buy_shop != '')
+		{
+			$myquery = $myquery.' and stk.buy_shop like \'%'.$buy_shop.'%\'';
+		}
+
+
+		if ($expire_date_from != '')
+		{
+			$myquery = $myquery.' and stk.expire_date >= \''.$expire_date_from.'\'';
+		}	
+		if ($expire_date_to != '')
+		{
+			$myquery = $myquery.' and stk.expire_date <= \''.$expire_date_to.' \'';
+		}					
+		
+		if ($purchase_time_from != '')
+		{
+			$myquery = $myquery.' and stk.purchase_time >= \''.$purchase_time_from.'\'';
+		}	
+		if ($purchase_time_to != '')
+		{
+			$myquery = $myquery.' and stk.purchase_time <= \''.$purchase_time_to.' \'';
+		}					
+		
+		if ($is_despatched == '1')
+		{
+			$myquery = $myquery.' and stk.stock_despatch_num > 0';
+		}
+		if ($is_despatched == '0')
+		{
+			$myquery = $myquery.' and stk.stock_despatch_num = 0';
+		}
+		if ($is_out_of_stock == '1')
+		{
+			$myquery = $myquery.' and stk.stock_present_num = 0';
+		}
+		if ($is_out_of_stock == '0')
+		{
+			$myquery = $myquery.' and stk.stock_present_num > 0';
+		}
+
+
 		if ($is_total == TRUE)
 		{
 			//echo $myquery;
-			$myquery = $myquery.' order by entry_time asc ';
+			$myquery = $myquery.' order by stk.expire_date asc ';
 			$query = $this->db->query($myquery);
 			return $query->num_rows();
 		}
 		else
 		{
 			//echo $myquery;
-			$myquery = $myquery.' order by entry_time desc limit '.$offset.', '.$per_page;
+			$myquery = $myquery.' order by stk.expire_date desc limit '.$offset.', '.$per_page;
 			$query = $this->db->query($myquery);
             return $query->result_array();
         }

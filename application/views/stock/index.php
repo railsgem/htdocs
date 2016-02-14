@@ -39,6 +39,92 @@
         </div>
     <?php  } ?>
 
+    <?php echo form_open('stock' , array('method'=>'get','name'=>'productlist','id'=>'productlist')) ?>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-inline well center-block">
+                    <div class="form-group">
+                        <label for="product_name">Product Name:</label>
+                        <input type="text" style="width:180px;" class="form-control" name="product_name" value="<?php if (isset($_GET['product_name'])) {echo $_GET['product_name'];} ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="buyer">Buyer:</label>
+                        <input type="text" style="width:100px;" class="form-control" name="buyer" value="<?php if (isset($_GET['buyer'])) {echo $_GET['buyer'];} ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="buy_shop">Shop:</label>
+                        <input type="text" style="width:100px;" class="form-control" name="buy_shop" value="<?php if (isset($_GET['buy_shop'])) {echo $_GET['buy_shop'];} ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="is_despatched">Despatched:</label>
+                        <select class="form-control" name="is_despatched" >
+                            <option value="">All</option>
+                            <option value=1 <?php 
+                            if (isset($_GET['is_despatched']))
+                            {
+                                if ( $_GET['is_despatched'] == '1') 
+                                    {echo 'selected';}
+                            }
+                            ?>>YES</option>
+                            <option value=0 <?php 
+                            if (isset($_GET['is_despatched']))
+                            {
+                                if ( $_GET['is_despatched'] == '0') 
+                                    {echo 'selected';}
+                            }
+                            ?>>NO</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="is_out_of_stock">Out of stock:</label>
+                        <select class="form-control" name="is_out_of_stock" >
+                            <option value="">All</option>
+                            <option value=1 <?php 
+                            if (isset($_GET['is_out_of_stock']))
+                            {
+                                if ( $_GET['is_out_of_stock'] == '1') 
+                                    {echo 'selected';}
+                            }
+                            ?>>YES</option>
+                            <option value=0 <?php 
+                            if (isset($_GET['is_out_of_stock']))
+                            {
+                                if ( $_GET['is_out_of_stock'] == '0') 
+                                    {echo 'selected';}
+                            }
+                            ?>>NO</option>
+                        </select>
+                    </div>
+
+                    </br></br>
+                    <div style="clear:both"></div>
+                    <div class="form-group">
+                        <label for="expire_date_from">Expire date from:</label>
+                        <input type="text" class="form-control dp" name="expire_date_from" style="width:100px;" value="<?php if (isset($_GET['expire_date_from'])) {echo $_GET['expire_date_from'];} ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="expire_date_to">to:</label>
+                        <input type="text" class="form-control dp" name="expire_date_to" style="width:100px;" value="<?php if (isset($_GET['expire_date_to'])) {echo $_GET['expire_date_to'];} ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="purchase_time_from">Purchase time from:</label>
+                        <input type="text" class="form-control dp" name="purchase_time_from" style="width:100px;" value="<?php if (isset($_GET['purchase_time_from'])) {echo $_GET['purchase_time_from'];} ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="purchase_time_to">to:</label>
+                        <input type="text" class="form-control dp" name="purchase_time_to" style="width:100px;" value="<?php if (isset($_GET['purchase_time_to'])) {echo $_GET['purchase_time_to'];} ?>">
+                    </div>
+
+                    <input type="hidden" name="delete_product_id" value="">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    
+                </div>
+            </div>
+        </div>
+    </form>
         <div class="row" style="margin-bottom:10px;">
             <div class="col-lg-4">
                 <span style="color:#337ab7">Total: <?php echo $total; ?> Results</span> 
@@ -139,3 +225,25 @@
 
         </div>
 </div>
+
+<?php
+    $url_para = '?';
+    if (isset($_GET['product_name']))
+        {$url_para .='product_name='.str_replace('\'','',$_GET['product_name']);}
+    if (isset($_GET['barcode']))
+        {$url_para .='&barcode='.$_GET['barcode'];}
+    if (isset($_GET['location']))
+        {$url_para .='&location='.$_GET['location'];}
+    if (isset($_GET['stock']))
+        {$url_para .='&stock='.$_GET['stock'];}
+?>
+
+<script type="text/javascript">
+
+    $(".page_section").children("a").each(function(){
+        //alert('aaa');
+        $(this).attr('href',$(this).attr('href')+'<?php echo $url_para;?>');
+        //alert($(this).attr('href'));
+    });
+
+</script>
