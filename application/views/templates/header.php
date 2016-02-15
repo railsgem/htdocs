@@ -177,6 +177,9 @@ date_default_timezone_set("Australia/NSW");
                     <li id="fetch_li">
                         <a href="/index.php/fetch"><i class="fa fa-fw fa-bug"></i> Fetch</a>
                     </li>  
+                    <li id="upload_li">
+                        <a href="/index.php/upload"><i class="fa fa-cloud-upload"></i> Upload</a>
+                    </li>  
                     <li id="auth_li" >
                         <a href="/index.php/auth"><i class="fa fa-fw fa-cog"></i> User Setting</a>
                     </li>

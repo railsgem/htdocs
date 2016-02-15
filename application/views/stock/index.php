@@ -229,13 +229,30 @@
 <?php
     $url_para = '?';
     if (isset($_GET['product_name']))
-        {$url_para .='product_name='.str_replace('\'','',$_GET['product_name']);}
-    if (isset($_GET['barcode']))
-        {$url_para .='&barcode='.$_GET['barcode'];}
-    if (isset($_GET['location']))
-        {$url_para .='&location='.$_GET['location'];}
-    if (isset($_GET['stock']))
-        {$url_para .='&stock='.$_GET['stock'];}
+        {
+            $url_para .='product_name='.urlencode($_GET['product_name']);
+        }
+    if (isset($_GET['buyer']))
+        {
+            $url_para .='&buyer='.urlencode($_GET['buyer']);
+        }
+    if (isset($_GET['buy_shop']))
+        {
+            $url_para .='&buy_shop='.urlencode($_GET['buy_shop']);
+        }
+    if (isset($_GET['is_despatched']))
+        {$url_para .='&is_despatched='.$_GET['is_despatched'];}
+    if (isset($_GET['is_out_of_stock']))
+        {$url_para .='&is_out_of_stock='.$_GET['is_out_of_stock'];}
+    if (isset($_GET['expire_date_from']))
+        {$url_para .='&expire_date_from='.$_GET['expire_date_from'];}
+    if (isset($_GET['expire_date_to']))
+        {$url_para .='&expire_date_to='.$_GET['expire_date_to'];}
+    if (isset($_GET['purchase_time_from']))
+        {$url_para .='&purchase_time_from='.$_GET['purchase_time_from'];}
+    if (isset($_GET['purchase_time_to']))
+        {$url_para .='&purchase_time_to='.$_GET['purchase_time_to'];}
+
 ?>
 
 <script type="text/javascript">

@@ -137,6 +137,11 @@ $route['address/edit'] = 'address/edit';
 $route['address/(:any)'] = 'address/index';
 $route['address'] = 'address';
 
+$route['upload/do_upload'] = 'upload/do_upload';
+$route['upload/upload_form'] = 'upload/upload_form';
+$route['upload/(:any)'] = 'upload/upload_form';
+$route['upload'] = 'upload';
+
 $route['brand/index'] = 'brand/index';
 $route['brand/create'] = 'brand/create';
 $route['brand/edit'] = 'brand/edit';

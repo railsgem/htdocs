@@ -41,6 +41,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <b>Cart (Product List)</b>
+
+                    <button type="button" class="btn btn-primary">auto despatch</button>
                 </div>
                 <div class="panel-body">
                         <table class="table table-bordered table-hover table-striped" >
