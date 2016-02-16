@@ -433,10 +433,11 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		}
 		public function auto_despatch()
 		{
+			$today = date("Y-m-d H:i:s");
 			$order_id = $this->input->post('order_id');
 
 			if($order_id !== FALSE) {
-				$myquery = "SELECT
+				$stock_available_myquery = "SELECT
 								t1.order_id,
 								t1.os_product_id,
 								t1.quantity,
@@ -457,36 +458,19 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 								t1.order_id =".$order_id."
 							AND t1.quantity > IFNULL(t2.stock_present_num, 0)" ;
 
-				$query = $this->db->query($myquery);
+				$query = $this->db->query($stock_available_myquery);
 				$is_stock_available = $query->num_rows();
 
 				if( $is_stock_available > 0 ) {
 					echo "not enought values";
 				} else {
 					echo "stock available";
-					// pick up stock order by expire date
-					$myquery = "SELECT
-								  t1.order_id,
-								  t1.quantity,
-								  t1.os_product_id,
-								  t2.`stock_id`,
-								  t2.`stock_entry_num`,
-								  t2.`stock_despatch_num`,
-								  t2.`stock_present_num`
-								FROM
-								  `os_order_product` t1
-								LEFT JOIN
-								  os_stock_entry t2 ON t1.os_product_id = t2.os_product_id
-								WHERE
-								  t1.order_id =".$order_id;
-					$query = $this->db->query($myquery);
-					$stock = $query->result_array();
 
 					// count despatched number
 					$despatch_balance_myquery = "SELECT
 								  a.order_id,
 								  a.os_product_id,
-								  a.quantity - ,
+								  a.quantity,
 								  IFNULL(b.despatch_num,0) despatch_num,
 								  (a.quantity - IFNULL(b.despatch_num,0)) order_quantity_valiance
 								FROM
@@ -518,26 +502,99 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 								WHERE
 								  1 = 1 AND a.quantity > IFNULL(b.despatch_num,
 								  0)";
-
 					$query = $this->db->query($despatch_balance_myquery);
 					$despatch_product = $query->result_array();
 					$is_despatch_balance = $query->num_rows();
 
 					while($is_despatch_balance) {
-						
-						
+
+print_r($is_despatch_balance);
+						$product_id = $despatch_product[0]['os_product_id'];
+						$order_quantity_valiance = $despatch_product[0]['order_quantity_valiance'];
+
+						// pick up stock order by expire date
+						$stock_myquery = "SELECT
+									  t1.order_id,
+									  t1.quantity,
+									  t1.os_product_id,
+									  t2.stock_id,
+									  t2.stock_entry_num,
+									  t2.stock_despatch_num,
+									  t2.stock_present_num,
+									  t2.expire_date
+									FROM
+									  os_order_product t1
+									LEFT JOIN
+									  os_stock_entry t2 ON t1.os_product_id = t2.os_product_id
+									WHERE 1=1 and t2.stock_present_num > 0 and 
+									  t1.order_id =".$order_id." and t2.os_product_id=".$product_id."
+									  order by t2.expire_date asc
+									  ";
+
+						$query = $this->db->query($stock_myquery);
+						$stock = $query->result_array();
+
 						$stock_index = 0;
 						// valiance 
-						$stock[$stock_index]['stock_id'];
-						$stock[$stock_index]['quantity'];
-						$stock[$stock_index]['os_product_id'];
-						$stock[$stock_index]['stock_present_num'];
+						$stock_id = $stock[$stock_index]['stock_id'];
+						$stock_present_num = $stock[$stock_index]['stock_present_num'];
+						$stock_despatch_num = $stock[$stock_index]['stock_despatch_num'];
 
+						if ( $order_quantity_valiance <= $stock_present_num ) {
+							// update 
+							$pick_stock_query = "
+								update os_stock_entry set stock_present_num=".($stock_present_num-$order_quantity_valiance)."
+									, stock_despatch_num=".($stock_despatch_num+$order_quantity_valiance)."
+								  where stock_id =".$stock_id;
+print_r("pick_stock_query:");
+print_r($pick_stock_query);
+							$this->db->query($pick_stock_query);
 
+							$despatch_query = "
+								insert into os_despatch 
+									(order_id, stock_id, despatch_num, os_product_id, entry_time)
+									values
+									(".$order_id.", 
+									 ".$stock_id.", 
+									 ".$order_quantity_valiance.", 
+									 ".$product_id.", 
+									 '".$today."')
+							";
+							$this->db->query($despatch_query);
+						} else {
+							// update 
+							$pick_stock_query = "
+								update os_stock_entry set stock_present_num= 0
+									, stock_despatch_num=".($stock_despatch_num+$stock_present_num)."
+								  where stock_id =".$stock_id;
+print_r("pick_stock_query:");
+print_r($pick_stock_query);
+							$this->db->query($pick_stock_query);
 
+							$despatch_query = "
+								insert into os_despatch 
+									(order_id, stock_id, despatch_num, os_product_id, entry_time)
+									values
+									(".$order_id.", 
+									 ".$stock_id.", 
+									 ".$stock_present_num.", 
+									 ".$product_id.", 
+									 '".$today."')
+							";
+print_r("despatch_query:");
+print_r($despatch_query);
+							$this->db->query($despatch_query);
+						}
 						// judge despatch balance
 						$query = $this->db->query($despatch_balance_myquery);
 						$is_despatch_balance = $query->num_rows();
+
+print_r("is_despatch_balance:");
+print_r($is_despatch_balance);
+						$stock_index = $stock_index + 1;
+						// check stock
+						/*$query = $this->db->query($stock_available_myquery);
+						$is_stock_available = $query->num_rows();*/
 					}
 				}
 			} else {

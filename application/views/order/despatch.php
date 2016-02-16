@@ -306,6 +306,7 @@
                 console.log(msg);
                 message(msg,1);
                // message('auto_despatch is success!',1);
+               //parent.document.location.href = "/index.php/order/despatch/"+order_id;
             }
         });
     }
