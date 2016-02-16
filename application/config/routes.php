@@ -115,6 +115,7 @@ $route['order/delete_agent_address'] = 'order/delete_agent_address';
 $route['order/get_agent_address_list'] = 'order/get_agent_address_list';
 $route['order/save_new_address'] = 'order/save_new_address';
 $route['order/set_despatch_num'] = 'order/set_despatch_num';
+$route['order/despatch/auto_despatch'] = 'order/auto_despatch';
 $route['order/despatch'] = 'order/despatch';
 $route['order/postage'] = 'order/postage';
 $route['order/deactivate_user'] = 'order/deactivate_user';

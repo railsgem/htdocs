@@ -42,7 +42,7 @@
                 <div class="panel-heading">
                     <b>Cart (Product List)</b>
 
-                    <button type="button" class="btn btn-primary">auto despatch</button>
+                    <button type="button" onclick="auto_despatch(<?php echo $order['order_id']; ?>)" class="btn btn-primary">auto despatch</button>
                 </div>
                 <div class="panel-body">
                         <table class="table table-bordered table-hover table-striped" >
@@ -286,6 +286,30 @@
 
 
     });
+
+    function auto_despatch(order_id)
+    {
+        console.log("auto_despatch");
+        //get product_item data
+        var data = {
+            order_id : order_id
+        };
+        //post product_item to session
+        $.ajax({
+            type: 'POST',
+            url: 'auto_despatch',
+            data: data,
+            beforeSend: function(data){
+                console.log("this data will post---");
+            },
+            success: function(msg){
+                console.log(msg);
+                message(msg,1);
+               // message('auto_despatch is success!',1);
+            }
+        });
+    }
+
     function set_despatch_num(stock_id,order_id,os_product_id,stock_despatch_num)
     {
 

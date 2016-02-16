@@ -431,8 +431,121 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 		        return $query->result_array();
 		    }
 		}
-		public function set_despatch($order_id)
+		public function auto_despatch()
 		{
+			$order_id = $this->input->post('order_id');
+
+			if($order_id !== FALSE) {
+				$myquery = "SELECT
+								t1.order_id,
+								t1.os_product_id,
+								t1.quantity,
+								t1.sell_price,
+								t2.stock_present_num
+							FROM
+								os_order_product t1
+							LEFT JOIN (
+								SELECT
+									t2.os_product_id,
+									sum(t2.stock_present_num) stock_present_num
+								FROM
+									os_stock_entry t2
+								GROUP BY
+									t2.os_product_id
+							) t2 ON t1.os_product_id = t2.os_product_id
+							WHERE
+								t1.order_id =".$order_id."
+							AND t1.quantity > IFNULL(t2.stock_present_num, 0)" ;
+
+				$query = $this->db->query($myquery);
+				$is_stock_available = $query->num_rows();
+
+				if( $is_stock_available > 0 ) {
+					echo "not enought values";
+				} else {
+					echo "stock available";
+					// pick up stock order by expire date
+					$myquery = "SELECT
+								  t1.order_id,
+								  t1.quantity,
+								  t1.os_product_id,
+								  t2.`stock_id`,
+								  t2.`stock_entry_num`,
+								  t2.`stock_despatch_num`,
+								  t2.`stock_present_num`
+								FROM
+								  `os_order_product` t1
+								LEFT JOIN
+								  os_stock_entry t2 ON t1.os_product_id = t2.os_product_id
+								WHERE
+								  t1.order_id =".$order_id;
+					$query = $this->db->query($myquery);
+					$stock = $query->result_array();
+
+					// count despatched number
+					$despatch_balance_myquery = "SELECT
+								  a.order_id,
+								  a.os_product_id,
+								  a.quantity - ,
+								  IFNULL(b.despatch_num,0) despatch_num,
+								  (a.quantity - IFNULL(b.despatch_num,0)) order_quantity_valiance
+								FROM
+								  (
+								  SELECT
+								    t3.order_id,
+								    t3.os_product_id,
+								    SUM(t3.quantity) quantity
+								  FROM
+								    os_order_product t3
+								  WHERE
+								    t3.order_id = ".$order_id."
+								  GROUP BY
+								    t3.order_id,
+								    t3.os_product_id
+								) a
+								LEFT JOIN
+								  (
+								  SELECT
+								    t3.os_product_id,
+								    SUM(t3.despatch_num) despatch_num
+								  FROM
+								    os_despatch t3
+								  WHERE
+								    t3.order_id = ".$order_id."
+								  GROUP BY
+								    t3.os_product_id
+								) b ON a.os_product_id = b.os_product_id
+								WHERE
+								  1 = 1 AND a.quantity > IFNULL(b.despatch_num,
+								  0)";
+
+					$query = $this->db->query($despatch_balance_myquery);
+					$despatch_product = $query->result_array();
+					$is_despatch_balance = $query->num_rows();
+
+					while($is_despatch_balance) {
+						
+						
+						$stock_index = 0;
+						// valiance 
+						$stock[$stock_index]['stock_id'];
+						$stock[$stock_index]['quantity'];
+						$stock[$stock_index]['os_product_id'];
+						$stock[$stock_index]['stock_present_num'];
+
+
+
+						// judge despatch balance
+						$query = $this->db->query($despatch_balance_myquery);
+						$is_despatch_balance = $query->num_rows();
+					}
+				}
+			} else {
+				echo "not a valid order id";
+			}
+
+			/*$myquery = "update os_order set despatch_flag =1 where order_id= ".$order_id ;
+			$query = $this->db->query($myquery);*/
 
 		    /*$data = array(
 		        'postage_company_id' => $this->input->post('postage_company_id'),

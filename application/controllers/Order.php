@@ -160,6 +160,11 @@ class Order extends CI_Controller {
         $this->order_model->add_order_product();
        
     }
+    public function auto_despatch()
+    {
+        $this->order_model->auto_despatch();
+       
+    }
     public function order_product_list($order_id = FALSE)
     {
         $this->load->helper('form');
