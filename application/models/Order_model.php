@@ -509,6 +509,9 @@ on orp.os_product_id = op.os_product_id group by orp.order_id ) odr_pdt on od_ag
 					while($is_despatch_balance) {
 
 print_r($is_despatch_balance);
+						$query = $this->db->query($despatch_balance_myquery);
+						$despatch_product = $query->result_array();
+						$is_despatch_balance = $query->num_rows();
 						$product_id = $despatch_product[0]['os_product_id'];
 						$order_quantity_valiance = $despatch_product[0]['order_quantity_valiance'];
 
@@ -534,6 +537,8 @@ print_r($is_despatch_balance);
 						$query = $this->db->query($stock_myquery);
 						$stock = $query->result_array();
 
+print_r("stock_myquery:");
+print_r($stock_myquery);
 						$stock_index = 0;
 						// valiance 
 						$stock_id = $stock[$stock_index]['stock_id'];
@@ -541,6 +546,11 @@ print_r($is_despatch_balance);
 						$stock_despatch_num = $stock[$stock_index]['stock_despatch_num'];
 
 						if ( $order_quantity_valiance <= $stock_present_num ) {
+							
+print_r("order_quantity_valiance:");
+print_r($order_quantity_valiance);
+print_r("stock_present_num:");
+print_r($stock_present_num);
 							// update 
 							$pick_stock_query = "
 								update os_stock_entry set stock_present_num=".($stock_present_num-$order_quantity_valiance)."
@@ -562,6 +572,10 @@ print_r($pick_stock_query);
 							";
 							$this->db->query($despatch_query);
 						} else {
+print_r("order_quantity_valiance:");
+print_r($order_quantity_valiance);
+print_r("stock_present_num:");
+print_r($stock_present_num);
 							// update 
 							$pick_stock_query = "
 								update os_stock_entry set stock_present_num= 0

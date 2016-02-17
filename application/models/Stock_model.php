@@ -326,6 +326,7 @@ class stock_model extends CI_Model {
 							skpro.stock_entry_num,
 							skpro.stock_despatch_num,
 							skpro.stock_present_num,
+							0 despatch_num,
 							skpro.buy_shop,
 							skpro.buyer,
 							skpro.purchase_time,
@@ -368,6 +369,7 @@ class stock_model extends CI_Model {
 							skpro.stock_entry_num,
 							skpro.stock_despatch_num,
 							skpro.stock_present_num,
+							skpro.despatch_num,
 							skpro.buy_shop,
 							skpro.buyer,
 							skpro.purchase_time,
@@ -385,6 +387,7 @@ class stock_model extends CI_Model {
 							stk.stock_entry_num,
 							stk.stock_despatch_num,
 							stk.stock_present_num,
+							od.despatch_num,
 							stk.buy_shop,
 							stk.buyer,
 							stk.purchase_time,
@@ -396,7 +399,7 @@ class stock_model extends CI_Model {
 						LEFT JOIN os_product op ON stk.os_product_id = op.os_product_id
 						inner JOIN os_despatch od ON stk.stock_id = od.stock_id
 						WHERE
-							stk.stock_present_num = 0 and od.order_id =".$order_id."
+							stk.stock_present_num = 0 and od.despatch_num > 0 and od.order_id =".$order_id."
 					) skpro ON ordpro.os_product_id = skpro.os_product_id
 					where ordpro.order_id =".$order_id;
 

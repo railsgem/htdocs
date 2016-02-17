@@ -89,8 +89,8 @@
                                                             
                                                             <?php //echo $stock_item['product_name']." * "; ?>
                                                             
-                                                            <input style="width:50px;display:inline;" type="text" class="form-control" id="despatch_num_<?php echo $stock_item['stock_id'].'_'.$stock_item['order_id']?>" type="text" class="form-control"  aria-describedby="basic-addon1" value="<?php echo $stock_item['stock_despatch_num']; ?>" disabled="disabled" >
-                                                            <span class="input-group-addon" onclick="set_despatch_num(<?php echo $stock_item['stock_id'].','.$stock_item['order_id'].','.$stock_item['os_product_id'].','.$stock_item['stock_despatch_num']?>)"><span id="pencil_<?php echo $stock_item['stock_id'].'_'.$stock_item['order_id']?>" class="glyphicon glyphicon-pencil"></span></span>
+                                                            <input style="width:50px;display:inline;" type="text" class="form-control" id="despatch_num_<?php echo $stock_item['stock_id'].'_'.$stock_item['order_id']?>" type="text" class="form-control"  aria-describedby="basic-addon1" value="<?php echo $stock_item['despatch_num']; ?>" disabled="disabled" >
+                                                            <span class="input-group-addon" onclick="set_despatch_num(<?php echo $stock_item['stock_id'].','.$stock_item['order_id'].','.$stock_item['os_product_id'].','.$stock_item['despatch_num']?>)"><span id="pencil_<?php echo $stock_item['stock_id'].'_'.$stock_item['order_id']?>" class="glyphicon glyphicon-pencil"></span></span>
                                                          </div>
                                                       <!--</li> -->
                                                     <?php   } ?>
@@ -306,7 +306,7 @@
                 console.log(msg);
                 message(msg,1);
                // message('auto_despatch is success!',1);
-               //parent.document.location.href = "/index.php/order/despatch/"+order_id;
+               parent.document.location.href = "/index.php/order/despatch/"+order_id;
             }
         });
     }
