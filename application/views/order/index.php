@@ -130,11 +130,27 @@
                                         <?php echo form_open('order/index/delete') ?>
                                             <?php $product_count = "product_count_".$order_item["order_id"]; ?>
                                             <?php $product = "product_".$order_item["order_id"]; ?>
+                                            <?php $postage = "postage_".$order_item["order_id"]; ?>
 
                                             <td style='display:none'><?php echo $order_item['order_id']; ?></td>
                                             <td style='display:none'><?php echo $order_item['order_id']; ?></td>
 
-                                            <td ><?php echo $order_item['order_code']; ?></td>
+                                            <td ><?php echo $order_item['order_code']; ?>
+
+                                                <table class="table table-hover table-condensed" >
+                                                    <thead>
+
+                                                    </thead>
+                                                <tbody>
+                                                <?php foreach ($$postage as $postage_item): ?>
+                                                    <tr>
+                                                        <td><?php echo $postage_item['postage_code']; ?></td>
+                                                        <td><?php echo "$:".$postage_item['postage_fee']; ?></td>
+                                                    </tr>
+                                                <?php endforeach ?>
+                                                </tbody>
+                                                </table>
+                                            </td>
 
                                             <td style='display:none'><?php echo $order_item['agent_id']; ?></td>
                                             <td style='display:none'><?php echo $order_item['agent_name']; ?></td>
@@ -169,7 +185,9 @@
 
                                             <td >
                                                 <?php echo ($order_item['active']) ? anchor("order/deactivate/".$order_item['order_id'], "active") : anchor("order/activate/". $order_item['order_id'], "inactive");?></br>
-                                                <?php echo ($order_item['post_flag']) ? anchor("order/postage/".$order_item['order_id'], "POSTED") : anchor("order/postage/". $order_item['order_id'], "post now!");?>
+                                                <?php echo ($order_item['post_flag']) ? anchor("order/postage/".$order_item['order_id'], "POSTED") : "<div class = 'alert alert-danger'>".anchor("order/postage/". $order_item['order_id'], "post now!")."</div>";?></br>
+                                                <?php echo ($order_item['despatch_flag']) ? anchor("order/despatch/".$order_item['order_id'], "Despatched") : "<div class = 'alert alert-danger'>".anchor("order/despatch/". $order_item['order_id'], "despatch now!")."</div>";?></br>
+                                                <?php echo ($order_item['settle_flag']) ? anchor("order/settle/".$order_item['order_id'], "Settled") : "<div class = 'alert alert-danger'>".anchor("order/settle/". $order_item['order_id'], "SETTLE now!")."</div>";?>
                                             </td>
 
                                             <td >

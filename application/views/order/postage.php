@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header">
-                Add order postage
+                Add order postage - <?php echo $order['order_code']; ?>
             </h3>
             <ol class="breadcrumb">
                 <li>

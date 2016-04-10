@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header">
-                order_product_list - <span id="order_id"><?php echo $order_id ?></span>
+                order_product_list - <?php echo $order['order_code']; ?><span style="display:none;" id="order_id"><?php echo $order_id ?></span>
             </h3>
             <ol class="breadcrumb">
                 <li>

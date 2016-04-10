@@ -1,0 +1,575 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"but",
+				"button1"
+			],
+			[
+				"sav",
+				"saving_count"
+			],
+			[
+				"sa",
+				"saving_count"
+			],
+			[
+				"fee",
+				"feeText"
+			],
+			[
+				"mo",
+				"money_counter"
+			],
+			[
+				"saving",
+				"saving_count"
+			],
+			[
+				"house",
+				"housesArray"
+			],
+			[
+				"up",
+				"upgrade_button"
+			],
+			[
+				"goi",
+				"goinside_button"
+			],
+			[
+				"hou",
+				"houseInside"
+			],
+			[
+				"re",
+				"revivals"
+			],
+			[
+				"ye",
+				"years_per_name"
+			],
+			[
+				"key",
+				"key_list"
+			],
+			[
+				"new",
+				"new_list"
+			],
+			[
+				"end",
+				"endtime"
+			],
+			[
+				"to",
+				"total_time"
+			],
+			[
+				"list",
+				"list_set"
+			],
+			[
+				"app",
+				"append"
+			],
+			[
+				"li",
+				"list"
+			],
+			[
+				"l",
+				"left"
+			],
+			[
+				"sta",
+				"status_row"
+			],
+			[
+				"fi",
+				"filename"
+			],
+			[
+				"po",
+				"point"
+			],
+			[
+				"c",
+				"check_inside"
+			],
+			[
+				"res",
+				"rest_of_list"
+			],
+			[
+				"input",
+				"input_str"
+			],
+			[
+				"inpu",
+				"input_str"
+			],
+			[
+				"lis",
+				"list_words"
+			],
+			[
+				"s",
+				"sum_of_score"
+			],
+			[
+				"in",
+				"input_set"
+			],
+			[
+				"inte",
+				"integer_set"
+			],
+			[
+				"for",
+				"format"
+			],
+			[
+				"fa",
+				"factorial_base"
+			],
+			[
+				"int",
+				"integer"
+			],
+			[
+				"pick",
+				"pick_stock_query"
+			],
+			[
+				"stock",
+				"stock_id"
+			],
+			[
+				"os_pr",
+				"os_product_id"
+			],
+			[
+				"despa",
+				"despatch_balance_myquery"
+			],
+			[
+				"gl",
+				"global_profit"
+			],
+			[
+				"glo",
+				"global_post_fee"
+			],
+			[
+				"g",
+				"global_sell_price"
+			],
+			[
+				"global",
+				"global_profit"
+			],
+			[
+				"global_",
+				"global_cost"
+			],
+			[
+				"sell",
+				"sell_price"
+			],
+			[
+				"product",
+				"product_count_"
+			],
+			[
+				"order",
+				"order_id"
+			],
+			[
+				"fo",
+				"foreach	foreach …"
+			],
+			[
+				"Add",
+				"Address"
+			],
+			[
+				"print",
+				"print_r"
+			],
+			[
+				"address",
+				"address_id"
+			],
+			[
+				"selec",
+				"select_agent_address_id"
+			],
+			[
+				"pri",
+				"print_r"
+			],
+			[
+				"agent",
+				"agent_address_id"
+			],
+			[
+				"add",
+				"addClass"
+			],
+			[
+				"func",
+				"function_name"
+			],
+			[
+				"f",
+				"function"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "pci",
+		"selected_items":
+		[
+			[
+				"pci",
+				"Package Control: Install Package"
+			],
+			[
+				"ss",
+				"Set Syntax: HTML"
+			],
+			[
+				"sscss",
+				"Set Syntax: CSS"
+			],
+			[
+				"ssh",
+				"Set Syntax: HTML"
+			],
+			[
+				"ssjs",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"emmet",
+				"Set Syntax: Emmet"
+			],
+			[
+				"page",
+				"Preferences: Browse Packages"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"js",
+				"Set Syntax: JavaScript"
+			]
+		],
+		"width": 467.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Applications/XAMPP/xamppfiles/htdocs"
+	],
+	"file_history":
+	[
+		"/Applications/XAMPP/xamppfiles/htdocs/solar-crush/solar_crush/static-raw/js/boot.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/solar-crush/solar_crush/static-raw/game.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/solar-crush/solar_crush/static-raw/js/menu.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/solar-crush/solar_crush/static-raw/js/load.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/solar-crush/solar_crush/static-raw/js/inview.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/solar-crush/solar_crush/manage.py",
+		"/Applications/XAMPP/xamppfiles/htdocs/solar-crush/solar_crush/static-raw/test.html",
+		"/Users/yingchen/Dropbox/UNSW/COMP9021/16s1/Lectures/Lecture_5/functions.ipynb",
+		"/Users/yingchen/Dropbox/UNSW/COMP9021/16s1/Assignment/Assignment_1/solution/rubiks_rectangle.py",
+		"/Users/yingchen/Dropbox/UNSW/COMP9021/16s1/Assignment/Assignment_1/rubiks_rectangle副本.py",
+		"/Users/yingchen/Dropbox/UNSW/COMP9021/16s1/Assignment/Assignment_1/rubiks_rectangle.py",
+		"/Users/yingchen/Dropbox/UNSW/COMP9021/16s1/Assignment/Assignment_1/solution/perimeter.py",
+		"/Users/yingchen/Dropbox/UNSW/COMP9021/16s1/Assignment/Assignment_1/perimeter.py",
+		"/Users/yingchen/Dropbox/UNSW/COMP9021/16s1/Assignment/Assignment_1/highest_scoring_words.py",
+		"/Users/yingchen/Dropbox/UNSW/COMP9021/16s1/Quizzes/quiz_1.py",
+		"/Users/yingchen/Dropbox/UNSW/COMP9021/16s1/Assignment/Assignment_1/factorial_base.py",
+		"/Users/yingchen/Dropbox/UNSW/COMP9021/16s1/Assignment/Assignment_1/factorial_base副本2.py",
+		"/Users/yingchen/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/yingchen/railsgem.github.io/_site/category.md",
+		"/Users/yingchen/railsgem.github.io/_config.yml",
+		"/Users/yingchen/railsgem.github.io/_posts/2016-03-16-sql-view-cannot-contain-a-subview.markdown",
+		"/Users/yingchen/railsgem.github.io/_posts/2016-03-16-welcome-to-jekyll.markdown",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/controllers/Order.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/models/Stock_model.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/views/stock/index.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/views/order/despatch.php",
+		"/Users/yingchen/Sites/htdocs osp/application/config/mimes.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/views/upload_form.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/views/upload",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/views/templates/header.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/views/stock/select.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/views/stock/order_list.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/views/stock/edit.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/views/stock/create.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/views/postage/create.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/views/order/postage.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/models/Order_model.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/database/update.sql",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/models/Postage_model.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/views/postage/index.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/views/postage/edit.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/config/config.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/controllers/Postage.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/views/order/index.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/models/Address_model.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/controllers/Address.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/views/product/success.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/application/views/address/success.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/database/OTRADE.sql",
+		"/Users/yingchen/Desktop/product upload.sql",
+		"/Users/yingchen/Dropbox/Overseas trading/蘭金嬌/ljj_201510_02/ljj_201510_02 Aptamil Gold stage 3.txt",
+		"/Users/yingchen/Dropbox/Overseas trading/王丹/wd_201510_05/wd_201510_05 Bellamy",
+		"/Users/yingchen/Dropbox/Overseas trading/王丹/wd_201510_04/wd_201510_04 A2 STAGE3‏",
+		"/Users/yingchen/Dropbox/Overseas trading/王丹/wd_201510_03/wd_201510_03 A2 STAGE3‏.txt",
+		"/Users/yingchen/Desktop/untitled.html"
+	],
+	"find":
+	{
+		"height": 27.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"money_counter",
+			"update",
+			"upgrade",
+			"money_count",
+			"money_counter",
+			"saving",
+			"SAVING",
+			"savingText",
+			"actionOnClickUpgradeButton",
+			"UPGRADE",
+			"SAVINGTE",
+			"update",
+			"up",
+			"update",
+			"moneyText",
+			"money_counter",
+			"time_duration",
+			"saving",
+			"changePicture",
+			"fadePictures",
+			"changePicture",
+			"fadePictures",
+			"sun_img",
+			"money_counter",
+			"you",
+			" ,",
+			"house_inside",
+			"actionOnloadInsideButton",
+			"goinside_button",
+			"house",
+			"money_counter",
+			"1600",
+			"1980",
+			"image",
+			"3000",
+			"einstein",
+			"pictureB",
+			"pictureA",
+			"picture_DAY",
+			"pictureB",
+			"pictureb",
+			"pictureA",
+			"grey-color",
+			"get_stock_by_order_id",
+			"stock_despatch_num",
+			"order_quantity_valiance",
+			"get_stock_by_order_id",
+			"set_despatch_num",
+			"urlencode",
+			"upload",
+			"expire_date",
+			"address",
+			"stock",
+			"stock_id",
+			"address",
+			"today",
+			"get_order",
+			"remark",
+			"delete_cart_product",
+			"get_address_id",
+			"stock_entry_num",
+			"add_product_to_cart",
+			"Despetched List\n",
+			"stock_despatch_num",
+			"set_despatch_num",
+			"despatch_num_",
+			"set_despatch_num",
+			"stock_take_",
+			"despatch_num_",
+			"4",
+			")",
+			"(",
+			"!",
+			"window",
+			"function",
+			"window",
+			"/*!"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"ti"
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": false,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 39.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 125.0
+	},
+	"pinned_build_system": "",
+	"project": "railsgem.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"jquery.js",
+				"jquery/jquery-1.10.2.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 199.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

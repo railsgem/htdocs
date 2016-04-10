@@ -315,94 +315,52 @@ class stock_model extends CI_Model {
 	}
 	public function get_stock_by_order_id($order_id = FALSE)
 	{
-		$myquery = "SELECT  ordpro.order_id,
-							ordpro.order_product_id,
-							ordpro.sell_price,
-							ordpro.quantity,
-							skpro.product_name,
-							skpro.stock_id,
-							skpro.os_product_id,
-							skpro.real_cost,
-							skpro.stock_entry_num,
-							skpro.stock_despatch_num,
-							skpro.stock_present_num,
-							0 despatch_num,
-							skpro.buy_shop,
-							skpro.buyer,
-							skpro.purchase_time,
-							skpro.entry_time,
-							skpro.update_time,
-							skpro.expire_date
-					FROM
-						os_order_product ordpro
-					inner JOIN (
-						SELECT
-							op.product_name,
-							stk.stock_id,
-							stk.os_product_id,
-							stk.real_cost,
-							stk.stock_entry_num,
-							stk.stock_despatch_num,
-							stk.stock_present_num,
-							stk.buy_shop,
-							stk.buyer,
-							stk.purchase_time,
-							stk.entry_time,
-							stk.update_time,
-							stk.expire_date
+		$myquery = "SELECT
+							t1.order_id,
+							t1.os_product_id,
+							t1.stock_id,
+							t2.real_cost,
+							t2.stock_entry_num,
+							t2.stock_despatch_num,
+							t2.stock_present_num,
+							t1.despatch_num
 						FROM
-							os_stock_entry stk
-						LEFT JOIN os_product op ON stk.os_product_id = op.os_product_id
+							os_despatch t1
+						LEFT JOIN os_stock_entry t2 ON t1.stock_id = t2.stock_id
 						WHERE
-							stk.stock_present_num > 0
-					) skpro ON ordpro.os_product_id = skpro.os_product_id
-					where ordpro.order_id =".$order_id."
-					union all
-					SELECT  ordpro.order_id,
-							ordpro.order_product_id,
-							ordpro.sell_price,
-							ordpro.quantity,
-							skpro.product_name,
-							skpro.stock_id,
-							skpro.os_product_id,
-							skpro.real_cost,
-							skpro.stock_entry_num,
-							skpro.stock_despatch_num,
-							skpro.stock_present_num,
-							skpro.despatch_num,
-							skpro.buy_shop,
-							skpro.buyer,
-							skpro.purchase_time,
-							skpro.entry_time,
-							skpro.update_time,
-							skpro.expire_date
-					FROM
-						os_order_product ordpro
-					inner JOIN (
+							t1.order_id = ".$order_id."
+						AND t1.despatch_num > 0
+						union 
 						SELECT
-							op.product_name,
-							stk.stock_id,
-							stk.os_product_id,
-							stk.real_cost,
-							stk.stock_entry_num,
-							stk.stock_despatch_num,
-							stk.stock_present_num,
-							od.despatch_num,
-							stk.buy_shop,
-							stk.buyer,
-							stk.purchase_time,
-							stk.entry_time,
-							stk.update_time,
-							stk.expire_date
+							t1.order_id,
+							t1.os_product_id,
+							t2.stock_id,
+							t2.real_cost,
+							t2.stock_entry_num,
+							t2.stock_despatch_num,
+							t2.stock_present_num,
+							0 despatch_num
 						FROM
-							os_stock_entry stk
-						LEFT JOIN os_product op ON stk.os_product_id = op.os_product_id
-						inner JOIN os_despatch od ON stk.stock_id = od.stock_id
+							os_order_product t1
+						INNER JOIN (
+							SELECT
+								a.*
+							FROM
+								os_stock_entry a
+							WHERE
+								a.stock_id NOT IN (
+									SELECT
+										b.stock_id
+									FROM
+										os_despatch b
+									WHERE
+										b.order_id =".$order_id."
+									AND b.despatch_num > 0
+								)
+						) t2 ON t1.os_product_id = t2.os_product_id
 						WHERE
-							stk.stock_present_num = 0 and od.despatch_num > 0 and od.order_id =".$order_id."
-					) skpro ON ordpro.os_product_id = skpro.os_product_id
-					where ordpro.order_id =".$order_id;
-
+							t1.order_id =".$order_id;
+							
 		$query = $this->db->query($myquery);
         return $query->result_array();
 

@@ -54,6 +54,8 @@ class Order extends CI_Controller {
             $order_id = $order_item['order_id'];
             $data['product_'.$order_id] = $this->order_model->order_product_list($order_id);
             $data['product_count_'.$order_id] = count($data['product_'.$order_id]);
+            $data['postage_'.$order_id] = $this->order_model->get_order_postage_list($order_id);
+        
         }
         
 
@@ -174,6 +176,7 @@ class Order extends CI_Controller {
         $this->form_validation->set_rules('order_id', 'order_id', 'required|integer');
                     
         
+        $data['order'] = $this->order_model->get_order($order_id);
         $data['order_id'] = $order_id;
         $data['product'] = $this->product_model->get_product();
         $data['order_product'] = $this->order_model->order_product_list($order_id);
@@ -255,6 +258,7 @@ class Order extends CI_Controller {
         $this->form_validation->set_rules('postage_date', 'postage_date', 'trim|required|xss_clean');
         $this->form_validation->set_rules('postage_code', 'postage_code', 'trim|required|xss_clean');
         
+        $data['order'] = $this->order_model->get_order($order_id);
         $data['postage_company'] = $this->postage_company_model->get_postage_company_list(NULL,NULL,FALSE,FALSE);
         $data['order_id'] = $order_id;
 
@@ -296,6 +300,8 @@ class Order extends CI_Controller {
         {   
             $data['update_success'] ='';            
             $data['order'] = $this->order_model->get_order($order_id);
+            /*print_r($data['order']);
+            exit;*/
             $data['product'] = $this->order_model->order_product_list($order_id);
             $data['stock'] = $this->stock_model->get_stock_by_order_id($order_id);
             $data['despatch'] = $this->stock_model->get_despatch_by_order_id($order_id);
