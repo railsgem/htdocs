@@ -158,13 +158,13 @@
                                                             <div class="col-lg-3">
                                                                 <div class="form-group">
                                                                     <label for="quantity"><span class="red"> * </span>quantity:</label>
-                                                                    <input id="m_quantity" class="form-control" type="input" name="m_quantity" value="<?php echo $product_item['quantity']; ?>">
+                                                                    <input id="m_quantity_<?php echo $product_item['order_product_id']; ?>" class="form-control" type="input" name="m_quantity" value="<?php echo $product_item['quantity']; ?>">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-3">
                                                                 <div class="form-group">
                                                                     <label for="sell_price"><span class="red"> * </span>sell_price:</label>
-                                                                    <input id="m_sell_price" class="form-control" type="input" name="m_sell_price" value="<?php echo $product_item['sell_price']; ?>">
+                                                                    <input id="m_sell_price_<?php echo $product_item['order_product_id']; ?>" class="form-control" type="input" name="m_sell_price" value="<?php echo $product_item['sell_price']; ?>">
                                                                 </div>
                                                             </div>
                                                             <div style="clear:both;"></div>
@@ -318,8 +318,8 @@
 
         var data = {
             order_product_id : edit_order_product_id,
-            quantity : $("#m_quantity").val(),
-            sell_price : $("#m_sell_price").val()
+            quantity : $("#m_quantity_"+edit_order_product_id).val(),
+            sell_price : $("#m_sell_price_"+edit_order_product_id).val()
         };
         console.log(data);
         $.ajax({
